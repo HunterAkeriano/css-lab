@@ -1,0 +1,38 @@
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  color: $color-text-primary;
+  background-color: $color-bg-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+}
+
+// Utility classes
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 $space-md;
+
+  @media (min-width: $breakpoint-sm) {
+    padding: 0 $space-lg;
+  }
+
+  @media (min-width: $breakpoint-lg) {
+    padding: 0 $space-xl;
+  }
+}
+
+// Dark mode
+@media (prefers-color-scheme: dark) {
+  body {
+    color: $color-dark-text-primary;
+    background-color: $color-dark-bg-primary;
+  }
+}

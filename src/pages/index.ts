@@ -1,0 +1,7 @@
+export { default as HomePage } from './home/HomePage.vue'
+export { default as GradientPage } from './gradient/GradientPage.vue'
+export { default as ShadowPage } from './shadow/ShadowPage.vue'
+export { default as AnimationPage } from './animation/AnimationPage.vue'
+export { default as ProfilePage } from './profile/ProfilePage.vue'
+export { default as AuthPage } from './auth/AuthPage.vue'
+export { default as NotFoundPage } from './not-found/NotFoundPage.vue'
