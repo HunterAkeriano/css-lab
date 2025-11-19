@@ -67,20 +67,6 @@ function handleLogout() {
   closeMenu()
   router.push('/')
 }
-
-const vClickOutside = {
-  mounted(el: HTMLElement, binding: { value: () => void }) {
-    el.clickOutsideEvent = (event: Event) => {
-      if (!(el === event.target || el.contains(event.target as Node))) {
-        binding.value()
-      }
-    }
-    document.addEventListener('click', el.clickOutsideEvent)
-  },
-  unmounted(el: HTMLElement) {
-    document.removeEventListener('click', el.clickOutsideEvent)
-  }
-}
 </script>
 
 <style lang="scss" scoped>
