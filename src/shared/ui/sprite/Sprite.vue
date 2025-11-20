@@ -18,6 +18,16 @@
       <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
     </symbol>
 
+    <!-- Theme Icons -->
+    <symbol id="icon-sun" viewBox="0 0 24 24">
+      <path d="M12 4V2M12 22V20M4.93 4.93L3.51 3.51M20.49 20.49L19.07 19.07M4 12H2M22 12H20M4.93 19.07L3.51 20.49M20.49 3.51L19.07 4.93" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5" />
+    </symbol>
+
+    <symbol id="icon-moon" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+
     <!-- Logo Icon -->
     <symbol id="icon-logo" viewBox="0 0 40 40">
       <defs>

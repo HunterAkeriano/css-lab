@@ -1,36 +1,90 @@
+@function color-var($name) {
+  @return unquote('rgb(var(--' + $name + '))');
+}
+
+@function color-var-alpha($name, $alpha) {
+  @return unquote('rgba(var(--' + $name + '), ' + $alpha + ')');
+}
+
 // Colors
-$color-primary: #6366f1;
-$color-primary-hover: #4f46e5;
-$color-secondary: #8b5cf6;
-$color-accent: #ec4899;
+$color-primary: color-var('color-primary');
+$color-primary-hover: color-var('color-primary-hover');
+$color-secondary: color-var('color-secondary');
+$color-secondary-hover: color-var('color-secondary-hover');
+$color-accent: color-var('color-accent');
 
-$color-bg-primary: #ffffff;
-$color-bg-secondary: #f9fafb;
-$color-bg-tertiary: #f3f4f6;
+$color-bg-primary: color-var('color-bg-primary');
+$color-bg-secondary: color-var('color-bg-secondary');
+$color-bg-tertiary: color-var('color-bg-tertiary');
 
-$color-text-primary: #111827;
-$color-text-secondary: #6b7280;
-$color-text-tertiary: #9ca3af;
+$color-text-primary: color-var('color-text-primary');
+$color-text-secondary: color-var('color-text-secondary');
+$color-text-tertiary: color-var('color-text-tertiary');
 
-$color-border: #e5e7eb;
-$color-border-hover: #d1d5db;
+$color-border: color-var('color-border');
+$color-border-hover: color-var('color-border-hover');
 
-$color-success: #10b981;
-$color-error: #ef4444;
-$color-warning: #f59e0b;
-$color-info: #3b82f6;
+$color-success: color-var('color-success');
+$color-error: color-var('color-error');
+$color-warning: color-var('color-warning');
+$color-info: color-var('color-info');
 
-// Dark mode colors
-$color-dark-bg-primary: #111827;
-$color-dark-bg-secondary: #1f2937;
-$color-dark-bg-tertiary: #374151;
+// Dark aliases (mapped to theme-aware vars)
+$color-dark-bg-primary: $color-bg-primary;
+$color-dark-bg-secondary: $color-bg-secondary;
+$color-dark-bg-tertiary: $color-bg-tertiary;
+$color-dark-text-primary: $color-text-primary;
+$color-dark-text-secondary: $color-text-secondary;
+$color-dark-text-tertiary: $color-text-tertiary;
+$color-dark-border: $color-border;
+$color-dark-border-hover: $color-border-hover;
 
-$color-dark-text-primary: #f9fafb;
-$color-dark-text-secondary: #d1d5db;
-$color-dark-text-tertiary: #9ca3af;
+// Derived surfaces/buttons
+$surface-panel-1: color-var('surface-panel-1');
+$surface-panel-2: color-var('surface-panel-2');
+$panel-border: color-var('panel-border');
+$button-secondary: color-var('button-secondary');
+$button-secondary-hover: color-var('button-secondary-hover');
+$button-danger: color-var('button-danger');
+$button-danger-hover: color-var('button-danger-hover');
+$button-ghost-hover: color-var('button-ghost-hover');
+$button-outline-hover-bg: color-var('button-outline-hover-bg');
+$code-surface: var(--code-surface);
+$about-background: var(--about-background);
+$visual-card-background: var(--visual-card-background);
+$hero-background: var(--page-background);
+$hero-spot-gradient: var(--hero-spot-gradient);
+$visual-grid-color: var(--visual-grid-color);
+$code-text: color-var('code-text');
 
-$color-dark-border: #374151;
-$color-dark-border-hover: #4b5563;
+// Helpers
+$color-primary-alpha-05: color-var-alpha('color-primary', 0.05);
+$color-primary-alpha-08: color-var-alpha('color-primary', 0.08);
+$color-primary-alpha-10: color-var-alpha('color-primary', 0.1);
+$color-primary-alpha-12: color-var-alpha('color-primary', 0.12);
+$color-primary-alpha-14: color-var-alpha('color-primary', 0.14);
+$color-primary-alpha-16: color-var-alpha('color-primary', 0.16);
+$color-primary-alpha-18: color-var-alpha('color-primary', 0.18);
+$color-primary-alpha-20: color-var-alpha('color-primary', 0.2);
+$color-primary-alpha-22: color-var-alpha('color-primary', 0.22);
+$color-primary-alpha-24: color-var-alpha('color-primary', 0.24);
+$color-primary-alpha-26: color-var-alpha('color-primary', 0.26);
+$color-primary-alpha-32: color-var-alpha('color-primary', 0.32);
+$color-secondary-alpha-05: color-var-alpha('color-secondary', 0.05);
+$color-secondary-alpha-16: color-var-alpha('color-secondary', 0.16);
+$color-secondary-alpha-18: color-var-alpha('color-secondary', 0.18);
+$color-secondary-alpha-20: color-var-alpha('color-secondary', 0.2);
+$color-secondary-alpha-24: color-var-alpha('color-secondary', 0.24);
+$color-secondary-alpha-28: color-var-alpha('color-secondary', 0.28);
+$color-accent-alpha-18: color-var-alpha('color-accent', 0.18);
+$color-accent-alpha-20: color-var-alpha('color-accent', 0.2);
+$color-accent-alpha-26: color-var-alpha('color-accent', 0.26);
+$color-accent-alpha-28: color-var-alpha('color-accent', 0.28);
+$color-accent-alpha-90: color-var-alpha('color-accent', 0.9);
+$color-text-primary-alpha-05: color-var-alpha('color-text-primary', 0.05);
+$color-text-primary-alpha-08: color-var-alpha('color-text-primary', 0.08);
+$color-border-alpha-40: color-var-alpha('color-border', 0.4);
+$visual-card-shadow: color-var-alpha('color-text-primary', 0.15);
 
 // Spacing
 $space-xs: 0.25rem;

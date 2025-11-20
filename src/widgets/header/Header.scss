@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: $z-sticky;
-  background: linear-gradient(180deg, rgba($color-bg-primary, 0.92), rgba($color-bg-primary, 0.88));
+  background: linear-gradient(180deg, color-var-alpha('color-bg-primary', 0.92), color-var-alpha('color-bg-primary', 0.88));
   border-bottom: 1px solid $color-border;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
 
@@ -35,12 +35,12 @@
 
     &:hover {
       color: $color-primary;
-      background: rgba($color-primary, 0.1);
+      background: $color-primary-alpha-10;
     }
 
     &.router-link-active {
       color: $color-primary;
-      background: rgba($color-primary, 0.1);
+      background: $color-primary-alpha-10;
     }
   }
 
@@ -121,7 +121,7 @@
 
     &.router-link-active {
       color: $color-primary;
-      background: rgba($color-primary, 0.1);
+      background: $color-primary-alpha-10;
     }
   }
 

@@ -17,6 +17,7 @@
         </nav>
 
         <div class="header__actions">
+          <ThemeSwitcher />
           <LanguageSwitcher />
 
           <template v-if="authStore.isAuthenticated && authStore.user">
@@ -54,6 +55,7 @@
         </nav>
 
         <div class="header__mobile-actions">
+          <ThemeSwitcher />
           <LanguageSwitcher />
 
           <template v-if="authStore.isAuthenticated && authStore.user">
@@ -84,7 +86,7 @@ import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock-upg
 import { useAuthStore } from '@/entities'
 import { LanguageSwitcher } from '@/features'
 import Logo from '@/shared/ui/logo/Logo.vue'
-import { Button, Icon, NavLink } from '@/shared/ui'
+import { Button, Icon, NavLink, ThemeSwitcher } from '@/shared/ui'
 import UserMenu from '@/widgets/user-menu/UserMenu.vue'
 
 const router = useRouter()

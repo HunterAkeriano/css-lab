@@ -96,7 +96,7 @@
       color: $color-error;
 
       &:hover {
-        background: rgba($color-error, 0.1);
+        background: color-var-alpha('color-error', 0.1);
       }
     }
   }

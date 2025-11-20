@@ -5,7 +5,9 @@ export default {
     ANIMATIONS: 'Animations',
     LOGIN: 'Sign In',
     LOGOUT: 'Sign Out',
-    PROFILE: 'Profile'
+    PROFILE: 'Profile',
+    THEME_LIGHT: 'Light',
+    THEME_DARK: 'Dark'
   },
   HOME: {
     TITLE: 'Style Engine',

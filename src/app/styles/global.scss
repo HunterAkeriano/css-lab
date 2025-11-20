@@ -28,11 +28,3 @@ body {
     padding: 0 $space-xl;
   }
 }
-
-// Dark mode
-@media (prefers-color-scheme: dark) {
-  body {
-    color: $color-dark-text-primary;
-    background-color: $color-dark-bg-primary;
-  }
-}

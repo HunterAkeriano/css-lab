@@ -4,23 +4,24 @@
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(130% 120% at 12% 18%, #0f172a, #0b1222 40%, #070c18 80%),
-    radial-gradient(120% 140% at 90% 22%, rgba($color-secondary, 0.08), transparent 60%);
-  color: $color-dark-text-primary;
+    radial-gradient(120% 120% at 15% 20%, color-var-alpha('color-primary', 0.24), transparent 60%),
+    radial-gradient(120% 110% at 85% 25%, color-var-alpha('color-secondary', 0.18), transparent 65%),
+    linear-gradient(180deg, $color-bg-secondary, $color-bg-primary);
+  color: $color-text-primary;
 
   &::before {
     content: '';
     position: absolute;
     inset: -30%;
     background:
-      radial-gradient(40% 48% at 20% 32%, rgba($color-primary, 0.36), transparent 70%),
-      radial-gradient(32% 36% at 74% 22%, rgba($color-secondary, 0.3), transparent 72%),
-      radial-gradient(42% 50% at 78% 72%, rgba($color-accent, 0.26), transparent 70%),
-      radial-gradient(44% 44% at 16% 80%, rgba(#14b8a6, 0.2), transparent 70%);
+      radial-gradient(40% 48% at 20% 32%, color-var-alpha('color-primary', 0.36), transparent 70%),
+      radial-gradient(32% 36% at 74% 22%, color-var-alpha('color-secondary', 0.3), transparent 72%),
+      radial-gradient(42% 50% at 78% 72%, color-var-alpha('color-accent', 0.26), transparent 70%),
+      radial-gradient(44% 44% at 16% 80%, rgba(20, 184, 166, 0.2), transparent 70%);
     background-size: 120% 120%;
     background-repeat: no-repeat;
     opacity: 0.78;
-    animation: nebulaDrift 36s ease-in-out infinite alternate;
+    animation: nebulaDrift 48s ease-in-out infinite alternate;
     z-index: -2;
   }
 
@@ -37,7 +38,7 @@
     mix-blend-mode: screen;
     opacity: 0.45;
     mask-image: radial-gradient(120% 120% at 50% 46%, rgba(0, 0, 0, 0.9), transparent 95%);
-    animation: gridPulse 30s ease-in-out infinite alternate;
+    animation: gridPulse 45s ease-in-out infinite alternate;
     z-index: -1;
     pointer-events: none;
   }
@@ -52,9 +53,9 @@
   flex-wrap: wrap;
   padding: $space-lg;
   border-radius: $border-radius-2xl;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4), 0 12px 30px rgba($color-primary, 0.18);
+  background: linear-gradient(135deg, color-var-alpha('color-text-primary', 0.08), color-var-alpha('color-text-primary', 0.03));
+  border: 1px solid color-var-alpha('panel-border', 0.12);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4), 0 12px 30px $color-primary-alpha-18;
   position: relative;
   overflow: hidden;
 
@@ -62,7 +63,7 @@
     content: '';
     position: absolute;
     inset: -40%;
-    background: radial-gradient(50% 50% at 80% 30%, rgba($color-accent, 0.15), transparent 60%);
+    background: radial-gradient(50% 50% at 80% 30%, color-var-alpha('color-accent', 0.15), transparent 60%);
     opacity: 0.6;
     background-repeat: no-repeat;
     background-size: 140% 140%;
@@ -74,7 +75,7 @@
   font-size: $font-size-3xl;
   font-weight: $font-weight-bold;
   margin-bottom: $space-xs;
-  color: $color-bg-primary;
+  color: $color-text-primary;
 
   @media (min-width: $breakpoint-md) {
     font-size: $font-size-4xl;
@@ -83,7 +84,7 @@
 
 .gradient-page__subtitle {
   font-size: $font-size-base;
-  color: rgba($color-dark-text-secondary, 0.9);
+  color: color-var-alpha('color-text-secondary', 0.9);
   max-width: 640px;
   line-height: 1.6;
 
@@ -93,19 +94,19 @@
 }
 
 .gradient-page__back-link {
-  color: $color-dark-text-primary;
+  color: $color-text-primary;
   font-weight: $font-weight-medium;
   white-space: nowrap;
   padding: $space-sm $space-md;
   border-radius: $border-radius-full;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  border: 1px solid color-var-alpha('color-border', 0.6);
+  background: color-var-alpha('color-bg-primary', 0.06);
+  box-shadow: inset 0 1px 0 color-var-alpha('color-border', 0.25);
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.22);
     transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba($color-primary, 0.25);
+    box-shadow: 0 8px 24px color-var-alpha('color-primary', 0.25);
   }
 }
 
@@ -117,11 +118,11 @@
   position: absolute;
   inset: -30% -40%;
   background:
-    conic-gradient(from 120deg at 40% 40%, rgba($color-primary, 0.34), rgba($color-secondary, 0.18), rgba($color-accent, 0.24), rgba($color-primary, 0.34));
+    conic-gradient(from 120deg at 40% 40%, color-var-alpha('color-primary', 0.34), color-var-alpha('color-secondary', 0.18), color-var-alpha('color-accent', 0.24), color-var-alpha('color-primary', 0.34));
   background-size: 140% 140%;
   opacity: 0.55;
   mix-blend-mode: screen;
-  animation: orbitSweep 48s linear infinite;
+  animation: orbitSweep 72s linear infinite;
   z-index: -2;
   pointer-events: none;
   mask-image: radial-gradient(70% 70% at 50% 48%, rgba(0, 0, 0, 0.92), transparent 95%);
@@ -145,4 +146,12 @@
   0% { transform: rotate(0deg) scale(1); }
   50% { transform: rotate(180deg) scale(1.02); }
   100% { transform: rotate(360deg) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-page::before,
+  .gradient-page::after,
+  .gradient-page__motion {
+    animation: none !important;
+  }
 }

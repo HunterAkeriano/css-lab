@@ -86,7 +86,7 @@
     }
 
     &--active {
-      background: rgba($color-primary, 0.1);
+      background: $color-primary-alpha-10;
       color: $color-primary;
     }
   }

@@ -5,7 +5,9 @@ export default {
     ANIMATIONS: 'Анімації',
     LOGIN: 'Увійти',
     LOGOUT: 'Вийти',
-    PROFILE: 'Особистий кабінет'
+    PROFILE: 'Особистий кабінет',
+    THEME_LIGHT: 'Світла',
+    THEME_DARK: 'Темна'
   },
   HOME: {
     TITLE: 'Style Engine',

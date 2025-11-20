@@ -3,5 +3,5 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba($color-primary, 0.05), rgba($color-secondary, 0.05));
+  background: linear-gradient(135deg, $color-primary-alpha-05, $color-secondary-alpha-05);
 }

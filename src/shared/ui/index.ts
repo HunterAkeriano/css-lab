@@ -5,5 +5,6 @@ export { default as Card } from './card/Card.vue'
 export { default as Icon } from './icon/Icon.vue'
 export { default as NavLink } from './nav-link/NavLink.vue'
 export { default as Sprite } from './sprite/Sprite.vue'
+export { default as ThemeSwitcher } from './theme-switcher/ThemeSwitcher.vue'
 
 export type { SelectOption } from './select/Select.vue'
