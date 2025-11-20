@@ -213,7 +213,6 @@ async function handleCopy() {
   border: 1px solid color-var-alpha('panel-border', 0.25);
   background: color-var-alpha('color-bg-secondary', 0.5);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(12px);
 
   @media (max-width: $breakpoint-md) {
     padding: $space-xl;
@@ -287,7 +286,7 @@ async function handleCopy() {
 }
 
 .animation-builder__title {
-  margin: 0;
+  margin: 20px 0 0;
   font-size: $font-size-2xl;
   font-weight: $font-weight-bold;
   letter-spacing: -0.015em;
@@ -295,7 +294,7 @@ async function handleCopy() {
 }
 
 .animation-builder__subtitle {
-  margin: 0;
+  margin: 20px auto 0;
   color: color-var-alpha('color-text-secondary', 0.85);
   line-height: 1.65;
   max-width: 720px;
@@ -432,7 +431,6 @@ async function handleCopy() {
   letter-spacing: 0.01em;
   font-size: $font-size-lg;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
   animation: style-engine-motion var(--motion-duration) var(--motion-easing) var(--motion-delay) var(--motion-iterations) alternate;
 
   @media (max-width: $breakpoint-md) {

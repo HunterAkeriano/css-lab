@@ -50,6 +50,11 @@
     <symbol id="icon-logout" viewBox="0 0 20 20">
       <path d="M3 3a2 2 0 012-2h6a2 2 0 012 2v4h2V3a4 4 0 00-4-4H5a4 4 0 00-4 4v14a4 4 0 004 4h6a4 4 0 004-4v-4h-2v4a2 2 0 01-2 2H5a2 2 0 01-2-2V3zm11.293 4.707L17.586 11H7v2h10.586l-3.293 3.293 1.414 1.414L21.414 12l-5.707-5.707-1.414 1.414z" fill="currentColor" />
     </symbol>
+
+    <!-- Search Icon -->
+    <symbol id="icon-search" viewBox="0 0 20 20">
+      <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" fill="currentColor" />
+    </symbol>
   </svg>
 </template>
 

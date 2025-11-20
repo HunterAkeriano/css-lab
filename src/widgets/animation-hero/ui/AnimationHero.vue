@@ -69,7 +69,6 @@ defineProps<Props>()
   margin: 0 auto;
   border: 1px solid color-var-alpha('color-primary', 0.2);
   box-shadow: 0 2px 16px color-var-alpha('color-primary', 0.1);
-  backdrop-filter: blur(10px);
 }
 
 .animation-hero__title {
@@ -128,7 +127,6 @@ defineProps<Props>()
   font-weight: $font-weight-medium;
   font-size: $font-size-sm;
   transition: all $transition-base;
-  backdrop-filter: blur(8px);
 
   &:hover {
     border-color: color-var-alpha('color-primary', 0.5);

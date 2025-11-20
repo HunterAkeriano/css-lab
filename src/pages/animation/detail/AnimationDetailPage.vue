@@ -54,7 +54,7 @@ import { useI18n } from 'vue-i18n'
 import { Button, NavLink } from '@/shared/ui'
 import { copyToClipboard } from '@/shared/lib'
 import { useToast } from 'vue-toastification'
-import { animationExamples } from '../examples/examplesData'
+import { animationExamples } from '@/entities/animation'
 
 const route = useRoute()
 const { t } = useI18n()

@@ -116,7 +116,37 @@ export default {
       SPINNER_LINES_TITLE: 'Спиці-спінер',
       SPINNER_LINES_DESCRIPTION: 'Обертальні “промені” з фазовою прозорістю.',
       GRADIENT_WIPE_TITLE: 'Градієнтний вайп',
-      GRADIENT_WIPE_DESCRIPTION: 'Діагональний градієнт, що проходить крізь плашку.'
+      GRADIENT_WIPE_DESCRIPTION: 'Діагональний градієнт, що проходить крізь плашку.',
+      DOTS_CHAIN_TITLE: 'Ланцюг точок',
+      DOTS_CHAIN_DESCRIPTION: 'Послідовна пульсація через з\'єднані точки.',
+      CIRCLE_LOADER_TITLE: 'Круговий лоадер',
+      CIRCLE_LOADER_DESCRIPTION: 'Класичний обертальний лоадер-кільце.',
+      PROGRESS_BAR_TITLE: 'Прогрес-бар',
+      PROGRESS_BAR_DESCRIPTION: 'Анімоване заповнення з градієнтом.',
+      VERTICAL_MARQUEE_TITLE: 'Вертикальний скрол',
+      VERTICAL_MARQUEE_DESCRIPTION: 'Плавний вертикальний список, що прокручується.',
+      TEXT_REVEAL_TITLE: 'Текстовий блиск',
+      TEXT_REVEAL_DESCRIPTION: 'Анімований градієнтний ефект для тексту.',
+      NEWS_SCROLL_TITLE: 'Новинна стрічка',
+      NEWS_SCROLL_DESCRIPTION: 'Горизонтальна стрічка у стилі термінових новин.'
+    },
+    SEARCH_LABEL: 'Пошук анімацій',
+    SEARCH_PLACEHOLDER: 'Шукати за назвою абоописом...',
+    FILTER_BY_TYPE: 'Фільтр за типом',
+    ALL_TYPES: 'Всі типи',
+    SHOWING_RESULTS: 'Показано {count} з {total} анімацій',
+    SEARCHING: 'Пошук...',
+    NO_RESULTS: 'Анімації не знайдено',
+    NO_RESULTS_HINT: 'Спробуйте змінити пошуковий запит або фільтр',
+    PREVIOUS: 'Попередня',
+    NEXT: 'Наступна',
+    CATEGORY: {
+      LOADERS: 'Лоадери',
+      MARQUEE: 'Бігучі строки',
+      EFFECTS: 'Ефекти',
+      TRANSITIONS: 'Переходи',
+      ORBITAL: 'Орбітальні',
+      INTERACTIVE: 'Інтерактивні'
     }
   },
   COMMON: {

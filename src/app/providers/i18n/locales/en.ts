@@ -116,7 +116,37 @@ export default {
       SPINNER_LINES_TITLE: 'Spinner lines',
       SPINNER_LINES_DESCRIPTION: 'Rotating spokes with phased opacity.',
       GRADIENT_WIPE_TITLE: 'Gradient wipe',
-      GRADIENT_WIPE_DESCRIPTION: 'Diagonal gradient sweep across a label.'
+      GRADIENT_WIPE_DESCRIPTION: 'Diagonal gradient sweep across a label.',
+      DOTS_CHAIN_TITLE: 'Dots chain',
+      DOTS_CHAIN_DESCRIPTION: 'Sequential pulse animation through connected dots.',
+      CIRCLE_LOADER_TITLE: 'Circle loader',
+      CIRCLE_LOADER_DESCRIPTION: 'Classic spinning ring loader.',
+      PROGRESS_BAR_TITLE: 'Progress bar',
+      PROGRESS_BAR_DESCRIPTION: 'Animated progress fill with gradient.',
+      VERTICAL_MARQUEE_TITLE: 'Vertical scroll',
+      VERTICAL_MARQUEE_DESCRIPTION: 'Smooth vertical scrolling text list.',
+      TEXT_REVEAL_TITLE: 'Text shine',
+      TEXT_REVEAL_DESCRIPTION: 'Animated gradient text effect.',
+      NEWS_SCROLL_TITLE: 'News ticker',
+      NEWS_SCROLL_DESCRIPTION: 'Breaking news style horizontal scroll.'
+    },
+    SEARCH_LABEL: 'Search animations',
+    SEARCH_PLACEHOLDER: 'Search by name or description...',
+    FILTER_BY_TYPE: 'Filter by type',
+    ALL_TYPES: 'All types',
+    SHOWING_RESULTS: 'Showing {count} of {total} animations',
+    SEARCHING: 'Searching...',
+    NO_RESULTS: 'No animations found',
+    NO_RESULTS_HINT: 'Try adjusting your search or filter to find what you\'re looking for',
+    PREVIOUS: 'Previous',
+    NEXT: 'Next',
+    CATEGORY: {
+      LOADERS: 'Loaders',
+      MARQUEE: 'Marquee',
+      EFFECTS: 'Effects',
+      TRANSITIONS: 'Transitions',
+      ORBITAL: 'Orbital',
+      INTERACTIVE: 'Interactive'
     }
   },
   COMMON: {

@@ -30,10 +30,10 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
-import AnimationHero from './components/AnimationHero.vue'
-import AnimationBuilder from './components/AnimationBuilder.vue'
-import AnimationExamplesGrid from './components/AnimationExamplesGrid.vue'
-import { animationExamples } from './examples/examplesData'
+import { AnimationHero } from '@/widgets/animation-hero'
+import { AnimationBuilder } from '@/widgets/animation-builder'
+import { AnimationExamplesGrid } from '@/widgets/animation-gallery'
+import { animationExamples } from '@/entities/animation'
 
 const { t } = useI18n()
 
