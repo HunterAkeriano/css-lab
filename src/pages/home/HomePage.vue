@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <div class="container">
-      <header class="home-page__hero">
+      <section class="home-page__hero">
         <div class="home-page__title-row">
           <Logo class="home-page__logo" />
           <h1 class="home-page__hero-title">{{ t('HOME.TITLE') }}</h1>
@@ -24,7 +24,33 @@
             {{ t('HOME.ANIMATION_BUTTON') }}
           </NavLink>
         </div>
-      </header>
+      </section>
+    </div>
+
+    <div class="container">
+      <section class="home-page__about">
+        <div class="home-page__about-text">
+          <p class="home-page__eyebrow">{{ t('HOME.ABOUT_TAG') }}</p>
+          <h2 class="home-page__about-title">{{ t('HOME.ABOUT_TITLE') }}</h2>
+          <p class="home-page__about-description">
+            {{ t('HOME.ABOUT_TEXT') }}
+          </p>
+          <ul class="home-page__about-points">
+            <li>{{ t('HOME.ABOUT_POINT_1') }}</li>
+            <li>{{ t('HOME.ABOUT_POINT_2') }}</li>
+            <li>{{ t('HOME.ABOUT_POINT_3') }}</li>
+          </ul>
+        </div>
+
+        <div class="home-page__about-visual" aria-hidden="true">
+          <div class="home-page__visual-card">
+            <div class="home-page__visual-grid"></div>
+            <div class="home-page__visual-planet"></div>
+            <div class="home-page__visual-orbit"></div>
+            <div class="home-page__visual-core"></div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </template>

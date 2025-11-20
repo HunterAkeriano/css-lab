@@ -12,7 +12,13 @@ export default {
     SUBTITLE: 'CSS gradient, shadow, and animation generator with live preview and code export',
     GRADIENT_BUTTON: 'Gradient Generator',
     SHADOW_BUTTON: 'Shadow Generator',
-    ANIMATION_BUTTON: 'Animation Generator'
+    ANIMATION_BUTTON: 'Animation Generator',
+    ABOUT_TAG: 'What is it',
+    ABOUT_TITLE: 'A design lab for CSS motion, gradients, and shadows',
+    ABOUT_TEXT: 'Style Engine helps designers and developers craft production-ready gradients, shadows, and animations with live previews and instant code export.',
+    ABOUT_POINT_1: 'Live playground with pixel-perfect previews',
+    ABOUT_POINT_2: 'Clean, copy-paste CSS for modern frameworks',
+    ABOUT_POINT_3: 'One place to experiment, document, and share'
   },
   GRADIENT: {
     TITLE: 'Gradient Generator',
