@@ -8,7 +8,7 @@ export default {
     PROFILE: 'Особистий кабінет'
   },
   HOME: {
-    TITLE: 'CSS Lab',
+    TITLE: 'Style Engine',
     SUBTITLE: 'Генератор CSS-градієнтів, тіней та анімацій з живим превью та експортом коду',
     GRADIENT_BUTTON: 'Генератор градієнтів',
     SHADOW_BUTTON: 'Генератор тіней',
@@ -33,7 +33,7 @@ export default {
     LANGUAGE: 'Мова'
   },
   META: {
-    HOME: 'CSS Lab - Головна',
+    HOME: 'Style Engine - Головна',
     GRADIENT: 'Генератор градієнтів',
     SHADOW: 'Генератор тіней',
     ANIMATION: 'Генератор анімацій',

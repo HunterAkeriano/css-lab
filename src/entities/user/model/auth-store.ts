@@ -22,14 +22,15 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = errorMessage
   }
 
-  async function login(email: string, password: string) {
+  async function login(_email: string, _password: string) {
     setLoading(true)
     setError(null)
+    void _email
+    void _password
 
     try {
       // TODO: Implement actual API call
       await new Promise(resolve => setTimeout(resolve, 1000))
-      console.log('Login attempt:', email, password)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed')
     } finally {
@@ -37,14 +38,16 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  async function register(email: string, password: string, name: string) {
+  async function register(_email: string, _password: string, _name: string) {
     setLoading(true)
     setError(null)
+    void _email
+    void _password
+    void _name
 
     try {
       // TODO: Implement actual API call
       await new Promise(resolve => setTimeout(resolve, 1000))
-      console.log('Register attempt:', email, password, name)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed')
     } finally {

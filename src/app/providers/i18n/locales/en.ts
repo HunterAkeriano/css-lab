@@ -8,7 +8,7 @@ export default {
     PROFILE: 'Profile'
   },
   HOME: {
-    TITLE: 'CSS Lab',
+    TITLE: 'Style Engine',
     SUBTITLE: 'CSS gradient, shadow, and animation generator with live preview and code export',
     GRADIENT_BUTTON: 'Gradient Generator',
     SHADOW_BUTTON: 'Shadow Generator',
@@ -33,7 +33,7 @@ export default {
     LANGUAGE: 'Language'
   },
   META: {
-    HOME: 'CSS Lab - Home',
+    HOME: 'Style Engine - Home',
     GRADIENT: 'Gradient Generator',
     SHADOW: 'Shadow Generator',
     ANIMATION: 'Animation Generator',

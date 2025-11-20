@@ -42,6 +42,7 @@
             type="text"
             placeholder="#000000"
             class="gradient-controls__color-input"
+            pattern="#?[0-9a-fA-F]{6}"
             @update:model-value="(value) => handleColorChange(color.id, value as string)"
           />
           <div class="gradient-controls__position-group">
@@ -113,11 +114,25 @@ function handleAngleChange(e: Event) {
 }
 
 function handleColorChange(id: string, color: string) {
-  emit('update-color', id, color)
+  const normalized = normalizeHex(color)
+  if (normalized) {
+    emit('update-color', id, normalized)
+  }
 }
 
 function handlePositionChange(id: string, position: number) {
-  emit('update-color-position', id, position)
+  const safePosition = Number.isFinite(position) ? Math.min(100, Math.max(0, position)) : 0
+  emit('update-color-position', id, safePosition)
+}
+
+function normalizeHex(input: string): string | null {
+  let value = input.trim()
+  if (!value) return null
+  if (!value.startsWith('#')) {
+    value = `#${value}`
+  }
+  const isValid = /^#([0-9a-fA-F]{6})$/.test(value)
+  return isValid ? value.toLowerCase() : null
 }
 </script>
 

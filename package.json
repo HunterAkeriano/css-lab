@@ -1,13 +1,14 @@
 {
-  "name": "css-lab",
+  "name": "style-engine",
   "version": "0.1.0",
   "type": "module",
-  "description": "CSS Lab - Генератор CSS-градиентов, теней и анимаций",
+  "description": "Style Engine - Генератор CSS-градиентов, теней и анимаций",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "type-check": "vue-tsc --noEmit"
+    "type-check": "vue-tsc --noEmit",
+    "lint": "eslint . --ext .ts,.vue"
   },
   "dependencies": {
     "body-scroll-lock-upgrade": "^1.1.0",
@@ -17,7 +18,11 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.47.0",
+    "@typescript-eslint/parser": "^8.47.0",
     "@vitejs/plugin-vue": "^5.2.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-vue": "^10.5.1",
     "sass": "^1.83.0",
     "typescript": "^5.7.2",
     "vite": "^6.0.7",

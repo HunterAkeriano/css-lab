@@ -80,8 +80,7 @@ export function formatAnimation(
 
 export function formatKeyframes(
   name: string,
-  keyframes: Array<{ position: number; properties: Record<string, string> }>,
-  _format: CSSFormat = 'css'
+  keyframes: Array<{ position: number; properties: Record<string, string> }>
 ): string {
   const frames = keyframes
     .map(kf => {

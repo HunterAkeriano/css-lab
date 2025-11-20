@@ -1,0 +1,53 @@
+<template>
+  <svg class="svg-sprite" aria-hidden="true" focusable="false">
+    <!-- Menu Icons -->
+    <symbol id="icon-menu" viewBox="0 0 24 24">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+    </symbol>
+
+    <symbol id="icon-close" viewBox="0 0 24 24">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+    </symbol>
+
+    <!-- Arrow Icons -->
+    <symbol id="icon-arrow-down" viewBox="0 0 16 16">
+      <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+
+    <symbol id="icon-chevron-down" viewBox="0 0 12 12">
+      <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+
+    <!-- Logo Icon -->
+    <symbol id="icon-logo" viewBox="0 0 40 40">
+      <defs>
+        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+          <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+          <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+        </linearGradient>
+      </defs>
+      <rect x="4" y="4" width="32" height="32" rx="8" fill="url(#logo-gradient)" />
+      <path d="M12 16 L20 12 L28 16 L28 24 L20 28 L12 24 Z" fill="white" fill-opacity="0.9" />
+      <circle cx="20" cy="20" r="4" fill="url(#logo-gradient)" />
+    </symbol>
+
+    <!-- User Icons -->
+    <symbol id="icon-user" viewBox="0 0 20 20">
+      <path d="M10 2a4 4 0 100 8 4 4 0 000-8zM4 14a6 6 0 0112 0v2H4v-2z" fill="currentColor" />
+    </symbol>
+
+    <symbol id="icon-logout" viewBox="0 0 20 20">
+      <path d="M3 3a2 2 0 012-2h6a2 2 0 012 2v4h2V3a4 4 0 00-4-4H5a4 4 0 00-4 4v14a4 4 0 004 4h6a4 4 0 004-4v-4h-2v4a2 2 0 01-2 2H5a2 2 0 01-2-2V3zm11.293 4.707L17.586 11H7v2h10.586l-3.293 3.293 1.414 1.414L21.414 12l-5.707-5.707-1.414 1.414z" fill="currentColor" />
+    </symbol>
+  </svg>
+</template>
+
+<style scoped>
+.svg-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+</style>

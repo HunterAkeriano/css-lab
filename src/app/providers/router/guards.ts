@@ -25,7 +25,10 @@ export function setupRouterGuards(router: Router) {
     next()
   })
 
+  // keep a simple trace in dev only
   router.afterEach((to, from) => {
-    console.log(`Navigation: ${from.path} -> ${to.path}`)
+    if (import.meta.env.DEV && typeof console !== 'undefined') {
+      console.info(`Navigation: ${from.path} -> ${to.path}`)
+    }
   })
 }
