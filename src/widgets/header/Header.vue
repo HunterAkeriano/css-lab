@@ -73,13 +73,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { nextTick, onBeforeUnmount, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock-upgrade'
 import { useAuthStore } from '@/entities'
 import { LanguageSwitcher } from '@/features'
-import Logo from '@/shared/ui/Logo/Logo.vue'
+import Logo from '@/shared/ui/logo/Logo.vue'
 import { Button, Icon, NavLink } from '@/shared/ui'
 import UserMenu from '@/widgets/user-menu/UserMenu.vue'
 
@@ -108,14 +108,21 @@ function handleLogout() {
   router.push('/')
 }
 
-watch(isMobileMenuOpen, (isOpen) => {
-  if (isOpen && mobileMenuRef.value) {
-    disableBodyScroll(mobileMenuRef.value, {
-      reserveScrollBarGap: true
-    })
+watch(isMobileMenuOpen, async (isOpen) => {
+  if (isOpen) {
+    await nextTick()
+    if (mobileMenuRef.value) {
+      disableBodyScroll(mobileMenuRef.value, {
+        reserveScrollBarGap: true
+      })
+    }
   } else {
     clearAllBodyScrollLocks()
   }
+})
+
+onBeforeUnmount(() => {
+  clearAllBodyScrollLocks()
 })
 </script>
 

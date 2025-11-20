@@ -1,6 +1,6 @@
 <template>
-  <svg :class="['icon', className]" :width="size" :height="size">
-    <use :href="`/sprites/icons.svg#${name}`" />
+  <svg :class="['icon', className]" :width="size" :height="size" aria-hidden="true" focusable="false">
+    <use :href="`#${name}`" />
   </svg>
 </template>
 

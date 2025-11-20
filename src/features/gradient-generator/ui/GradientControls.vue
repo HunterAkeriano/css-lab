@@ -44,19 +44,22 @@
             class="gradient-controls__color-input"
             @update:model-value="(value) => handleColorChange(color.id, value as string)"
           />
-          <input
-            :value="color.position"
-            type="number"
-            min="0"
-            max="100"
-            class="gradient-controls__position-input"
-            @input="(e) => handlePositionChange(color.id, parseInt((e.target as HTMLInputElement).value))"
-          />
-          <span class="gradient-controls__position-label">%</span>
+          <div class="gradient-controls__position-group">
+            <input
+              :value="color.position"
+              type="number"
+              min="0"
+              max="100"
+              class="gradient-controls__position-input"
+              @input="(e) => handlePositionChange(color.id, parseInt((e.target as HTMLInputElement).value))"
+            />
+            <span class="gradient-controls__position-label">%</span>
+          </div>
           <Button
-            v-if="colors.length > 2"
             variant="danger"
             size="sm"
+            class="gradient-controls__remove"
+            :disabled="colors.length <= 2"
             @click="emit('remove-color', color.id)"
           >
             ✕

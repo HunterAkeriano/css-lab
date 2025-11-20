@@ -16,6 +16,9 @@
         @update-color="updateColor"
         @update-color-position="updateColorPosition"
       />
+    </div>
+
+    <div class="gradient-generation-process__code">
       <GradientCodeExport :get-code="getCode" />
     </div>
   </div>

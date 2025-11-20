@@ -1,13 +1,19 @@
 <template>
-  <component :is="layout">
-    <RouterView />
-  </component>
+  <div class="app">
+    <component :is="layout">
+      <RouterView />
+    </component>
+
+
+    <Sprite />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { MainLayout, AuthLayout, GeneratorLayout } from './layouts'
+import { Sprite } from '@/shared/ui'
 
 const route = useRoute()
 

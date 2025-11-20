@@ -1,30 +1,54 @@
 <template>
-  <div :class="['select', { 'select--error': error, 'select--disabled': disabled }]">
-    <label v-if="label" :for="selectId" class="select__label">
+  <div
+    ref="selectRef"
+    :class="[
+      'select',
+      { 'select--error': error, 'select--disabled': disabled, 'select--open': isOpen, 'select--drop-up': isDropUp }
+    ]"
+  >
+    <label v-if="label" class="select__label">
       {{ label }}
       <span v-if="required" class="select__required">*</span>
     </label>
 
     <div class="select__wrapper">
-      <select
-        :id="selectId"
-        v-model="selectValue"
+      <button
+        type="button"
+        class="select__control"
         :disabled="disabled"
-        :required="required"
-        class="select__field"
-        @change="handleChange"
+        @click="toggleDropdown"
+        @keydown.enter.prevent="toggleDropdown"
+        @keydown.space.prevent="toggleDropdown"
+        @keydown.esc.prevent="closeDropdown"
       >
-        <option v-if="placeholder" value="" disabled>{{ placeholder }}</option>
-        <option
-          v-for="option in options"
-          :key="option.value"
-          :value="option.value"
-        >
-          {{ option.label }}
-        </option>
-      </select>
+        <span :class="['select__value', { 'select__value--placeholder': !selectedOption }]">
+          {{ selectedOption?.label ?? placeholder ?? 'Выберите значение' }}
+        </span>
 
-      <span class="select__icon">▼</span>
+        <Icon
+          name="icon-chevron-down"
+          :size="14"
+          :class="['select__chevron', { 'select__chevron--open': isOpen, 'select__chevron--drop-up': isDropUp }]"
+        />
+      </button>
+
+      <transition name="select-dropdown">
+        <div
+          v-if="isOpen"
+          ref="dropdownRef"
+          class="select__dropdown"
+        >
+          <button
+            v-for="option in options"
+            :key="option.value"
+            type="button"
+            :class="['select__option', { 'select__option--active': option.value === modelValue }]"
+            @click="handleSelect(option.value)"
+          >
+            {{ option.label }}
+          </button>
+        </div>
+      </transition>
     </div>
 
     <span v-if="error" class="select__error">{{ error }}</span>
@@ -33,7 +57,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import Icon from '@/shared/ui/icon/Icon.vue'
 
 export interface SelectOption {
   label: string
@@ -63,17 +88,70 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 
-const selectId = ref(`select-${Math.random().toString(36).substr(2, 9)}`)
+const selectRef = ref<HTMLElement | null>(null)
+const dropdownRef = ref<HTMLElement | null>(null)
+const isOpen = ref(false)
+const isDropUp = ref(false)
 
-const selectValue = computed({
-  get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+const selectedOption = computed(() => {
+  return props.options.find(option => option.value === props.modelValue)
 })
 
-function handleChange(event: Event) {
-  const target = event.target as HTMLSelectElement
-  emit('change', target.value)
+function handleSelect(value: string | number) {
+  emit('update:modelValue', value)
+  emit('change', value)
+  closeDropdown()
 }
+
+function toggleDropdown() {
+  if (props.disabled) return
+  isOpen.value = !isOpen.value
+}
+
+function closeDropdown() {
+  isOpen.value = false
+}
+
+function handleClickOutside(event: MouseEvent) {
+  if (!selectRef.value) return
+  if (!selectRef.value.contains(event.target as Node)) {
+    closeDropdown()
+  }
+}
+
+function updateDirection() {
+  if (!selectRef.value) return
+  const rect = selectRef.value.getBoundingClientRect()
+  const dropdownHeight = dropdownRef.value?.offsetHeight ?? 0
+  const spaceBelow = window.innerHeight - rect.bottom
+  const spaceAbove = rect.top
+
+  if (dropdownHeight === 0) {
+    isDropUp.value = spaceBelow < 200 && spaceAbove > spaceBelow
+    return
+  }
+
+  isDropUp.value = rect.bottom + dropdownHeight > window.innerHeight && spaceAbove > spaceBelow
+}
+
+watch(isOpen, async (open) => {
+  if (open) {
+    document.addEventListener('click', handleClickOutside)
+    await nextTick()
+    updateDirection()
+  } else {
+    document.removeEventListener('click', handleClickOutside)
+  }
+})
+
+onMounted(() => {
+  window.addEventListener('resize', updateDirection)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleClickOutside)
+  window.removeEventListener('resize', updateDirection)
+})
 </script>
 
 <style lang="scss" scoped src="./Select.scss"></style>

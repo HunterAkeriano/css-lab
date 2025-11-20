@@ -3,14 +3,90 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .home-page__hero {
   text-align: center;
   padding: $space-2xl $space-md;
+  position: relative;
+  isolation: isolate;
 
   @media (min-width: $breakpoint-md) {
     padding: $space-3xl 0;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -25%;
+    left: 50%;
+    width: 150vw;
+    transform: translateX(-50%);
+    background:
+      radial-gradient(140% 120% at 40% 20%, rgba($color-primary, 0.18), transparent 65%),
+      radial-gradient(120% 100% at 80% 60%, rgba($color-secondary, 0.14), transparent 70%),
+      radial-gradient(100% 90% at 20% 80%, rgba($color-accent, 0.12), transparent 70%);
+    filter: blur(26px);
+    opacity: 0.85;
+    z-index: -1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -25% -5%;
+    left: 50%;
+    width: 150vw;
+    transform: translateX(-50%);
+    background-image:
+      radial-gradient(2px 2px at 18px 24px, rgba(255, 255, 255, 0.95), transparent 60%),
+      radial-gradient(1.8px 1.8px at 80px 140px, rgba(255, 255, 255, 0.9), transparent 60%),
+      radial-gradient(1.6px 1.6px at 140px 60px, rgba(255, 255, 255, 0.9), transparent 60%),
+      radial-gradient(2.4px 2.4px at 200px 180px, rgba(255, 255, 255, 0.95), transparent 60%),
+      radial-gradient(1.6px 1.6px at 260px 90px, rgba(255, 255, 255, 0.9), transparent 60%),
+      radial-gradient(2px 2px at 320px 40px, rgba(255, 255, 255, 0.9), transparent 60%),
+      radial-gradient(1.8px 1.8px at 380px 200px, rgba(255, 255, 255, 0.92), transparent 60%),
+      radial-gradient(2.2px 2.2px at 440px 120px, rgba(255, 255, 255, 0.95), transparent 60%),
+      radial-gradient(1.8px 1.8px at 520px 60px, rgba(255, 255, 255, 0.9), transparent 60%),
+      radial-gradient(2.6px 2.6px at 580px 200px, rgba(255, 255, 255, 0.95), transparent 60%);
+    background-size:
+      240px 260px,
+      280px 300px,
+      320px 340px,
+      360px 380px,
+      400px 420px,
+      420px 460px,
+      460px 480px,
+      520px 540px,
+      560px 560px,
+      620px 600px;
+    background-repeat: repeat;
+    opacity: 0.95;
+    z-index: -1;
+    animation: snowfall 24s linear infinite;
+  }
+}
+
+.home-page__title-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+  margin-bottom: $space-sm;
+}
+
+.home-page__logo {
+  width: 64px;
+  height: 64px;
+  margin: 0;
+  filter: drop-shadow(0 10px 24px rgba($color-primary, 0.24));
+  animation: heroLogoFloat 5s ease-in-out infinite, heroLogoPulse 8s ease-in-out infinite;
+
+  @media (min-width: $breakpoint-md) {
+    width: 72px;
+    height: 72px;
   }
 }
 
@@ -104,4 +180,45 @@
       box-shadow: $shadow-md;
     }
   }
+}
+
+@keyframes snowfall {
+  0% {
+    background-position:
+      0 0,
+      40px -40px,
+      80px -80px,
+      120px -120px,
+      160px -60px,
+      200px -100px,
+      240px -30px,
+      280px -150px,
+      320px -90px,
+      360px -210px;
+  }
+  100% {
+    background-position:
+      0 360px,
+      40px 320px,
+      80px 400px,
+      120px 360px,
+      160px 380px,
+      200px 420px,
+      240px 340px,
+      280px 460px,
+      320px 420px,
+      360px 500px;
+  }
+}
+
+@keyframes heroLogoFloat {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(3deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes heroLogoPulse {
+  0% { filter: drop-shadow(0 10px 24px rgba($color-primary, 0.2)); }
+  50% { filter: drop-shadow(0 14px 30px rgba($color-primary, 0.32)); }
+  100% { filter: drop-shadow(0 10px 24px rgba($color-primary, 0.2)); }
 }

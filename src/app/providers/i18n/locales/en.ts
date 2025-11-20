@@ -31,5 +31,14 @@ export default {
   },
   COMMON: {
     LANGUAGE: 'Language'
+  },
+  META: {
+    HOME: 'CSS Lab - Home',
+    GRADIENT: 'Gradient Generator',
+    SHADOW: 'Shadow Generator',
+    ANIMATION: 'Animation Generator',
+    PROFILE: 'Profile',
+    AUTH: 'Sign In',
+    NOT_FOUND: 'Page Not Found'
   }
 }

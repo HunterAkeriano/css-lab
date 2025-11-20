@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: $space-xs;
+  position: relative;
 
   &--disabled {
     opacity: 0.6;
@@ -21,44 +22,113 @@
 
   &__wrapper {
     position: relative;
-    display: flex;
-    align-items: center;
   }
 
-  &__field {
-    flex: 1;
-    appearance: none;
+  &__control {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-sm;
+    padding: $space-sm $space-md;
     border: 1px solid $color-border;
     border-radius: $border-radius-md;
-    padding: $space-sm $space-md;
-    padding-right: $space-xl;
-    font-size: $font-size-base;
-    color: $color-text-primary;
     background: $color-bg-primary;
+    color: $color-text-primary;
+    font-size: $font-size-base;
     cursor: pointer;
     transition: all $transition-base;
 
-    &:focus {
+    &:focus-visible {
       outline: none;
       border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.12);
     }
   }
 
-  &--error &__field {
+  &--error &__control {
     border-color: $color-error;
+    box-shadow: 0 0 0 1px rgba($color-error, 0.2);
+  }
 
-    &:focus {
-      box-shadow: 0 0 0 3px rgba($color-error, 0.1);
+  &--open &__control {
+    border-color: $color-primary;
+    box-shadow: 0 8px 24px rgba($color-text-primary, 0.08), 0 0 0 2px rgba($color-primary, 0.12);
+  }
+
+  &__value {
+    flex: 1;
+    text-align: left;
+    color: $color-text-primary;
+    font-weight: $font-weight-medium;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &--placeholder {
+      color: $color-text-secondary;
+      font-weight: $font-weight-normal;
     }
   }
 
-  &__icon {
-    position: absolute;
-    right: $space-md;
-    pointer-events: none;
-    font-size: $font-size-xs;
+  &__chevron {
+    transition: transform $transition-base, color $transition-base;
     color: $color-text-tertiary;
+  }
+
+  &__chevron--open {
+    transform: rotate(180deg);
+    color: $color-text-primary;
+  }
+
+  &__dropdown {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + $space-xs);
+    border: 1px solid $color-border;
+    border-radius: $border-radius-md;
+    background: $color-bg-secondary;
+    box-shadow: 0 16px 40px rgba($color-text-primary, 0.12), 0 0 0 1px rgba($color-border, 0.4);
+    overflow: hidden;
+    max-height: 240px;
+    display: flex;
+    flex-direction: column;
+    padding: $space-xs;
+    gap: 4px;
+    z-index: $z-popover;
+  }
+
+  &--drop-up &__dropdown {
+    top: auto;
+    bottom: calc(100% + $space-xs);
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: $space-sm $space-md;
+    border: 1px solid transparent;
+    border-radius: $border-radius-sm;
+    background: transparent;
+    color: $color-text-primary;
+    text-align: left;
+    font-size: $font-size-base;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: $color-bg-tertiary;
+      border-color: $color-border;
+    }
+  }
+
+  &__option--active {
+    background: rgba($color-primary, 0.1);
+    border-color: rgba($color-primary, 0.2);
+    color: $color-primary;
+    font-weight: $font-weight-medium;
   }
 
   &__error {
@@ -70,4 +140,15 @@
     font-size: $font-size-sm;
     color: $color-text-secondary;
   }
+}
+
+.select-dropdown-enter-active,
+.select-dropdown-leave-active {
+  transition: opacity $transition-fast, transform $transition-fast;
+}
+
+.select-dropdown-enter-from,
+.select-dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
 }

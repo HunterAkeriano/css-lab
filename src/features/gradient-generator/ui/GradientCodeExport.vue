@@ -1,23 +1,30 @@
 <template>
   <div class="code-export">
-    <div class="code-export__header">
-      <h3 class="code-export__title">{{ t('GRADIENT.EXPORT_TITLE') }}</h3>
-      <Select
-        v-model="selectedFormat"
-        :options="formatOptions"
-      />
-    </div>
+    <div class="code-export__panel">
+      <div class="code-export__toolbar">
+        <h3 class="code-export__title">{{ t('GRADIENT.EXPORT_TITLE') }}</h3>
+        <div class="code-export__actions">
+          <Select
+            v-model="selectedFormat"
+            :options="formatOptions"
+          />
+          <Button
+            variant="outline"
+            size="sm"
+            class="code-export__copy-button"
+            @click="handleCopy"
+          >
+            {{ copied ? `✓ ${t('GRADIENT.COPIED')}` : t('GRADIENT.COPY') }}
+          </Button>
+        </div>
+      </div>
 
-    <div class="code-export__code">
-      <pre class="code-export__content">{{ code }}</pre>
-      <Button
-        variant="primary"
-        size="sm"
-        class="code-export__copy-button"
-        @click="handleCopy"
-      >
-        {{ copied ? `✓ ${t('GRADIENT.COPIED')}` : t('GRADIENT.COPY') }}
-      </Button>
+      <div class="code-export__code">
+        <div class="code-export__window-controls">
+          <span></span><span></span><span></span>
+        </div>
+        <pre class="code-export__content"><code>{{ code }}</code></pre>
+      </div>
     </div>
   </div>
 </template>

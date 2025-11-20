@@ -31,5 +31,14 @@ export default {
   },
   COMMON: {
     LANGUAGE: 'Мова'
+  },
+  META: {
+    HOME: 'CSS Lab - Головна',
+    GRADIENT: 'Генератор градієнтів',
+    SHADOW: 'Генератор тіней',
+    ANIMATION: 'Генератор анімацій',
+    PROFILE: 'Особистий кабінет',
+    AUTH: 'Авторизація',
+    NOT_FOUND: 'Сторінку не знайдено'
   }
 }
