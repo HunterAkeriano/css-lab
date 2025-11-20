@@ -17,8 +17,9 @@
       radial-gradient(32% 36% at 74% 22%, rgba($color-secondary, 0.3), transparent 72%),
       radial-gradient(42% 50% at 78% 72%, rgba($color-accent, 0.26), transparent 70%),
       radial-gradient(44% 44% at 16% 80%, rgba(#14b8a6, 0.2), transparent 70%);
-    filter: blur(38px);
-    opacity: 0.8;
+    background-size: 120% 120%;
+    background-repeat: no-repeat;
+    opacity: 0.78;
     animation: nebulaDrift 36s ease-in-out infinite alternate;
     z-index: -2;
   }
@@ -51,10 +52,9 @@
   flex-wrap: wrap;
   padding: $space-lg;
   border-radius: $border-radius-2xl;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4), 0 12px 30px rgba($color-primary, 0.18);
-  backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
 
@@ -64,7 +64,8 @@
     inset: -40%;
     background: radial-gradient(50% 50% at 80% 30%, rgba($color-accent, 0.15), transparent 60%);
     opacity: 0.6;
-    filter: blur(28px);
+    background-repeat: no-repeat;
+    background-size: 140% 140%;
     pointer-events: none;
   }
 }
@@ -117,8 +118,8 @@
   inset: -30% -40%;
   background:
     conic-gradient(from 120deg at 40% 40%, rgba($color-primary, 0.34), rgba($color-secondary, 0.18), rgba($color-accent, 0.24), rgba($color-primary, 0.34));
-  filter: blur(56px);
-  opacity: 0.65;
+  background-size: 140% 140%;
+  opacity: 0.55;
   mix-blend-mode: screen;
   animation: orbitSweep 48s linear infinite;
   z-index: -2;

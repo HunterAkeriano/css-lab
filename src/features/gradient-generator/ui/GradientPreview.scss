@@ -25,9 +25,8 @@
     right: -10%;
     width: 200px;
     height: 200px;
-    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
+    background: radial-gradient(60% 60% at 50% 50%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
     mix-blend-mode: screen;
-    filter: blur(8px);
     animation: previewGlare 14s ease-in-out infinite alternate;
     pointer-events: none;
   }

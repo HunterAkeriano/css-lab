@@ -28,8 +28,9 @@
       radial-gradient(140% 120% at 40% 20%, rgba($color-primary, 0.18), transparent 65%),
       radial-gradient(120% 100% at 80% 60%, rgba($color-secondary, 0.14), transparent 70%),
       radial-gradient(100% 90% at 20% 80%, rgba($color-accent, 0.12), transparent 70%);
-    filter: blur(26px);
-    opacity: 0.85;
+    background-repeat: no-repeat;
+    background-size: 120% 120%;
+    opacity: 0.82;
     z-index: -1;
   }
 

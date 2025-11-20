@@ -38,13 +38,16 @@
 
     <transition name="mobile-menu">
       <div v-if="isMobileMenuOpen" ref="mobileMenuRef" class="header__mobile-menu">
+
         <nav class="header__mobile-nav">
           <NavLink to="/gradient" className="header__mobile-link" @click="closeMobileMenu">
             {{ t('NAV.GRADIENTS') }}
           </NavLink>
+
           <NavLink to="/shadow" className="header__mobile-link" @click="closeMobileMenu">
             {{ t('NAV.SHADOWS') }}
           </NavLink>
+
           <NavLink to="/animation" className="header__mobile-link" @click="closeMobileMenu">
             {{ t('NAV.ANIMATIONS') }}
           </NavLink>
@@ -57,6 +60,7 @@
             <NavLink to="/profile" className="header__mobile-link" @click="closeMobileMenu">
               {{ t('NAV.PROFILE') }}
             </NavLink>
+
             <Button variant="danger" size="md" @click="handleLogout" style="width: 100%;">
               {{ t('NAV.LOGOUT') }}
             </Button>
