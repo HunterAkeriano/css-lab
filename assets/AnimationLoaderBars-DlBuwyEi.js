@@ -1,0 +1,1 @@
+import{_ as a,c as s,o as e,a as n}from"./index-CaC58y4O.js";const o={},r={class:"loader-bars"};function t(c,l){return e(),s("div",r,[...l[0]||(l[0]=[n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1)])])}const _=a(o,[["render",t],["__scopeId","data-v-51503242"]]);export{_ as default};

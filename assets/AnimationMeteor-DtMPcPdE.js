@@ -1,0 +1,1 @@
+import{_ as t,c as a,o,a as s}from"./index-CaC58y4O.js";const n={},r={class:"meteor"};function c(_,e){return o(),a("div",r,[...e[0]||(e[0]=[s("span",{class:"meteor__trail"},null,-1),s("span",{class:"meteor__head"},null,-1)])])}const d=t(n,[["render",c],["__scopeId","data-v-53c0959f"]]);export{d as default};

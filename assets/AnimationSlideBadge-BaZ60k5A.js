@@ -1,0 +1,1 @@
+import{_ as a,c as d,o as t,a as s,f as o}from"./index-CaC58y4O.js";const c={},n={class:"slide-badge"};function _(i,e){return t(),d("div",n,[...e[0]||(e[0]=[s("span",{class:"slide-badge__pill"},[s("span",{class:"slide-badge__dot"}),o(" Live ")],-1)])])}const r=a(c,[["render",_],["__scopeId","data-v-8dc6b43b"]]);export{r as default};

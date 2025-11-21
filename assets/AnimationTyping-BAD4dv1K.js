@@ -1,0 +1,1 @@
+import{_ as n,c as e,o as a,a as s}from"./index-CaC58y4O.js";const o={},c={class:"typing"};function _(i,t){return a(),e("div",c,[...t[0]||(t[0]=[s("div",{class:"typing__text"},[s("span",null,"typing...")],-1),s("div",{class:"typing__cursor"},null,-1)])])}const l=n(o,[["render",_],["__scopeId","data-v-5b170b37"]]);export{l as default};
