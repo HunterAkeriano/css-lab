@@ -10,6 +10,7 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 process.env.SASS_SILENCE_DEPRECATIONS = process.env.SASS_SILENCE_DEPRECATIONS || 'all';
 process.env.SASS_QUIET_DEPS = process.env.SASS_QUIET_DEPS || 'true';
 export default defineConfig({
+  base: '/css-lab/',
   plugins: [vue()],
   resolve: {
     alias: {

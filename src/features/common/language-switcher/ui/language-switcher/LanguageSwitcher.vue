@@ -82,11 +82,12 @@ function changeLanguage(newLocale: string) {
   pathParts[0] = newLocale
   const newPath = '/' + pathParts.join('/')
 
-  router.push({
+  const resolved = router.resolve({
     path: newPath,
     query: route.query,
     hash: route.hash
   })
+  router.push(resolved)
   closeDropdown()
 }
 </script>
