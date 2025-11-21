@@ -15,7 +15,8 @@ const meta = {
   argTypes: {
     disabled: { control: 'boolean' },
     required: { control: 'boolean' },
-    change: { action: 'changed' }
+    onChange: { action: 'changed' },
+    'onUpdate:modelValue': { action: 'update' }
   },
   args: {
     label: 'Select generator',

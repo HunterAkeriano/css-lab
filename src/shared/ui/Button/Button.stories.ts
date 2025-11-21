@@ -15,7 +15,7 @@ const meta = {
       options: ['sm', 'md', 'lg']
     },
     disabled: { control: 'boolean' },
-    click: { action: 'clicked' }
+    onClick: { action: 'clicked' }
   },
   args: {
     variant: 'primary',
@@ -33,15 +33,14 @@ export const Primary: Story = {
   args: {
     variant: 'primary',
     size: 'md',
-    disabled: false,
-    label: 'Primary action'
+    disabled: false
   },
   render: args => ({
     components: { Button },
     setup() {
       return { args }
     },
-    template: `<Button v-bind="args">{{ args.label }}</Button>`
+    template: `<Button v-bind="args">Primary action</Button>`
   })
 }
 
@@ -49,8 +48,7 @@ export const WithIcon: Story = {
   args: {
     variant: 'outline',
     size: 'md',
-    disabled: false,
-    label: 'With icon'
+    disabled: false
   },
   render: args => ({
     components: { Button },
@@ -64,7 +62,7 @@ export const WithIcon: Story = {
             <path d="M12 2L15 8L22 9L17 14L18 21L12 18L6 21L7 14L2 9L9 8L12 2Z" stroke="currentColor" stroke-width="2" />
           </svg>
         </template>
-        {{ args.label }}
+        With icon
       </Button>
     `
   })
@@ -74,14 +72,13 @@ export const Disabled: Story = {
   args: {
     variant: 'secondary',
     size: 'md',
-    disabled: true,
-    label: 'Disabled state'
+    disabled: true
   },
   render: args => ({
     components: { Button },
     setup() {
       return { args }
     },
-    template: `<Button v-bind="args">{{ args.label }}</Button>`
+    template: `<Button v-bind="args">Disabled state</Button>`
   })
 }

@@ -21,7 +21,22 @@ export default {
     ABOUT_TEXT: 'Style Engine helps designers and developers craft production-ready gradients, shadows, and animations with live previews and instant code export.',
     ABOUT_POINT_1: 'Live playground with pixel-perfect previews',
     ABOUT_POINT_2: 'Clean, copy-paste CSS for modern frameworks',
-    ABOUT_POINT_3: 'One place to experiment, document, and share'
+    ABOUT_POINT_3: 'One place to experiment, document, and share',
+    FEATURES_TAG: 'Features',
+    FEATURES_TITLE: 'Everything you need to style with confidence',
+    FEATURES_GRADIENT_TITLE: 'Gradient Generator',
+    FEATURES_GRADIENT_DESCRIPTION: 'Build linear, radial, and conic gradients with precision control. Adjust angles, add unlimited color stops, and export production-ready CSS instantly.',
+    FEATURES_SHADOW_TITLE: 'Shadow Generator',
+    FEATURES_SHADOW_DESCRIPTION: 'Layer multiple hard-edge shadows without blur. Control offset, spread, and opacity for each layer. Create depth with inset and outset combinations.',
+    FEATURES_ANIMATION_TITLE: 'Animation Library',
+    FEATURES_ANIMATION_DESCRIPTION: '40+ ready-to-use CSS animations with live preview. Copy complete HTML and CSS snippets, or customize timing, easing, and transforms in the builder.',
+    SHOWCASE_TAG: 'Live examples',
+    SHOWCASE_TITLE: 'See what you can build',
+    SHOWCASE_ANIMATION_LABEL: 'Holographic Dream',
+    SHOWCASE_ANIMATION_DESCRIPTION: 'Multi-layer animation with particles, orbitals, and liquid gradients',
+    SHOWCASE_GRADIENT_LABEL: 'Aurora Sunset',
+    SHOWCASE_GRADIENT_DESCRIPTION: 'Complex radial and conic gradient composition with vibrant colors',
+    SHOWCASE_TRY: 'Try it yourself'
   },
   GRADIENT: {
     TITLE: 'Gradient Generator',

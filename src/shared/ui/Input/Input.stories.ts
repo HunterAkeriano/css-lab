@@ -14,8 +14,9 @@ const meta = {
     disabled: { control: 'boolean' },
     required: { control: 'boolean' },
     readonly: { control: 'boolean' },
-    blur: { action: 'blurred' },
-    focus: { action: 'focused' }
+    'onUpdate:modelValue': { action: 'update' },
+    onBlur: { action: 'blurred' },
+    onFocus: { action: 'focused' }
   },
   args: {
     type: 'text',
@@ -57,6 +58,9 @@ export const WithError: Story = {
 }
 
 export const WithAffixes: Story = {
+  args: {
+    modelValue: '123'
+  },
   render: () => ({
     components: { Input },
     setup() {
