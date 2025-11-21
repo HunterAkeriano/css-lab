@@ -1,0 +1,1 @@
+import{_ as c,c as e,o as l,a as o}from"./index-DAd-KxhA.js";const n={},s={class:"clock-loader"};function _(r,a){return l(),e("div",s,[...a[0]||(a[0]=[o("span",{class:"clock-loader__hand clock-loader__hand_hour"},null,-1),o("span",{class:"clock-loader__hand clock-loader__hand_minute"},null,-1)])])}const t=c(n,[["render",_],["__scopeId","data-v-067a9f0e"]]);export{t as default};

@@ -1,1 +1,0 @@
-import{_ as o,c as s,o as t,a as n}from"./app-s1azNKVI.js";const a={},l={class:"dot-typing-loader"};function c(r,e){return t(),s("div",l,[...e[0]||(e[0]=[n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1)])])}const d=o(a,[["render",c],["__scopeId","data-v-f26b93ce"]]);export{d as default};

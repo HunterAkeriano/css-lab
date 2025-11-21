@@ -1,0 +1,1 @@
+import{_ as e,c as s,o as a,a as t}from"./index-DAd-KxhA.js";const r={},c={class:"morph-blob"};function n(_,o){return a(),s("div",c,[...o[0]||(o[0]=[t("div",{class:"morph-blob__shape"},null,-1)])])}const d=e(r,[["render",n],["__scopeId","data-v-af07af0d"]]);export{d as default};

@@ -1,1 +1,0 @@
-import{_ as r,c as e,o as s,F as t,r as n,a as c}from"./app-s1azNKVI.js";const o={},_={class:"pulse-grid"};function d(i,l){return s(),e("div",_,[(s(),e(t,null,n(9,a=>c("span",{key:a})),64))])}const p=r(o,[["render",d],["__scopeId","data-v-f64e97b2"]]);export{p as default};

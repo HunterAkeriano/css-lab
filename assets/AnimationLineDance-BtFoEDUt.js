@@ -1,1 +1,0 @@
-import{_ as e,c as a,o as s,a as n}from"./app-s1azNKVI.js";const c={},o={class:"line-dance"};function t(u,l){return s(),a("div",o,[...l[0]||(l[0]=[n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1)])])}const _=e(c,[["render",t],["__scopeId","data-v-51c78ea2"]]);export{_ as default};

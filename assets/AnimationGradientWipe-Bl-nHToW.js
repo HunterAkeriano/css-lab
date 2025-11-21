@@ -1,1 +1,0 @@
-import{_ as t,c as n,o as s,a}from"./app-s1azNKVI.js";const r={},i={class:"gradient-wipe"};function o(c,e){return s(),n("div",i,[...e[0]||(e[0]=[a("div",{class:"gradient-wipe__bar"},null,-1),a("p",null,"Gradient wipe",-1)])])}const _=t(r,[["render",o],["__scopeId","data-v-37ac8038"]]);export{_ as default};

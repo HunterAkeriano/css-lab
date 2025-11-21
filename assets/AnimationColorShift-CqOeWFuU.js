@@ -1,1 +1,0 @@
-import{_ as s,c as e,o as t,a as c}from"./app-s1azNKVI.js";const a={},r={class:"color-shift"};function n(_,o){return t(),e("div",r,[...o[0]||(o[0]=[c("div",{class:"color-shift__blob"},null,-1)])])}const l=s(a,[["render",n],["__scopeId","data-v-edf3b9dd"]]);export{l as default};

@@ -1,0 +1,1 @@
+import{_ as s,c as e,o,a}from"./index-DAd-KxhA.js";const r={},l={class:"demo-star-trail"};function _(c,t){return o(),e("div",l,[...t[0]||(t[0]=[a("div",{class:"demo-star-trail__dot"},null,-1),a("div",{class:"demo-star-trail__glow"},null,-1),a("div",{class:"demo-star-trail__tail"},null,-1)])])}const i=s(r,[["render",_],["__scopeId","data-v-b9313aa9"]]);export{i as default};

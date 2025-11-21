@@ -1,1 +1,0 @@
-import{_ as s,c as o,o as n,a}from"./app-s1azNKVI.js";const r={},c={class:"wave-orb"};function t(_,e){return n(),o("div",c,[...e[0]||(e[0]=[a("span",{class:"wave-orb__ring"},null,-1),a("span",{class:"wave-orb__core"},null,-1)])])}const d=s(r,[["render",t],["__scopeId","data-v-5bf62598"]]);export{d as default};

@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as e,a as n}from"./index-DAd-KxhA.js";const o={},t={class:"dots-chain"};function c(u,l){return e(),a("div",t,[...l[0]||(l[0]=[n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1)])])}const _=s(o,[["render",c],["__scopeId","data-v-f4bc1ad4"]]);export{_ as default};

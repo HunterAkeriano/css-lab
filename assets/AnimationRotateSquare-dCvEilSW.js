@@ -1,1 +1,0 @@
-import{_ as a,c as t,o as s,a as o}from"./app-s1azNKVI.js";const r={},c={class:"rotate-square"};function n(_,e){return s(),t("div",c,[...e[0]||(e[0]=[o("div",{class:"rotate-square__shape"},null,-1)])])}const i=a(r,[["render",n],["__scopeId","data-v-48114f69"]]);export{i as default};
