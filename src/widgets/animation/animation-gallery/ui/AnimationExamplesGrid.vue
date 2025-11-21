@@ -122,7 +122,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { NavLink, Select, Input, Icon } from '@/shared/ui'
 import type { SelectOption } from '@/shared/ui'
-import type { AnimationCategory } from '@/entities/animation/model/examplesData'
+import type { AnimationCategory } from '@/entities/animation/model/examples-data'
 
 interface ExampleItem {
   id: string
