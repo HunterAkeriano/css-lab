@@ -1,5 +1,9 @@
 {
   "name": "style-engine",
+  "private": true,
+  "workspaces": [
+    "backend"
+  ],
   "version": "0.1.0",
   "type": "module",
   "description": "Style Engine - Генератор CSS-градиентов, теней и анимаций",
@@ -12,7 +16,10 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "backend:dev": "npm --prefix backend run dev",
+    "backend:build": "npm --prefix backend run build",
+    "backend:start": "npm --prefix backend run start"
   },
   "dependencies": {
     "@unhead/vue": "^2.0.19",
@@ -21,7 +28,8 @@
     "vue": "^3.5.13",
     "vue-i18n": "^10.0.4",
     "vue-router": "^4.5.0",
-    "vue-toastification": "^2.0.0-rc.5"
+    "vue-toastification": "^2.0.0-rc.5",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.3",

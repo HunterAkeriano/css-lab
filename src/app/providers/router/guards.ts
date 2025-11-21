@@ -3,8 +3,11 @@ import { i18n, setLocale, AVAILABLE_LOCALES, type Locale } from '@/app/providers
 import { useAuthStore } from '@/entities'
 
 export function setupRouterGuards(router: Router) {
-  router.beforeEach((to, _, next) => {
+  router.beforeEach(async (to, _, next) => {
     const authStore = useAuthStore()
+    if (!authStore.hydrated) {
+      await authStore.ensureSession()
+    }
 
     const pathParts = to.path.split('/').filter(Boolean)
     const localeFromPath = pathParts[0]
@@ -29,7 +32,13 @@ export function setupRouterGuards(router: Router) {
 
     if (to.meta.requiresAuth && !authStore.isAuthenticated) {
       const currentLocale = i18n.global.locale.value
-      next({ name: `${currentLocale}-auth`, query: { redirect: to.fullPath } })
+      next({ name: `${currentLocale}-login`, query: { redirect: to.fullPath } })
+      return
+    }
+
+    if (to.meta.requiresAdmin && !authStore.user?.isAdmin) {
+      const currentLocale = i18n.global.locale.value
+      next({ name: `${currentLocale}-home` })
       return
     }
 

@@ -2,10 +2,15 @@
   <div class="user-menu" v-click-outside="closeMenu">
     <button class="user-menu__trigger" @click="toggleMenu">
       <div class="user-menu__avatar">
-        <img v-if="user.avatar" :src="user.avatar" :alt="user.name" class="user-menu__avatar-img" />
+        <img
+          v-if="user.avatarUrl"
+          :src="user.avatarUrl"
+          :alt="user.name || 'User'"
+          class="user-menu__avatar-img"
+        />
         <span v-else class="user-menu__avatar-initials">{{ initials }}</span>
       </div>
-      <span class="user-menu__name">{{ user.name }}</span>
+      <span class="user-menu__name">{{ user.name || user.email }}</span>
       <Icon
         name="icon-arrow-down"
         :size="16"
@@ -15,7 +20,7 @@
 
     <transition name="dropdown">
       <div v-if="isOpen" class="user-menu__dropdown">
-        <NavLink to="/profile" className="user-menu__item" @click="closeMenu">
+        <NavLink :to="`/${locale}/profile`" className="user-menu__item" @click="closeMenu">
           <Icon name="icon-user" :size="20" className="user-menu__item-icon" />
           <span>Особистий кабінет</span>
         </NavLink>
@@ -51,7 +56,8 @@ const { locale } = useI18n()
 const isOpen = ref(false)
 
 const initials = computed(() => {
-  const names = props.user.name.split(' ')
+  const name = props.user.name || props.user.email
+  const names = name.split(' ')
   return names.map(n => n[0]).join('').toUpperCase().slice(0, 2)
 })
 

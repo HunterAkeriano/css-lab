@@ -2,7 +2,6 @@ import { createRouter, createWebHistory, type RouteRecordRaw, type RouterScrollB
 import { setupRouterGuards } from './guards'
 import { AVAILABLE_LOCALES } from '../i18n'
 import MainLayout from '@/app/layouts/main-layout/MainLayout.vue'
-import AuthLayout from '@/app/layouts/auth-layout/AuthLayout.vue'
 import GeneratorLayout from '@/app/layouts/generator-layout/GeneratorLayout.vue'
 import DocsLayout from '@/app/layouts/docs-layout/DocsLayout.vue'
 
@@ -17,7 +16,27 @@ const mainLayoutChildren: RouteRecordRaw[] = [
     path: 'profile',
     name: 'profile',
     component: () => import('@/pages/profile/ProfilePage.vue'),
-    meta: { titleKey: 'META.PROFILE', descriptionKey: 'META_DESCRIPTION.PROFILE', requiresAuth: true }
+    meta: { titleKey: 'META.PROFILE', descriptionKey: 'META_DESCRIPTION.PROFILE', requiresAuth: true },
+    children: [
+      {
+        path: 'gradients',
+        name: 'profile-gradients',
+        component: () => import('@/pages/profile/SavedGradientsPage.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'shadows',
+        name: 'profile-shadows',
+        component: () => import('@/pages/profile/SavedShadowsPage.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
+        path: 'animations',
+        name: 'profile-animations',
+        component: () => import('@/pages/profile/SavedAnimationsPage.vue'),
+        meta: { requiresAuth: true }
+      }
+    ]
   }
 ]
 
@@ -66,23 +85,36 @@ const generatorLayoutRoutes: RouteRecordRaw[] = [
   }
 ]
 
-const authLayoutRoute: RouteRecordRaw = {
-  path: 'auth',
-  component: AuthLayout,
-  children: [
-    {
-      path: '',
-      name: 'auth',
-      component: () => import('@/pages/auth/AuthPage.vue'),
-      meta: { titleKey: 'META.AUTH', descriptionKey: 'META_DESCRIPTION.AUTH', guestOnly: true }
-    }
-  ]
-}
+const authLayoutRoutes: RouteRecordRaw[] = [
+  {
+    path: 'login',
+    name: 'login',
+    component: () => import('@/pages/login/LoginPage.vue'),
+    meta: { titleKey: 'META.AUTH', descriptionKey: 'META_DESCRIPTION.AUTH', guestOnly: true }
+  },
+  {
+    path: 'register',
+    name: 'register',
+    component: () => import('@/pages/register/RegisterPage.vue'),
+    meta: { titleKey: 'META.AUTH', descriptionKey: 'META_DESCRIPTION.AUTH', guestOnly: true }
+  }
+]
 
 const baseRoutes: RouteRecordRaw[] = [
   { path: '', component: MainLayout, children: mainLayoutChildren },
   ...generatorLayoutRoutes,
-  authLayoutRoute,
+  ...authLayoutRoutes,
+  {
+    path: 'moderation',
+    name: 'moderation',
+    component: () => import('@/pages/moderation/ModerationPage.vue'),
+    meta: {
+      titleKey: 'META.MODERATION',
+      descriptionKey: 'META_DESCRIPTION.MODERATION',
+      requiresAuth: true,
+      requiresAdmin: true
+    }
+  },
   {
     path: 'docs',
     component: DocsLayout,
@@ -104,16 +136,30 @@ const baseRoutes: RouteRecordRaw[] = [
   }
 ]
 
+function localizeChildren(children: RouteRecordRaw[] | undefined, locale: string): RouteRecordRaw[] | undefined {
+  return children?.map(child => {
+    const localizedChild: RouteRecordRaw = {
+      ...child,
+      name: child.name ? `${locale}-${String(child.name)}` : undefined
+    }
+    if (child.children) {
+      localizedChild.children = localizeChildren(child.children, locale)
+    }
+    return localizedChild
+  })
+}
+
 function applyLocalePrefix(locale: string, routes: RouteRecordRaw[]): RouteRecordRaw[] {
-  return routes.map<RouteRecordRaw>(route => ({
-    ...route,
-    path: `/${locale}/${route.path}`.replace(/\/$/, '') || `/${locale}`,
-    children:
-      route.children?.map(child => ({
-        ...child,
-        name: child.name ? `${locale}-${String(child.name)}` : undefined
-      })) ?? []
-  }))
+  const localizedRoutes = routes.map(route => {
+    const basePath = typeof route.path === 'string' ? route.path : ''
+    return {
+      ...route,
+      path: `/${locale}/${basePath}`.replace(/\/$/, '') || `/${locale}`,
+      name: route.name ? `${locale}-${String(route.name)}` : undefined,
+      children: localizeChildren(route.children, locale)
+    }
+  })
+  return localizedRoutes as RouteRecordRaw[]
 }
 
 export const scrollBehavior: RouterScrollBehavior = (_to, _from, savedPosition) => {

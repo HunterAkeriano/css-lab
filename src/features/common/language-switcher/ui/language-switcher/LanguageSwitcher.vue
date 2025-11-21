@@ -36,6 +36,7 @@ import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter, useRoute } from 'vue-router'
 import { Icon } from '@/shared/ui'
+import { AVAILABLE_LOCALES } from '@/app/providers'
 
 const { locale, t } = useI18n()
 const router = useRouter()
@@ -79,15 +80,28 @@ function closeDropdown() {
 
 function changeLanguage(newLocale: string) {
   const pathParts = route.path.split('/').filter(Boolean)
-  pathParts[0] = newLocale
-  const newPath = '/' + pathParts.join('/')
 
-  const resolved = router.resolve({
-    path: newPath,
+  if (!pathParts.length) {
+    router.push({
+      path: `/${newLocale}`,
+      query: route.query,
+      hash: route.hash
+    })
+    closeDropdown()
+    return
+  }
+
+  if (AVAILABLE_LOCALES.includes(pathParts[0] as any)) {
+    pathParts[0] = newLocale
+  } else {
+    pathParts.unshift(newLocale)
+  }
+
+  router.push({
+    path: '/' + pathParts.join('/'),
     query: route.query,
     hash: route.hash
   })
-  router.push(resolved)
   closeDropdown()
 }
 </script>

@@ -28,11 +28,16 @@
             <p class="shadow-presets__description">{{ preset.description }}</p>
           </div>
           <div class="shadow-presets__actions" @click.stop>
-            <Button size="sm" variant="ghost" @click="emit('copy', preset)">
-              {{ t('SHADOW.COPY') }}
-            </Button>
-            <Button size="sm" variant="primary" @click="emit('share', preset)">
-              {{ t('SHADOW.SHARE') }}
+          <Button size="sm" variant="ghost" @click="emit('copy', preset)">
+            {{ t('SHADOW.COPY') }}
+          </Button>
+            <Button
+              size="sm"
+              variant="primary"
+              @click="emit('save', preset)"
+              :disabled="savingId === preset.id || isPresetSaved(preset)"
+            >
+              {{ t('SHADOW.SAVE') }}
             </Button>
           </div>
         </div>
@@ -42,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+import { toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { ShadowPreset } from '@/shared/types'
 import { Button } from '@/shared/ui'
@@ -50,17 +56,21 @@ import { hexToRgb } from '@/shared/lib/color'
 interface Props {
   presets: ShadowPreset[]
   activeId?: string | null
+  savingId?: string | null
+  isSaved?: (preset: ShadowPreset) => boolean
 }
 
 interface Emits {
   (e: 'apply', preset: ShadowPreset): void
   (e: 'copy', preset: ShadowPreset): void
-  (e: 'share', preset: ShadowPreset): void
+  (e: 'save', preset: ShadowPreset): void
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+const { presets, savingId, isSaved } = toRefs(props)
 const { t } = useI18n()
+const isPresetSaved = (preset: ShadowPreset) => (isSaved?.value && isSaved.value(preset)) ?? false
 
 function handleCardClick(preset: ShadowPreset, event: MouseEvent) {
   const target = event.target as HTMLElement | null

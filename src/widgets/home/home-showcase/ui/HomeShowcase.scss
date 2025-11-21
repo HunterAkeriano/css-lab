@@ -458,11 +458,9 @@
 @keyframes auroraBaseShift {
   0%, 100% {
     transform: scale(1);
-    filter: hue-rotate(0deg) brightness(1);
   }
   50% {
     transform: scale(1.05);
-    filter: hue-rotate(10deg) brightness(1.1);
   }
 }
 

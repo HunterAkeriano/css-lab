@@ -25,11 +25,37 @@
     <div class="gradient-generation-process__presets">
       <GradientPresets
         :presets="gradientPresets"
+        :saving-id="savingPresetId"
+        :is-saved="isPresetSaved"
         @apply="applyPreset"
         @copy="copyPreset"
-        @share="sharePreset"
+        @save="handleSavePreset"
       />
     </div>
+    <AuthPromptModal
+      :visible="showAuthModal"
+      :title="t('COMMON.AUTH_REQUIRED_TITLE')"
+      :description="t('COMMON.AUTH_REQUIRED_DESCRIPTION')"
+      :confirmLabel="t('COMMON.AUTH_REQUIRED_CONFIRM')"
+      :cancelLabel="t('COMMON.AUTH_REQUIRED_CLOSE')"
+      @confirm="handleAuthConfirm"
+      @close="showAuthModal = false"
+    />
+    <SavePresetModal
+      :visible="showSaveModal"
+      :title="t('PROFILE.SAVES_TITLE')"
+      :subtitle="t('PROFILE.SAVES_SUBTITLE')"
+      :confirmLabel="t('COMMON.SAVE')"
+      :cancelLabel="t('COMMON.CANCEL')"
+      :defaultName="saveContext?.defaultName ?? ''"
+      :entityLabel="entityLabel"
+      @confirm="confirmSavePreset"
+      @close="closeSaveModal"
+    >
+      <template #preview>
+        <div class="gradient-generation-process__save-preview" :style="currentSavePreviewStyle" />
+      </template>
+    </SavePresetModal>
   </div>
 </template>
 
@@ -43,6 +69,9 @@ import type { GradientType, GradientColor } from '@/shared/types'
 import { formatGradient, type CSSFormat, copyToClipboard, smoothScrollToTop } from '@/shared/lib'
 import { GradientPreview, GradientControls, GradientCodeExport, GradientPresets } from '@/features/gradient'
 import { GRADIENT_PRESETS } from './gradientPresets'
+import { listPublicSaves, type SavedItem, createSave, listSaves } from '@/shared/api/saves'
+import { useAuthStore } from '@/entities'
+import { AuthPromptModal, SavePresetModal } from '@/shared/ui'
 
 const type = ref<GradientType>('linear')
 const angle = ref(90)
@@ -51,12 +80,36 @@ const colors = ref<GradientColor[]>([
   { id: '2', color: '#764ba2', position: 100 }
 ])
 let colorIdCounter = colors.value.length
+const communityPresets = ref<GradientPreset[]>([])
 const gradientPresets = GRADIENT_PRESETS
+const allPresets = computed(() => [...communityPresets.value, ...gradientPresets])
 const selectedPresetId = ref<string | null>(null)
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const toast = useToast()
 const route = useRoute()
 const router = useRouter()
+const authStore = useAuthStore()
+const showAuthModal = ref(false)
+const showSaveModal = ref(false)
+const savingPresetId = ref<string | null>(null)
+const saveContext = ref<{
+  preset: GradientPreset
+  payload: Record<string, unknown>
+  defaultName: string
+} | null>(null)
+const savedGradientHashes = ref<Set<string>>(new Set())
+
+const entityLabel = computed(() => t('PROFILE.SAVED_GRADIENTS'))
+const currentSavePreviewStyle = computed(() => {
+  const context = saveContext.value
+  if (!context) return {}
+  const payload = context.payload as { type?: GradientType; angle?: number; colors?: GradientColor[] }
+  const colors = Array.isArray(payload.colors) ? payload.colors : []
+  if (!payload.type) return {}
+  return {
+    background: buildGradient(payload.type, payload.angle ?? 90, colors)
+  }
+})
 
 const gradientStyle = computed(() => {
   let gradient = ''
@@ -133,6 +186,26 @@ function applyPreset(preset: GradientPreset) {
   smoothScrollToTop()
 }
 
+function buildGradient(type: GradientType, angle: number, colors: GradientColor[]) {
+  const colorStops = colors.map(c => `${c.color} ${c.position}%`).join(', ')
+  switch (type) {
+    case 'radial':
+      return `radial-gradient(circle, ${colorStops})`
+    case 'conic':
+      return `conic-gradient(from ${angle}deg, ${colorStops})`
+    default:
+      return `linear-gradient(${angle}deg, ${colorStops})`
+  }
+}
+
+function presetHash(preset: GradientPreset) {
+  return JSON.stringify({
+    type: preset.type,
+    angle: preset.angle,
+    colors: preset.colors
+  })
+}
+
 function setPresetState(preset: GradientPreset) {
   type.value = preset.type
   angle.value = preset.angle
@@ -155,28 +228,64 @@ async function copyPreset(preset: GradientPreset) {
   toast[ok ? 'success' : 'error'](ok ? t('COMMON.COPIED_TO_CLIPBOARD') : t('COMMON.COPY_FAILED'))
 }
 
-async function sharePreset(preset: GradientPreset) {
-  const code = formatGradient(preset.type, preset.angle, preset.colors, 'inline')
-  const url = window.location.href
-
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: preset.name,
-        text: code,
-        url
-      })
-      toast.success(t('COMMON.SHARED_SUCCESS'))
-      return
-    } catch (error) {
-      console.warn('Share dialog was closed or not available', error)
-    }
+async function handleSavePreset(preset: GradientPreset) {
+  if (!authStore.isAuthenticated) {
+    showAuthModal.value = true
+    return
   }
 
-  const ok = await copyToClipboard(`${code}\n${url}`)
-  toast[ok ? 'success' : 'error'](
-    ok ? t('COMMON.COPIED_TO_CLIPBOARD') : t('COMMON.SHARE_UNAVAILABLE')
-  )
+  saveContext.value = {
+    preset,
+    payload: {
+      type: preset.type,
+      angle: preset.angle,
+      colors: preset.colors
+    },
+    defaultName: preset.name
+  }
+  showSaveModal.value = true
+}
+
+async function confirmSavePreset(name: string) {
+  const context = saveContext.value
+  if (!context) return
+
+  const finalName = name || context.defaultName
+  showSaveModal.value = false
+  savingPresetId.value = context.preset.id
+  try {
+    await createSave('gradient', finalName, context.payload)
+    toast.success(t('COMMON.SAVE_SUCCESS', { entity: entityLabel.value }))
+    savedGradientHashes.value.add(JSON.stringify(context.payload))
+  } catch (error: any) {
+    if (error?.status === 409) {
+      toast.error(t('COMMON.ALREADY_SAVED', { entity: entityLabel.value }))
+    } else {
+      toast.error(
+        error?.message || t('COMMON.SAVE_ERROR', { entity: entityLabel.value })
+      )
+    }
+  } finally {
+    savingPresetId.value = null
+    saveContext.value = null
+  }
+}
+
+function closeSaveModal() {
+  showSaveModal.value = false
+  saveContext.value = null
+}
+
+function isPresetSaved(preset: GradientPreset) {
+  return savedGradientHashes.value.has(presetHash(preset))
+}
+
+function handleAuthConfirm() {
+  showAuthModal.value = false
+  router.push({
+    name: `${locale.value}-login`,
+    query: { redirect: route.fullPath }
+  })
 }
 
 function getNextColorId() {
@@ -200,7 +309,7 @@ function applyPresetFromQuery(presetParam: unknown) {
   const presetId = normalizePresetId(presetParam)
   if (!presetId || presetId === selectedPresetId.value) return
 
-  const preset = gradientPresets.find(item => item.id === presetId)
+  const preset = allPresets.value.find(item => item.id === presetId)
   if (!preset) return
 
   setPresetState(preset)
@@ -213,8 +322,59 @@ function normalizePresetId(value: unknown): string | null {
   return typeof value === 'string' ? value : null
 }
 
+function mapCommunityPreset(item: SavedItem): GradientPreset | null {
+  const payload: any = item.payload || {}
+  if (!payload || typeof payload !== 'object') return null
+  if (!payload.type || !payload.colors) return null
+
+  const colors = Array.isArray(payload.colors)
+    ? payload.colors
+        .map((color: any, index: number) => {
+          if (!color?.color) return null
+          return {
+            id: color.id ?? `${index + 1}`,
+            color: color.color,
+            position: Number.isFinite(color.position) ? Number(color.position) : index * (100 / Math.max(1, payload.colors.length - 1))
+          } as GradientColor
+        })
+        .filter(Boolean)
+    : []
+
+  if (!colors.length) return null
+
+  return {
+    id: `community-${item.id}`,
+    name: item.name,
+    type: payload.type as GradientType,
+    angle: Number.isFinite(payload.angle) ? Number(payload.angle) : 90,
+    colors
+  }
+}
+
+async function loadCommunityPresets() {
+  try {
+    const items = await listPublicSaves('gradient')
+    communityPresets.value = items
+      .map(mapCommunityPreset)
+      .filter(Boolean) as GradientPreset[]
+  } catch (error) {
+    console.warn('Failed to load community gradients', error)
+  }
+}
+
+async function loadSavedGradients() {
+  try {
+    const saved = await listSaves('gradient')
+    savedGradientHashes.value = new Set(saved.map(item => JSON.stringify(item.payload)))
+  } catch (error) {
+    console.warn('Failed to load saved gradients', error)
+  }
+}
+
 onMounted(() => {
   applyPresetFromQuery(route.query.preset)
+  loadCommunityPresets()
+  loadSavedGradients()
 })
 
 watch(

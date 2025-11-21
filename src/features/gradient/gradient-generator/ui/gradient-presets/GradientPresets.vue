@@ -35,8 +35,13 @@
           <Button size="sm" variant="ghost" @click.stop="emit('copy', preset)">
             {{ t('GRADIENT.COPY') }}
           </Button>
-          <Button size="sm" variant="primary" @click.stop="emit('share', preset)">
-            {{ t('GRADIENT.SHARE') }}
+          <Button
+            size="sm"
+            variant="primary"
+            @click.stop="emit('save', preset)"
+            :disabled="savingId === preset.id || isPresetSaved(preset)"
+          >
+            {{ t('GRADIENT.SAVE') }}
           </Button>
         </div>
       </article>
@@ -45,6 +50,7 @@
 </template>
 
 <script setup lang="ts">
+import { toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { GradientPreset } from '@/processes/gradient/gradient-generation/gradientPresets'
 import type { GradientType } from '@/shared/types'
@@ -52,17 +58,21 @@ import { Button } from '@/shared/ui'
 
 interface Props {
   presets: GradientPreset[]
+  savingId?: string | null
+  isSaved?: (preset: GradientPreset) => boolean
 }
 
 interface Emits {
   (e: 'apply', preset: GradientPreset): void
   (e: 'copy', preset: GradientPreset): void
-  (e: 'share', preset: GradientPreset): void
+  (e: 'save', preset: GradientPreset): void
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+const { presets, savingId, isSaved } = toRefs(props)
 const { t } = useI18n()
+const isPresetSaved = (preset: GradientPreset) => (isSaved?.value && isSaved.value(preset)) ?? false
 
 function getStyle(preset: GradientPreset) {
   return {

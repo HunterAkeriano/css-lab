@@ -146,7 +146,7 @@ const isSearching = ref<boolean>(false)
 const selectedCategory = ref<string>((route.query.category as string) ?? 'all')
 const currentPage = ref(Number(route.query.page) > 0 ? Number(route.query.page) : 1)
 const itemsPerPage = 12
-let debounceTimeout: number | null = null
+let debounceTimeout: ReturnType<typeof setTimeout> | null = null
 
 const allowedCategories = computed(() => [
   'all',

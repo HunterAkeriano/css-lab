@@ -6,6 +6,27 @@
       <p class="animation-builder__subtitle">{{ t('ANIMATION.BUILDER_SUBTITLE') }}</p>
     </div>
 
+    <div class="animation-builder__community">
+      <p class="animation-builder__section-label">{{ t('ANIMATION.COMMUNITY_TITLE') }}</p>
+      <div v-if="communityLoading" class="animation-builder__community-empty">
+        {{ t('ANIMATION.COMMUNITY_LOADING') }}
+      </div>
+      <div v-else-if="!communityAnimations.length" class="animation-builder__community-empty">
+        {{ t('ANIMATION.COMMUNITY_EMPTY') }}
+      </div>
+      <div v-else class="animation-builder__community-list">
+        <button
+          v-for="animation in communityAnimations"
+          :key="animation.id"
+          class="animation-builder__community-chip"
+          type="button"
+          @click="applyCommunity(animation.payload)"
+        >
+          {{ animation.name }}
+        </button>
+      </div>
+    </div>
+
     <div class="animation-builder__container">
       <div class="animation-builder__content">
         <div class="animation-builder__controls-section">
@@ -89,11 +110,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, type CSSProperties } from 'vue'
+import { computed, onMounted, ref, type CSSProperties } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Button, Input, Select, type SelectOption } from '@/shared/ui'
 import { copyToClipboard } from '@/shared/lib'
 import { useToast } from 'vue-toastification'
+import { listPublicSaves, type SavedItem } from '@/shared/api/saves'
 
 const { t } = useI18n()
 const toast = useToast()
@@ -124,6 +146,9 @@ const iterationOptions: SelectOption[] = [
   { label: '2', value: '2' },
   { label: '3', value: '3' }
 ]
+
+const communityAnimations = ref<SavedItem[]>([])
+const communityLoading = ref(false)
 
 const motionValues = computed(() => ({
   startX: distanceX.value * -1,
@@ -157,6 +182,33 @@ const previewStyle = computed<CSSProperties>(() => {
     '--motion-iterations': motion.iterations
   }
 })
+
+function applyCommunity(payload: unknown) {
+  if (!payload || typeof payload !== 'object') return
+  const data = payload as Record<string, any>
+
+  if (Number.isFinite(Number(data.duration))) duration.value = Number(data.duration)
+  if (Number.isFinite(Number(data.delay))) delay.value = Number(data.delay)
+  if (Number.isFinite(Number(data.distanceX))) distanceX.value = Number(data.distanceX)
+  if (Number.isFinite(Number(data.distanceY))) distanceY.value = Number(data.distanceY)
+  if (Number.isFinite(Number(data.scaleFrom))) scaleFrom.value = Number(data.scaleFrom)
+  if (Number.isFinite(Number(data.scaleTo))) scaleTo.value = Number(data.scaleTo)
+  if (Number.isFinite(Number(data.opacityFrom))) opacityFrom.value = Number(data.opacityFrom)
+  if (Number.isFinite(Number(data.opacityTo))) opacityTo.value = Number(data.opacityTo)
+  if (typeof data.easing === 'string') easing.value = data.easing
+  if (data.iterations !== undefined) iterations.value = String(data.iterations)
+}
+
+async function loadCommunityAnimations() {
+  communityLoading.value = true
+  try {
+    communityAnimations.value = await listPublicSaves('animation')
+  } catch (error) {
+    console.warn('Failed to load community animations', error)
+  } finally {
+    communityLoading.value = false
+  }
+}
 
 const codeSnippetWithVariables = computed(() => {
   const motion = motionValues.value
@@ -278,6 +330,10 @@ async function handleCopy() {
     toast.success(t('COMMON.COPIED_TO_CLIPBOARD'))
   }
 }
+
+onMounted(() => {
+  loadCommunityAnimations()
+})
 </script>
 
 <style lang="scss" scoped src="./AnimationBuilder.scss"></style>

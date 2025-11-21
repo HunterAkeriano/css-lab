@@ -4,20 +4,20 @@
       <div class="header__content">
         <Logo />
 
-        <nav class="header__nav">
-          <NavLink to="/gradient" className="header__nav-link">
-            {{ t('NAV.GRADIENTS') }}
-          </NavLink>
-          <NavLink to="/docs" className="header__nav-link">
-            {{ t('NAV.DOCS') }}
-          </NavLink>
-          <NavLink to="/shadow" className="header__nav-link">
-            {{ t('NAV.SHADOWS') }}
-          </NavLink>
-          <NavLink to="/animation" className="header__nav-link">
-            {{ t('NAV.ANIMATIONS') }}
-          </NavLink>
-        </nav>
+          <nav class="header__nav">
+            <NavLink :to="`/${locale}/gradient`" className="header__nav-link">
+              {{ t('NAV.GRADIENTS') }}
+            </NavLink>
+            <NavLink :to="`/${locale}/docs`" className="header__nav-link">
+              {{ t('NAV.DOCS') }}
+            </NavLink>
+            <NavLink :to="`/${locale}/shadow`" className="header__nav-link">
+              {{ t('NAV.SHADOWS') }}
+            </NavLink>
+            <NavLink :to="`/${locale}/animation`" className="header__nav-link">
+              {{ t('NAV.ANIMATIONS') }}
+            </NavLink>
+          </nav>
 
         <div class="header__actions">
           <ThemeSwitcher />
@@ -66,7 +66,7 @@
           <LanguageSwitcher />
 
           <template v-if="authStore.isAuthenticated && authStore.user">
-            <NavLink to="/profile" className="header__mobile-link" @click="closeMobileMenu">
+            <NavLink :to="`/${locale}/profile`" className="header__mobile-link" @click="closeMobileMenu">
               {{ t('NAV.PROFILE') }}
             </NavLink>
 
@@ -112,7 +112,7 @@ function closeMobileMenu() {
 
 function goToAuth() {
   closeMobileMenu()
-  router.push(`/${locale.value}/auth`)
+  router.push(`/${locale.value}/login`)
 }
 
 function handleLogout() {

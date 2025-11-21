@@ -27,8 +27,13 @@
             <Button variant="primary" size="sm" @click="handleCopy">
               {{ copied ? t('COMMON.COPIED_TO_CLIPBOARD') : t('ANIMATION.COPY_SNIPPET') }}
             </Button>
-            <Button variant="ghost" size="sm" @click="handleShare">
-              {{ t('ANIMATION.SHARE') }}
+          <Button
+            variant="ghost"
+            size="sm"
+            @click="handleSaveExample"
+            :disabled="savingExampleId === selectedExample?.id || isAnimationSaved"
+          >
+              {{ t('ANIMATION.SAVE') }}
             </Button>
           </div>
         </div>
@@ -41,25 +46,63 @@
             <p class="animation-card__tag">{{ t('ANIMATION.HTML_CSS') }}</p>
           </div>
           <pre class="code-block" v-html="highlightedCode"></pre>
-        </div>
-      </div>
     </div>
   </div>
+    <AuthPromptModal
+      :visible="showAuthModal"
+      :title="t('COMMON.AUTH_REQUIRED_TITLE')"
+      :description="t('COMMON.AUTH_REQUIRED_DESCRIPTION')"
+      :confirmLabel="t('COMMON.AUTH_REQUIRED_CONFIRM')"
+      :cancelLabel="t('COMMON.AUTH_REQUIRED_CLOSE')"
+      @confirm="handleAuthConfirm"
+      @close="showAuthModal = false"
+    />
+    <SavePresetModal
+      :visible="showSaveModal"
+      :title="t('PROFILE.SAVES_TITLE')"
+      :subtitle="t('PROFILE.SAVES_SUBTITLE')"
+      :confirmLabel="t('COMMON.SAVE')"
+      :cancelLabel="t('COMMON.CANCEL')"
+      :defaultName="saveContext?.defaultName ?? ''"
+      :entityLabel="entityLabel"
+      @confirm="confirmSaveExample"
+      @close="closeSaveModal"
+    />
+  </div>
+</div>
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed, defineAsyncComponent, ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { Button, NavLink } from '@/shared/ui'
+import { AuthPromptModal, Button, NavLink } from '@/shared/ui'
 import { copyToClipboard } from '@/shared/lib'
 import { useToast } from 'vue-toastification'
 import { animationExamples } from '@/entities/animation'
+import { createSave, listSaves, type SavedItem } from '@/shared/api/saves'
+import { useAuthStore } from '@/entities'
 
 const route = useRoute()
-const { t } = useI18n()
+const router = useRouter()
+const { t, locale } = useI18n()
 const copied = ref(false)
 const toast = useToast()
+const authStore = useAuthStore()
+const showAuthModal = ref(false)
+const showSaveModal = ref(false)
+const saveContext = ref<{ defaultName: string; payload: Record<string, unknown> } | null>(null)
+const entityLabel = computed(() => t('PROFILE.SAVED_ANIMATIONS'))
+const savedAnimationHashes = ref<Set<string>>(new Set())
+const savingExampleId = ref<string | null>(null)
+const animationPayloadHash = computed(() => {
+  const payload = selectedExample.value
+  if (!payload) return ''
+  return JSON.stringify({ html: payload.html, css: payload.css })
+})
+const isAnimationSaved = computed(() =>
+  animationPayloadHash.value ? savedAnimationHashes.value.has(animationPayloadHash.value) : false
+)
 
 const examplesWithComponents = animationExamples.map(example => ({
   ...example,
@@ -112,21 +155,77 @@ async function handleCopy() {
   }
 }
 
-async function handleShare() {
+
+
+async function handleSaveExample() {
   if (!selectedExample.value) return
-  const payload = snippet.value
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: `Style Engine — ${t(selectedExample.value.titleKey)}`,
-        text: payload
-      })
-      return
-    } catch {
+  if (!authStore.isAuthenticated) {
+    showAuthModal.value = true
+    return
+  }
+
+  saveContext.value = {
+    defaultName: t(selectedExample.value.titleKey),
+    payload: {
+      id: selectedExample.value.id,
+      html: selectedExample.value.html,
+      css: selectedExample.value.css
     }
   }
-  await handleCopy()
+  showSaveModal.value = true
 }
+
+async function confirmSaveExample(name: string) {
+  if (isAnimationSaved.value) return
+  const context = saveContext.value
+  if (!context) return
+
+  const finalName = name || context.defaultName
+  showSaveModal.value = false
+  savingExampleId.value = selectedExample.value?.id ?? null
+  try {
+    await createSave('animation', finalName, context.payload)
+    toast.success(t('COMMON.SAVE_SUCCESS', { entity: entityLabel.value }))
+    savedAnimationHashes.value.add(JSON.stringify(context.payload))
+  } catch (error: any) {
+    if (error?.status === 409) {
+      toast.error(t('COMMON.ALREADY_SAVED', { entity: entityLabel.value }))
+    } else {
+      toast.error(
+        error?.message || t('COMMON.SAVE_ERROR', { entity: entityLabel.value })
+      )
+    }
+  } finally {
+    savingExampleId.value = null
+    saveContext.value = null
+  }
+}
+
+function closeSaveModal() {
+  showSaveModal.value = false
+  saveContext.value = null
+}
+
+async function loadSavedAnimations() {
+  try {
+    const saved = await listSaves('animation')
+    savedAnimationHashes.value = new Set(saved.map((item: SavedItem) => JSON.stringify(item.payload)))
+  } catch (error) {
+    console.warn('Failed to load saved animations', error)
+  }
+}
+
+function handleAuthConfirm() {
+  showAuthModal.value = false
+  router.push({
+    name: `${locale.value}-login`,
+    query: { redirect: route.fullPath }
+  })
+}
+
+onMounted(() => {
+  loadSavedAnimations()
+})
 </script>
 
 <style lang="scss" scoped src="./AnimationDetailPage.scss"></style>

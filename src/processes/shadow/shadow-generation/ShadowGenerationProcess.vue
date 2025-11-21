@@ -22,13 +22,39 @@
 
     <div class="shadow-generation__presets">
       <ShadowPresets
-        :presets="shadowPresets"
+        :presets="allPresets"
         :active-id="selectedPresetId"
+        :saving-id="savingPresetId"
+        :is-saved="isPresetSaved"
         @apply="applyPreset"
         @copy="copyPreset"
-        @share="sharePreset"
+        @save="handleSavePreset"
       />
     </div>
+    <AuthPromptModal
+      :visible="showAuthModal"
+      :title="t('COMMON.AUTH_REQUIRED_TITLE')"
+      :description="t('COMMON.AUTH_REQUIRED_DESCRIPTION')"
+      :confirmLabel="t('COMMON.AUTH_REQUIRED_CONFIRM')"
+      :cancelLabel="t('COMMON.AUTH_REQUIRED_CLOSE')"
+      @confirm="handleAuthConfirm"
+      @close="showAuthModal = false"
+    />
+    <SavePresetModal
+      :visible="showSaveModal"
+      :title="t('PROFILE.SAVES_TITLE')"
+      :subtitle="t('PROFILE.SAVES_SUBTITLE')"
+      :confirmLabel="t('COMMON.SAVE')"
+      :cancelLabel="t('COMMON.CANCEL')"
+      :defaultName="saveContext?.defaultName ?? ''"
+      :entityLabel="entityLabel"
+      @confirm="confirmSavePreset"
+      @close="closeSaveModal"
+    >
+      <template #preview>
+        <div class="shadow-generation__save-preview" :style="currentSavePreviewStyle" />
+      </template>
+    </SavePresetModal>
   </div>
 </template>
 
@@ -42,8 +68,13 @@ import { randomHexColor, hexToRgb } from '@/shared/lib/color'
 import { copyToClipboard, formatBoxShadow, type CSSFormat, smoothScrollToTop } from '@/shared/lib'
 import { ShadowControls, ShadowPreview, ShadowCodeExport, ShadowPresets } from '@/features/shadow'
 import { SHADOW_PRESETS } from './shadowPresets'
+import { listPublicSaves, listSaves, type SavedItem, createSave } from '@/shared/api/saves'
+import { useAuthStore } from '@/entities'
+import { AuthPromptModal, SavePresetModal } from '@/shared/ui'
 
 const shadowPresets = SHADOW_PRESETS
+const communityPresets = ref<ShadowPreset[]>([])
+const allPresets = computed(() => [...communityPresets.value, ...shadowPresets])
 const defaultLayers: ShadowLayer[] = [
   { id: '1', x: 0, y: 12, spread: 16, color: '#0b1220', opacity: 0.36, inset: false },
   { id: '2', x: 0, y: 0, spread: 3, color: '#a855f7', opacity: 0.2, inset: true }
@@ -54,8 +85,29 @@ const selectedPresetId = ref<string | null>(null)
 
 const route = useRoute()
 const router = useRouter()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const toast = useToast()
+const authStore = useAuthStore()
+const showAuthModal = ref(false)
+const showSaveModal = ref(false)
+const savingPresetId = ref<string | null>(null)
+const saveContext = ref<{
+  preset: ShadowPreset
+  payload: Record<string, unknown>
+  defaultName: string
+} | null>(null)
+const savedShadowHashes = ref<Set<string>>(new Set())
+const entityLabel = computed(() => t('PROFILE.SAVED_SHADOWS'))
+const currentSavePreviewStyle = computed(() => {
+  const context = saveContext.value
+  if (!context) return {}
+  const payload = context.payload as { layers?: ShadowLayer[] }
+  const layers = Array.isArray(payload.layers) ? payload.layers : []
+  if (!layers.length) return {}
+  return {
+    boxShadow: buildShadow(layers)
+  }
+})
 
 const boxShadowValue = computed(() => {
   return layers.value.map(layerToCss).join(', ')
@@ -178,35 +230,77 @@ async function copyPreset(preset: ShadowPreset) {
   toast[ok ? 'success' : 'error'](ok ? t('COMMON.COPIED_TO_CLIPBOARD') : t('COMMON.COPY_FAILED'))
 }
 
-async function sharePreset(preset: ShadowPreset) {
-  const code = formatBoxShadow(
-    preset.layers.map(layer => ({
-      ...layer,
-      blur: 0,
-      color: resolveColor(layer)
-    })),
-    'inline'
-  )
-  const url = window.location.href
-
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: preset.name,
-        text: code,
-        url
-      })
-      toast.success(t('COMMON.SHARED_SUCCESS'))
-      return
-    } catch (error) {
-      console.warn('Share dialog was closed or not available', error)
-    }
+async function handleSavePreset(preset: ShadowPreset) {
+  if (!authStore.isAuthenticated) {
+    showAuthModal.value = true
+    return
   }
 
-  const ok = await copyToClipboard(`${code}\n${url}`)
-  toast[ok ? 'success' : 'error'](
-    ok ? t('COMMON.COPIED_TO_CLIPBOARD') : t('COMMON.SHARE_UNAVAILABLE')
-  )
+  saveContext.value = {
+    preset,
+    payload: {
+      layers: preset.layers
+    },
+    defaultName: preset.name
+  }
+  showSaveModal.value = true
+}
+
+async function confirmSavePreset(name: string) {
+  const context = saveContext.value
+  if (!context) return
+
+  const finalName = name || context.defaultName
+  showSaveModal.value = false
+  savingPresetId.value = context.preset.id
+  try {
+    await createSave('shadow', finalName, context.payload)
+    toast.success(t('COMMON.SAVE_SUCCESS', { entity: entityLabel.value }))
+    savedShadowHashes.value.add(JSON.stringify(context.payload))
+  } catch (error: any) {
+    if (error?.status === 409) {
+      toast.error(t('COMMON.ALREADY_SAVED', { entity: entityLabel.value }))
+    } else {
+      toast.error(
+        error?.message || t('COMMON.SAVE_ERROR', { entity: entityLabel.value })
+      )
+    }
+  } finally {
+    savingPresetId.value = null
+    saveContext.value = null
+  }
+}
+
+function closeSaveModal() {
+  showSaveModal.value = false
+  saveContext.value = null
+}
+
+function isPresetSaved(preset: ShadowPreset) {
+  return savedShadowHashes.value.has(shadowPresetHash(preset))
+}
+
+function handleAuthConfirm() {
+  showAuthModal.value = false
+  router.push({
+    name: `${locale.value}-login`,
+    query: { redirect: route.fullPath }
+  })
+}
+
+function buildShadow(layers: ShadowLayer[]) {
+  return layers
+    .map(layer => {
+      return `${layer.inset ? 'inset ' : ''}${layer.x}px ${layer.y}px 0 ${layer.spread}px ${layer.color}`
+    })
+    .join(', ')
+
+}
+
+function shadowPresetHash(preset: ShadowPreset) {
+  return JSON.stringify({
+    layers: preset.layers
+  })
 }
 
 function normalizeLayers(layers: ShadowLayer[]): ShadowLayer[] {
@@ -245,7 +339,7 @@ function applyPresetFromQuery(presetParam: unknown) {
   const presetId = normalizePresetId(presetParam)
   if (!presetId || presetId === selectedPresetId.value) return
 
-  const preset = shadowPresets.find(item => item.id === presetId)
+  const preset = allPresets.value.find(item => item.id === presetId)
   if (!preset) return
 
   applyPreset(preset)
@@ -258,8 +352,57 @@ function normalizePresetId(value: unknown): string | null {
   return typeof value === 'string' ? value : null
 }
 
+function mapCommunityPreset(item: SavedItem): ShadowPreset | null {
+  const payload: any = item.payload || {}
+  const layers = Array.isArray(payload.layers)
+    ? payload.layers
+        .map((layer: any, index: number) => {
+          if (!layer) return null
+          return {
+            id: `${index + 1}`,
+            x: Number.isFinite(layer.x) ? Number(layer.x) : 0,
+            y: Number.isFinite(layer.y) ? Number(layer.y) : 0,
+            spread: Number.isFinite(layer.spread) ? Number(layer.spread) : 0,
+            color: typeof layer.color === 'string' ? layer.color : '#000000',
+            opacity: Number.isFinite(layer.opacity) ? Number(layer.opacity) : 0.35,
+            inset: Boolean(layer.inset)
+          }
+        })
+        .filter(Boolean)
+    : []
+
+  if (!layers.length) return null
+
+  return {
+    id: `community-${item.id}`,
+    name: item.name,
+    description: payload.description || 'Community shadow',
+    layers
+  }
+}
+
+async function loadSavedShadows() {
+  try {
+    const saved = await listSaves('shadow')
+    savedShadowHashes.value = new Set(saved.map((item: SavedItem) => JSON.stringify(item.payload)))
+  } catch (error) {
+    console.warn('Failed to load saved shadows', error)
+  }
+}
+
+async function loadCommunityPresets() {
+  try {
+    const items = await listPublicSaves('shadow')
+    communityPresets.value = items.map(mapCommunityPreset).filter(Boolean) as ShadowPreset[]
+  } catch (error) {
+    console.warn('Failed to load community shadows', error)
+  }
+}
+
 onMounted(() => {
   applyPresetFromQuery(route.query.preset)
+  loadCommunityPresets()
+  loadSavedShadows()
 })
 
 watch(

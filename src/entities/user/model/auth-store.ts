@@ -1,14 +1,31 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { apiClient } from '@/shared/api'
+import { AUTH_TOKEN_KEY } from '@/shared/api/constants'
 import type { User } from './types'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null)
   const isLoading = ref(false)
   const error = ref<string | null>(null)
+  const token = ref<string | null>(null)
+  const hydrated = ref(false)
 
   const isAuthenticated = computed(() => user.value !== null)
-  const userPlan = computed(() => user.value?.plan || 'free')
+  const userPlan = computed(() => (user.value?.isPayment ? 'pro' : user.value?.plan || 'free'))
+  const isAdmin = computed(() => Boolean(user.value?.isAdmin))
+  const isPaid = computed(() => Boolean(user.value?.isPayment))
+
+  function setToken(next: string | null) {
+    token.value = next
+    if (next) {
+      localStorage.setItem(AUTH_TOKEN_KEY, next)
+      apiClient.setAuthToken(next)
+    } else {
+      localStorage.removeItem(AUTH_TOKEN_KEY)
+      apiClient.removeAuthToken()
+    }
+  }
 
   function setUser(newUser: User | null) {
     user.value = newUser
@@ -22,15 +39,37 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = errorMessage
   }
 
-  async function login(_email: string, _password: string) {
+  async function fetchProfile() {
+    const response = await apiClient.get<{ user: User }>('/profile')
+    setUser(response.data.user)
+    return response.data.user
+  }
+
+  async function ensureSession() {
+    if (hydrated.value) return
+    hydrated.value = true
+    const stored = localStorage.getItem(AUTH_TOKEN_KEY)
+    if (!stored) return
+    setToken(stored)
+    try {
+      await fetchProfile()
+    } catch {
+      setToken(null)
+      setUser(null)
+    }
+  }
+
+  async function login(email: string, password: string) {
     setLoading(true)
     setError(null)
-    void _email
-    void _password
 
     try {
-      // TODO: Implement actual API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      const response = await apiClient.post<{ token: string; user: User }>('/auth/login', {
+        email,
+        password
+      })
+      setToken(response.data.token)
+      setUser(response.data.user)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed')
     } finally {
@@ -38,16 +77,18 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  async function register(_email: string, _password: string, _name: string) {
+  async function register(email: string, password: string, name: string) {
     setLoading(true)
     setError(null)
-    void _email
-    void _password
-    void _name
 
     try {
-      // TODO: Implement actual API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      const response = await apiClient.post<{ token: string; user: User }>('/auth/register', {
+        email,
+        password,
+        name
+      })
+      setToken(response.data.token)
+      setUser(response.data.user)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed')
     } finally {
@@ -58,15 +99,24 @@ export const useAuthStore = defineStore('auth', () => {
   function logout() {
     setUser(null)
     setError(null)
+    setToken(null)
   }
 
   return {
     user,
     isLoading,
     error,
+    token,
+    hydrated,
     isAuthenticated,
     userPlan,
+    isAdmin,
+    isPaid,
     setUser,
+    setError,
+    setToken,
+    ensureSession,
+    fetchProfile,
     login,
     register,
     logout

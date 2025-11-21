@@ -1,9 +1,23 @@
 export interface User {
   id: string
   email: string
+  name: string | null
+  avatarUrl?: string | null
+  plan?: 'free' | 'pro' | 'premium'
+  isPayment?: boolean
+  isAdmin?: boolean
+  createdAt: string
+  updatedAt?: string
+}
+
+export interface SavedItem {
+  id: string
   name: string
-  avatar?: string
-  plan: 'free' | 'pro' | 'premium'
+  payload: Record<string, unknown>
+  status?: 'private' | 'pending' | 'approved'
+  isFeatured?: boolean
+  approvedAt?: string | null
+  category?: 'gradient' | 'shadow' | 'animation'
   createdAt: string
 }
 
