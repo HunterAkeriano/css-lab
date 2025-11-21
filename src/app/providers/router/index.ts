@@ -4,6 +4,7 @@ import { AVAILABLE_LOCALES } from '../i18n'
 import MainLayout from '@/app/layouts/main-layout/MainLayout.vue'
 import AuthLayout from '@/app/layouts/auth-layout/AuthLayout.vue'
 import GeneratorLayout from '@/app/layouts/generator-layout/GeneratorLayout.vue'
+import DocsLayout from '@/app/layouts/docs-layout/DocsLayout.vue'
 
 const mainLayoutChildren: RouteRecordRaw[] = [
   {
@@ -11,33 +12,6 @@ const mainLayoutChildren: RouteRecordRaw[] = [
     name: 'home',
     component: () => import('@/pages/home/HomePage.vue'),
     meta: { titleKey: 'META.HOME', descriptionKey: 'META_DESCRIPTION.HOME' }
-  },
-  {
-    path: 'docs',
-    name: 'docs',
-    component: () => import('@/pages/docs/ui/docs-page/DocsPage.vue'),
-    meta: { titleKey: 'META.DOCS', descriptionKey: 'META_DESCRIPTION.DOCS' }
-  },
-  {
-    path: 'docs/gradients',
-    name: 'docs-gradients',
-    component: () => import('@/pages/docs/ui/docs-topic-page/DocsTopicPage.vue'),
-    props: () => ({ topic: 'gradients' as const }),
-    meta: { titleKey: 'META.DOCS_GRADIENTS', descriptionKey: 'META_DESCRIPTION.DOCS_GRADIENTS' }
-  },
-  {
-    path: 'docs/shadows',
-    name: 'docs-shadows',
-    component: () => import('@/pages/docs/ui/docs-topic-page/DocsTopicPage.vue'),
-    props: () => ({ topic: 'shadows' as const }),
-    meta: { titleKey: 'META.DOCS_SHADOWS', descriptionKey: 'META_DESCRIPTION.DOCS_SHADOWS' }
-  },
-  {
-    path: 'docs/animations',
-    name: 'docs-animations',
-    component: () => import('@/pages/docs/ui/docs-topic-page/DocsTopicPage.vue'),
-    props: () => ({ topic: 'animations' as const }),
-    meta: { titleKey: 'META.DOCS_ANIMATIONS', descriptionKey: 'META_DESCRIPTION.DOCS_ANIMATIONS' }
   },
   {
     path: 'profile',
@@ -108,7 +82,26 @@ const authLayoutRoute: RouteRecordRaw = {
 const baseRoutes: RouteRecordRaw[] = [
   { path: '', component: MainLayout, children: mainLayoutChildren },
   ...generatorLayoutRoutes,
-  authLayoutRoute
+  authLayoutRoute,
+  {
+    path: 'docs',
+    component: DocsLayout,
+    children: [
+      {
+        path: '',
+        name: 'docs',
+        component: () => import('@/pages/docs/ui/docs-page/DocsPage.vue'),
+        meta: { titleKey: 'META.DOCS', descriptionKey: 'META_DESCRIPTION.DOCS' }
+      },
+      {
+        path: ':topic',
+        name: 'docs-topic',
+        component: () => import('@/pages/docs/ui/docs-topic-page/DocsTopicPage.vue'),
+        props: route => ({ topic: route.params.topic as any }),
+        meta: { titleKey: 'META.DOCS', descriptionKey: 'META_DESCRIPTION.DOCS' }
+      }
+    ]
+  }
 ]
 
 function applyLocalePrefix(locale: string, routes: RouteRecordRaw[]): RouteRecordRaw[] {
@@ -143,7 +136,7 @@ const notFoundRoute: RouteRecordRaw = {
 }
 
 const router = createRouter({
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(),
   routes: [...localizedRoutes, notFoundRoute],
   scrollBehavior(_to, _from, savedPosition) {
     if (savedPosition) {
