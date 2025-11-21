@@ -1,1 +1,0 @@
-import{_ as a,c as s,o as c,a as t}from"./index-CaC58y4O.js";const o={},n={class:"scale-fade"};function _(d,e){return c(),s("div",n,[...e[0]||(e[0]=[t("div",{class:"scale-fade__item"},null,-1)])])}const f=a(o,[["render",_],["__scopeId","data-v-35fbffa7"]]);export{f as default};

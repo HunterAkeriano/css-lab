@@ -1,1 +1,0 @@
-import{_ as s,c as e,o as a,a as n}from"./index-CaC58y4O.js";const o={},t={class:"spinner-lines"};function u(c,l){return a(),e("div",t,[...l[0]||(l[0]=[n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1)])])}const p=s(o,[["render",u],["__scopeId","data-v-859e7dc0"]]);export{p as default};

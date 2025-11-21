@@ -1,0 +1,1 @@
+import{_ as e,c,o as s}from"./app-s1azNKVI.js";const n={},o={class:"ring-dash"};function t(a,_){return s(),c("div",o)}const i=e(n,[["render",t],["__scopeId","data-v-5e582093"]]);export{i as default};

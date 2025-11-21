@@ -1,1 +1,0 @@
-import{_ as r,c as e,o as a,F as s,r as n,a as c}from"./index-CaC58y4O.js";const o={},_={class:"beat-grid"};function d(i,l){return a(),e("div",_,[(a(),e(s,null,n(12,t=>c("span",{key:t})),64))])}const m=r(o,[["render",d],["__scopeId","data-v-6b9b7ad9"]]);export{m as default};

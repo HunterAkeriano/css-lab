@@ -1,1 +1,0 @@
-import{_ as a,c as o,o as s,a as t}from"./index-CaC58y4O.js";const c={},r={class:"beam-loader"};function n(_,e){return s(),o("div",r,[...e[0]||(e[0]=[t("span",{class:"beam-loader__track"},null,-1)])])}const l=a(c,[["render",n],["__scopeId","data-v-9da20e6c"]]);export{l as default};

@@ -1,0 +1,1 @@
+import{_ as e,c as s,o as a,a as n}from"./app-s1azNKVI.js";const o={},t={class:"wave-lines"};function c(u,l){return a(),s("div",t,[...l[0]||(l[0]=[n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1)])])}const _=e(o,[["render",c],["__scopeId","data-v-7518ed71"]]);export{_ as default};

@@ -1,0 +1,1 @@
+import{_ as c,c as o,o as r,a}from"./app-s1azNKVI.js";const s={},t={class:"circle-loader"};function n(d,e){return r(),o("div",t,[...e[0]||(e[0]=[a("div",{class:"circle-loader__ring"},null,-1)])])}const _=c(s,[["render",n],["__scopeId","data-v-52bc2db8"]]);export{_ as default};

@@ -1,1 +1,0 @@
-import{_ as a,c,o as r,a as s}from"./index-CaC58y4O.js";const n={},t={class:"shimmer-card"};function o(_,e){return r(),c("div",t,[...e[0]||(e[0]=[s("div",{class:"shimmer-card__shine"},null,-1),s("div",{class:"shimmer-card__content"},null,-1)])])}const i=a(n,[["render",o],["__scopeId","data-v-2f59cf79"]]);export{i as default};

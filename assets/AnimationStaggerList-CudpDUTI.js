@@ -1,1 +1,0 @@
-import{d as o,c as e,o as t,F as c,r as _,e as i,_ as m}from"./index-CaC58y4O.js";const l={class:"stagger-list"},p=o({__name:"AnimationStaggerList",setup(u){const a=Array.from({length:5}).map((r,s)=>s);return(r,s)=>(t(),e("ul",l,[(t(!0),e(c,null,_(i(a),n=>(t(),e("li",{key:n}))),128))]))}}),f=m(p,[["__scopeId","data-v-e85ccdfb"]]);export{f as default};

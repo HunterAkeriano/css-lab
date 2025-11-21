@@ -1,0 +1,1 @@
+import{_ as e,c,o as _,a}from"./app-s1azNKVI.js";const s={},d={class:"radar"};function l(n,r){return _(),c("div",d,[...r[0]||(r[0]=[a("div",{class:"radar__circle radar__circle_outer"},null,-1),a("div",{class:"radar__circle radar__circle_inner"},null,-1),a("div",{class:"radar__beam"},null,-1)])])}const t=e(s,[["render",l],["__scopeId","data-v-b06b0db5"]]);export{t as default};

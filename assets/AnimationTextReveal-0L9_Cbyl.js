@@ -1,0 +1,1 @@
+import{_ as a,c as s,o as n,a as t}from"./app-s1azNKVI.js";const o={},c={class:"text-reveal"};function r(_,e){return n(),s("div",c,[...e[0]||(e[0]=[t("div",{class:"text-reveal__content"},[t("span",null,"CSS Animations")],-1)])])}const d=a(o,[["render",r],["__scopeId","data-v-9bd1706b"]]);export{d as default};

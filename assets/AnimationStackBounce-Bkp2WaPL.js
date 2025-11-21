@@ -1,1 +1,0 @@
-import{_ as s,c as a,o as c,a as n}from"./index-CaC58y4O.js";const o={},t={class:"stack-bounce"};function l(r,e){return c(),a("div",t,[...e[0]||(e[0]=[n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1)])])}const _=s(o,[["render",l],["__scopeId","data-v-13bc98e0"]]);export{_ as default};

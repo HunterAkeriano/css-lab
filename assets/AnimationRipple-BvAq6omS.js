@@ -1,0 +1,1 @@
+import{_ as l,c as r,o as s,a as c}from"./app-s1azNKVI.js";const _={},i={class:"ripple"};function a(p,e){return s(),r("div",i,[...e[0]||(e[0]=[c("div",{class:"ripple__circle ripple__circle_base"},null,-1),c("div",{class:"ripple__circle ripple__circle_wave"},null,-1)])])}const t=l(_,[["render",a],["__scopeId","data-v-4c924e77"]]);export{t as default};

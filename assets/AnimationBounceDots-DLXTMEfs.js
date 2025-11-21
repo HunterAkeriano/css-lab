@@ -1,1 +1,0 @@
-import{_ as l,c as e,o,a as n}from"./index-CaC58y4O.js";const a={},t={class:"bounce-dots"};function c(u,s){return o(),e("div",t,[...s[0]||(s[0]=[n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1)])])}const _=l(a,[["render",c],["__scopeId","data-v-31fb09c5"]]);export{_ as default};

@@ -1,1 +1,0 @@
-import{_ as l,c as s,o as a,a as n}from"./index-CaC58y4O.js";const o={},t={class:"cube-pulse"};function u(c,e){return a(),s("div",t,[...e[0]||(e[0]=[n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1),n("span",null,null,-1)])])}const _=l(o,[["render",u],["__scopeId","data-v-733ef5ea"]]);export{_ as default};

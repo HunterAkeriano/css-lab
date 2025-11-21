@@ -1,0 +1,1 @@
+import{_ as e,c as r,o as a,a as o}from"./app-s1azNKVI.js";const t={},c={class:"progress-bar"};function n(_,s){return a(),r("div",c,[...s[0]||(s[0]=[o("div",{class:"progress-bar__fill"},null,-1)])])}const l=e(t,[["render",n],["__scopeId","data-v-3d7e0f6a"]]);export{l as default};

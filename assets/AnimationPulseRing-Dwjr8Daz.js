@@ -1,0 +1,1 @@
+import{_ as n,c as a,o,a as s}from"./app-s1azNKVI.js";const t={},c={class:"pulse-ring"};function l(r,e){return o(),a("div",c,[...e[0]||(e[0]=[s("div",{class:"pulse-ring__dot"},null,-1),s("div",{class:"pulse-ring__wave"},null,-1)])])}const i=n(t,[["render",l],["__scopeId","data-v-a056e7eb"]]);export{i as default};
