@@ -149,7 +149,10 @@ const router = createRouter({
     if (savedPosition) {
       return { ...savedPosition, behavior: 'smooth' }
     }
-    return { left: 0, top: 0, behavior: 'smooth' }
+    if (_to.path !== _from.path) {
+      return { left: 0, top: 0, behavior: 'smooth' }
+    }
+    return false
   }
 })
 

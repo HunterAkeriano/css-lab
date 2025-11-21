@@ -1,0 +1,38 @@
+.clock-loader {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 3px solid color-var-alpha('color-primary', 0.35);
+  box-shadow: inset 0 0 0 1px color-var-alpha('color-primary', 0.2), 0 10px 24px color-var-alpha('color-primary', 0.18);
+  display: grid;
+  place-items: center;
+}
+
+.clock-loader__hand {
+  position: absolute;
+  width: 3px;
+  background: linear-gradient(180deg, color-var-alpha('color-primary', 0.95), color-var-alpha('color-accent', 0.9));
+  border-radius: $border-radius-full;
+  transform-origin: bottom center;
+  bottom: 50%;
+  left: 50%;
+
+  &_hour {
+    height: 28px;
+    animation: clock-hour 6s linear infinite;
+  }
+
+  &_minute {
+    height: 38px;
+    animation: clock-minute 2s linear infinite;
+  }
+}
+
+@keyframes clock-hour {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes clock-minute {
+  to { transform: rotate(720deg); }
+}

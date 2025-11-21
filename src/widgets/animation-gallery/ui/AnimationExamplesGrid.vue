@@ -117,7 +117,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, type ComputedRef } from 'vue'
+import { computed, ref, watch, type ComputedRef } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { NavLink, Select, Input, Icon } from '@/shared/ui'
 import type { SelectOption } from '@/shared/ui'
@@ -136,14 +137,26 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
 
-const searchQuery = ref<string>('')
-const debouncedSearchQuery = ref<string>('')
+const searchQuery = ref<string>((route.query.search as string) ?? '')
+const debouncedSearchQuery = ref<string>(searchQuery.value)
 const isSearching = ref<boolean>(false)
-const selectedCategory = ref<string>('all')
-const currentPage = ref(1)
+const selectedCategory = ref<string>((route.query.category as string) ?? 'all')
+const currentPage = ref(Number(route.query.page) > 0 ? Number(route.query.page) : 1)
 const itemsPerPage = 12
 let debounceTimeout: number | null = null
+
+const allowedCategories = computed(() => [
+  'all',
+  'loaders',
+  'marquee',
+  'effects',
+  'transitions',
+  'orbital',
+  'interactive'
+])
 
 const categoryOptions = computed<SelectOption[]>(() => [
   { label: t('ANIMATION.ALL_TYPES'), value: 'all' },
@@ -211,12 +224,10 @@ const visiblePages = computed(() => {
 function goToPage(page: number) {
   if (page >= 1 && page <= totalPages.value) {
     currentPage.value = page
-    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 }
 
 // Debounce search query
-import { watch } from 'vue'
 watch(searchQuery, (newQuery) => {
   if (debounceTimeout) {
     clearTimeout(debounceTimeout)
@@ -236,6 +247,62 @@ watch(searchQuery, (newQuery) => {
 // Reset to page 1 when category changes
 watch(selectedCategory, () => {
   currentPage.value = 1
+})
+
+function updateQueryParams() {
+  const query = { ...route.query }
+
+  if (searchQuery.value.trim()) {
+    query.search = searchQuery.value.trim()
+  } else {
+    delete query.search
+  }
+
+  if (selectedCategory.value !== 'all') {
+    query.category = selectedCategory.value
+  } else {
+    delete query.category
+  }
+
+  if (currentPage.value > 1) {
+    query.page = String(currentPage.value)
+  } else {
+    delete query.page
+  }
+
+  router.replace({ query })
+}
+
+watch([searchQuery, selectedCategory, currentPage], updateQueryParams)
+
+watch(
+  () => route.query,
+  (query) => {
+    const incomingSearch = (query.search as string) ?? ''
+    const incomingCategory = (query.category as string) ?? 'all'
+    const incomingPage = Number(query.page) > 0 ? Number(query.page) : 1
+
+    if (incomingSearch !== searchQuery.value) {
+      searchQuery.value = incomingSearch
+      debouncedSearchQuery.value = incomingSearch
+    }
+
+    if (allowedCategories.value.includes(incomingCategory) && incomingCategory !== selectedCategory.value) {
+      selectedCategory.value = incomingCategory
+    } else if (!allowedCategories.value.includes(incomingCategory) && selectedCategory.value !== 'all') {
+      selectedCategory.value = 'all'
+    }
+
+    if (incomingPage !== currentPage.value) {
+      currentPage.value = incomingPage
+    }
+  }
+)
+
+watch(filteredExamples, () => {
+  if (currentPage.value > totalPages.value) {
+    currentPage.value = Math.max(1, totalPages.value)
+  }
 })
 </script>
 

@@ -212,6 +212,7 @@
   display: grid;
   place-items: center;
   width: 100%;
+  overflow: hidden;
 
   @media (max-width: $breakpoint-md) {
     padding: $space-lg;

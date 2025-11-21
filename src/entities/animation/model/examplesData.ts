@@ -14,11 +14,272 @@ export type AnimationExample = {
 
 export const animationExamples: AnimationExample[] = [
   {
+    id: 'triple-spinner',
+    titleKey: 'ANIMATION.EXAMPLES.TRIPLE_SPINNER_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.TRIPLE_SPINNER_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-triple-spinner/AnimationTripleSpinner.vue'),
+    html: `<div class="triple-spinner">
+  <span class="triple-spinner__ring triple-spinner__ring_outer"></span>
+  <span class="triple-spinner__ring triple-spinner__ring_middle"></span>
+  <span class="triple-spinner__ring triple-spinner__ring_inner"></span>
+</div>`,
+    css: `.triple-spinner {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  color: #5b8def;
+}
+
+.triple-spinner__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: #5b8def;
+  border-right-color: rgba(91, 141, 239, 0.5);
+  border-left-color: rgba(99, 173, 255, 0.4);
+  box-shadow: 0 0 18px rgba(91, 141, 239, 0.25);
+}
+
+.triple-spinner__ring_outer { width: 100%; height: 100%; animation: triple-spin 1.6s linear infinite; }
+.triple-spinner__ring_middle { width: 78%; height: 78%; animation: triple-spin 1.2s linear infinite reverse; }
+.triple-spinner__ring_inner { width: 52%; height: 52%; animation: triple-spin 0.9s linear infinite; }
+
+@keyframes triple-spin { to { transform: rotate(360deg); } }`
+  },
+  {
+    id: 'cube-pulse',
+    titleKey: 'ANIMATION.EXAMPLES.CUBE_PULSE_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.CUBE_PULSE_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-cube-pulse/AnimationCubePulse.vue'),
+    html: `<div class="cube-pulse">
+  <span></span><span></span><span></span><span></span>
+</div>`,
+    css: `.cube-pulse {
+  display: grid;
+  grid-template-columns: repeat(2, 22px);
+  grid-template-rows: repeat(2, 22px);
+  gap: 8px;
+  width: max-content;
+}
+.cube-pulse span {
+  width: 22px; height: 22px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #5b8def, #9a6bff);
+  box-shadow: 0 10px 30px rgba(91, 141, 239, 0.28);
+  animation: cube-pulse 1.2s ease-in-out infinite;
+}
+.cube-pulse span:nth-child(2){animation-delay:.1s;}
+.cube-pulse span:nth-child(3){animation-delay:.2s;}
+.cube-pulse span:nth-child(4){animation-delay:.3s;}
+@keyframes cube-pulse {0%,100%{transform:scale(.9);opacity:.85;}50%{transform:scale(1.15);opacity:1;}}`
+  },
+  {
+    id: 'line-dance',
+    titleKey: 'ANIMATION.EXAMPLES.LINE_DANCE_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.LINE_DANCE_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-line-dance/AnimationLineDance.vue'),
+    html: `<div class="line-dance">
+  <span></span><span></span><span></span><span></span><span></span>
+</div>`,
+    css: `.line-dance { display:flex; gap:8px; align-items:flex-end; height:64px; }
+.line-dance span {
+  width:8px; height:32px; border-radius:999px;
+  background: linear-gradient(180deg, #5b8def, #9a6bff);
+  box-shadow: 0 8px 18px rgba(91, 141, 239, 0.25);
+  animation: line-dance 1s ease-in-out infinite;
+}
+.line-dance span:nth-child(2){animation-delay:.08s;}
+.line-dance span:nth-child(3){animation-delay:.16s;}
+.line-dance span:nth-child(4){animation-delay:.24s;}
+.line-dance span:nth-child(5){animation-delay:.32s;}
+@keyframes line-dance {0%,100%{transform:scaleY(.5);opacity:.7;}50%{transform:scaleY(1.2);opacity:1;}}`
+  },
+  {
+    id: 'ring-dash',
+    titleKey: 'ANIMATION.EXAMPLES.RING_DASH_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.RING_DASH_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-ring-dash/AnimationRingDash.vue'),
+    html: `<div class="ring-dash"></div>`,
+    css: `.ring-dash {
+  width:96px; height:96px; border-radius:50%;
+  border:6px dashed #5b8def;
+  box-shadow: 0 0 20px rgba(91, 141, 239, 0.25);
+  animation: ring-dash-rotate 1.6s linear infinite; position:relative;
+}
+.ring-dash::after{
+  content:''; position:absolute; inset:16px; border-radius:50%;
+  border:4px solid rgba(154,107,255,.65); border-right-color:transparent;
+  animation: ring-dash-reverse 1.1s linear infinite;
+}
+@keyframes ring-dash-rotate{to{transform:rotate(360deg);}}
+@keyframes ring-dash-reverse{to{transform:rotate(-360deg);}}`
+  },
+  {
+    id: 'beam-loader',
+    titleKey: 'ANIMATION.EXAMPLES.BEAM_LOADER_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.BEAM_LOADER_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-beam-loader/AnimationBeamLoader.vue'),
+    html: `<div class="beam-loader"><span class="beam-loader__track"></span></div>`,
+    css: `.beam-loader {
+  width:180px; height:12px; border-radius:999px;
+  background: rgba(91,141,239,0.08); border:1px solid rgba(91,141,239,0.15);
+  overflow:hidden; position:relative; box-shadow: inset 0 1px 0 rgba(91,141,239,0.15);
+}
+.beam-loader__track{
+  position:absolute; inset:0; width:60%;
+  background: linear-gradient(90deg, transparent, rgba(91,141,239,.65), transparent);
+  animation: beam-slide 1.1s ease-in-out infinite;
+}
+@keyframes beam-slide{0%{transform:translateX(-80%);}100%{transform:translateX(140%);}}`
+  },
+  {
+    id: 'stack-bounce',
+    titleKey: 'ANIMATION.EXAMPLES.STACK_BOUNCE_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.STACK_BOUNCE_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-stack-bounce/AnimationStackBounce.vue'),
+    html: `<div class="stack-bounce">
+  <span></span><span></span><span></span>
+</div>`,
+    css: `.stack-bounce { display:grid; gap:8px; width:120px; }
+.stack-bounce span{
+  height:10px; border-radius:8px;
+  background: linear-gradient(135deg,#5b8def,#9a6bff);
+  box-shadow:0 6px 18px rgba(91,141,239,.2);
+  animation: stack-bounce 1s ease-in-out infinite;
+}
+.stack-bounce span:nth-child(2){animation-delay:.12s;}
+.stack-bounce span:nth-child(3){animation-delay:.24s;}
+@keyframes stack-bounce{0%,100%{transform:translateY(0);opacity:.85;}50%{transform:translateY(-8px);opacity:1;}}`
+  },
+  {
+    id: 'clock-loader',
+    titleKey: 'ANIMATION.EXAMPLES.CLOCK_LOADER_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.CLOCK_LOADER_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-clock-loader/AnimationClockLoader.vue'),
+    html: `<div class="clock-loader">
+  <span class="clock-loader__hand clock-loader__hand_hour"></span>
+  <span class="clock-loader__hand clock-loader__hand_minute"></span>
+</div>`,
+    css: `.clock-loader{
+  position:relative; width:90px; height:90px; border-radius:50%;
+  border:3px solid rgba(91,141,239,0.35);
+  box-shadow: inset 0 0 0 1px rgba(91,141,239,0.2), 0 10px 24px rgba(91,141,239,0.18);
+  display:grid; place-items:center;
+}
+.clock-loader__hand{
+  position:absolute; width:3px; border-radius:999px;
+  background: linear-gradient(180deg,#5b8def,#9a6bff);
+  transform-origin: bottom center; bottom:50%; left:50%;
+}
+.clock-loader__hand_hour{height:28px; animation: clock-hour 6s linear infinite;}
+.clock-loader__hand_minute{height:38px; animation: clock-minute 2s linear infinite;}
+@keyframes clock-hour{to{transform:rotate(360deg);}}
+@keyframes clock-minute{to{transform:rotate(720deg);}}`
+  },
+  {
+    id: 'pulse-grid',
+    titleKey: 'ANIMATION.EXAMPLES.PULSE_GRID_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.PULSE_GRID_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-pulse-grid/AnimationPulseGrid.vue'),
+    html: `<div class="pulse-grid">
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span>
+  <span></span><span></span><span></span>
+</div>`,
+    css: `.pulse-grid{width:96px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.pulse-grid span{
+  aspect-ratio:1;border-radius:8px;
+  background:linear-gradient(135deg,#5b8def,#9a6bff);
+  box-shadow:0 8px 18px rgba(91,141,239,.18);
+  animation:pulse-grid 1.2s ease-in-out infinite;
+}
+.pulse-grid span:nth-child(2),.pulse-grid span:nth-child(4){animation-delay:.1s;}
+.pulse-grid span:nth-child(3),.pulse-grid span:nth-child(5),.pulse-grid span:nth-child(7){animation-delay:.2s;}
+.pulse-grid span:nth-child(6),.pulse-grid span:nth-child(8){animation-delay:.3s;}
+.pulse-grid span:nth-child(9){animation-delay:.4s;}
+@keyframes pulse-grid{0%,100%{transform:scale(.85);opacity:.8;}50%{transform:scale(1.08);opacity:1;}}`
+  },
+  {
+    id: 'wave-orb',
+    titleKey: 'ANIMATION.EXAMPLES.WAVE_ORB_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.WAVE_ORB_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-wave-orb/AnimationWaveOrb.vue'),
+    html: `<div class="wave-orb">
+  <span class="wave-orb__ring"></span>
+  <span class="wave-orb__core"></span>
+</div>`,
+    css: `.wave-orb{position:relative;width:110px;height:110px;display:grid;place-items:center;}
+.wave-orb__ring{
+  position:absolute;width:100%;height:100%;border-radius:50%;
+  border:2px solid rgba(91,141,239,0.25);animation:wave-orb 2.4s ease-out infinite;
+}
+.wave-orb__core{
+  width:32px;height:32px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,#5b8def,#9a6bff);
+  box-shadow:0 0 20px rgba(91,141,239,.25),0 0 0 6px rgba(91,141,239,.12);
+  animation:wave-core 1.6s ease-in-out infinite;
+}
+@keyframes wave-orb{0%{transform:scale(.65);opacity:.7;}70%{transform:scale(1.2);opacity:0;}100%{opacity:0;}}
+@keyframes wave-core{0%,100%{transform:scale(1);}50%{transform:scale(1.12);}}`
+  },
+  {
+    id: 'dot-typing-loader',
+    titleKey: 'ANIMATION.EXAMPLES.DOT_TYPING_LOADER_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.DOT_TYPING_LOADER_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-dot-typing/AnimationDotTyping.vue'),
+    html: `<div class="dot-typing-loader">
+  <span></span><span></span><span></span>
+</div>`,
+    css: `.dot-typing-loader{display:flex;gap:8px;align-items:center;}
+.dot-typing-loader span{
+  width:10px;height:10px;border-radius:50%;
+  background:#5b8def;box-shadow:0 6px 12px rgba(91,141,239,.22);
+  animation:dot-typing 1s ease-in-out infinite;
+}
+.dot-typing-loader span:nth-child(2){animation-delay:.12s;}
+.dot-typing-loader span:nth-child(3){animation-delay:.24s;}
+@keyframes dot-typing{0%,100%{transform:translateY(0);opacity:.7;}50%{transform:translateY(-8px);opacity:1;}}`
+  },
+  {
+    id: 'beat-grid',
+    titleKey: 'ANIMATION.EXAMPLES.BEAT_GRID_TITLE',
+    descriptionKey: 'ANIMATION.EXAMPLES.BEAT_GRID_DESCRIPTION',
+    category: 'loaders',
+    component: () => import('../ui/animation-beat-grid/AnimationBeatGrid.vue'),
+    html: `<div class="beat-grid">
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span>
+</div>`,
+    css: `.beat-grid{width:120px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.beat-grid span{
+  aspect-ratio:1;border-radius:6px;
+  background:linear-gradient(180deg,#5b8def,#9a6bff);
+  animation:beat-grid 1s ease-in-out infinite;
+}
+.beat-grid span:nth-child(3n){animation-delay:.08s;}
+.beat-grid span:nth-child(4n){animation-delay:.16s;}
+.beat-grid span:nth-child(2n){animation-delay:.24s;}
+@keyframes beat-grid{0%,100%{transform:scale(.85);opacity:.8;}50%{transform:scale(1.15);opacity:1;}}`
+  },
+  {
     id: 'ticker',
     titleKey: 'ANIMATION.EXAMPLES.TICKER_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.TICKER_DESCRIPTION',
     category: 'marquee',
-    component: () => import('../ui/AnimationTicker.vue'),
+    component: () => import('../ui/animation-ticker/AnimationTicker.vue'),
     html: `<div class="marquee">
   <div class="marquee__track">
     <div class="marquee__lane">
@@ -103,7 +364,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.ORBITS_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.ORBITS_DESCRIPTION',
     category: 'orbital',
-    component: () => import('../ui/AnimationOrbits.vue'),
+    component: () => import('../ui/animation-orbits/AnimationOrbits.vue'),
     html: `<div class="orbits">
   <div class="orbits__planet">
     <span class="orbits__core"></span>
@@ -132,7 +393,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.PULSE_LINES_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.PULSE_LINES_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationPulseLines.vue'),
+    component: () => import('../ui/animation-pulse-lines/AnimationPulseLines.vue'),
     html: `<div class="pulse-lines">
   <span class="pulse-lines__line"></span>
   <span class="pulse-lines__line"></span>
@@ -151,7 +412,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.STAR_TRAIL_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.STAR_TRAIL_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationStarTrail.vue'),
+    component: () => import('../ui/animation-star-trail/AnimationStarTrail.vue'),
     html: `<div class="star-trail">
   <div class="star-trail__dot"></div>
   <div class="star-trail__glow"></div>
@@ -170,7 +431,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.BOUNCE_DOTS_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.BOUNCE_DOTS_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationBounceDots.vue'),
+    component: () => import('../ui/animation-bounce-dots/AnimationBounceDots.vue'),
     html: `<div class="bounce-dots">
   <span></span>
   <span></span>
@@ -222,7 +483,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.PULSE_RING_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.PULSE_RING_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationPulseRing.vue'),
+    component: () => import('../ui/animation-pulse-ring/AnimationPulseRing.vue'),
     html: `<div class="pulse-ring">
   <div class="pulse-ring__dot"></div>
   <div class="pulse-ring__wave"></div>
@@ -274,7 +535,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.LOADER_BARS_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.LOADER_BARS_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationLoaderBars.vue'),
+    component: () => import('../ui/animation-loader-bars/AnimationLoaderBars.vue'),
     html: `<div class="loader-bars">
   <span></span>
   <span></span>
@@ -332,7 +593,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.ROTATE_SQUARE_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.ROTATE_SQUARE_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationRotateSquare.vue'),
+    component: () => import('../ui/animation-rotate-square/AnimationRotateSquare.vue'),
     html: `<div class="rotate-square">
   <div class="rotate-square__shape"></div>
 </div>`,
@@ -372,7 +633,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.FLIP_CARD_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.FLIP_CARD_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationFlipCard.vue'),
+    component: () => import('../ui/animation-flip-card/AnimationFlipCard.vue'),
     html: `<div class="flip-card">
   <div class="flip-card__inner">
     <div class="flip-card__face flip-card__face_front">CSS</div>
@@ -425,7 +686,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.GLOW_ORBIT_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.GLOW_ORBIT_DESCRIPTION',
     category: 'orbital',
-    component: () => import('../ui/AnimationGlowOrbit.vue'),
+    component: () => import('../ui/animation-glow-orbit/AnimationGlowOrbit.vue'),
     html: `<div class="glow-orbit">
   <div class="glow-orbit__core"></div>
   <div class="glow-orbit__ring glow-orbit__ring_primary"></div>
@@ -482,7 +743,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.TYPING_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.TYPING_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationTyping.vue'),
+    component: () => import('../ui/animation-typing/AnimationTyping.vue'),
     html: `<div class="typing">
   <div class="typing__text"><span>typing...</span></div>
   <div class="typing__cursor"></div>
@@ -536,7 +797,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.RADAR_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.RADAR_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationRadar.vue'),
+    component: () => import('../ui/animation-radar/AnimationRadar.vue'),
     html: `<div class="radar">
   <div class="radar__circle radar__circle_outer"></div>
   <div class="radar__circle radar__circle_inner"></div>
@@ -581,7 +842,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.WAVE_LINES_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.WAVE_LINES_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationWaveLines.vue'),
+    component: () => import('../ui/animation-wave-lines/AnimationWaveLines.vue'),
     html: `<div class="wave-lines">
   <span></span>
   <span></span>
@@ -639,7 +900,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.COLOR_SHIFT_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.COLOR_SHIFT_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationColorShift.vue'),
+    component: () => import('../ui/animation-color-shift/AnimationColorShift.vue'),
     html: `<div class="color-shift">
   <div class="color-shift__blob"></div>
 </div>`,
@@ -674,7 +935,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.SCALE_FADE_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.SCALE_FADE_DESCRIPTION',
     category: 'transitions',
-    component: () => import('../ui/AnimationScaleFade.vue'),
+    component: () => import('../ui/animation-scale-fade/AnimationScaleFade.vue'),
     html: `<div class="scale-fade">
   <div class="scale-fade__item"></div>
 </div>`,
@@ -716,7 +977,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.SHIMMER_CARD_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.SHIMMER_CARD_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationShimmerCard.vue'),
+    component: () => import('../ui/animation-shimmer-card/AnimationShimmerCard.vue'),
     html: `<div class="shimmer-card">
   <div class="shimmer-card__shine"></div>
   <div class="shimmer-card__content"></div>
@@ -759,7 +1020,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.SLIDE_BADGE_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.SLIDE_BADGE_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationSlideBadge.vue'),
+    component: () => import('../ui/animation-slide-badge/AnimationSlideBadge.vue'),
     html: `<div class="slide-badge">
   <span class="slide-badge__pill">
     <span class="slide-badge__dot"></span>Live
@@ -812,7 +1073,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.RIPPLE_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.RIPPLE_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationRipple.vue'),
+    component: () => import('../ui/animation-ripple/AnimationRipple.vue'),
     html: `<div class="ripple">
   <div class="ripple__circle ripple__circle_base"></div>
   <div class="ripple__circle ripple__circle_wave"></div>
@@ -863,7 +1124,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.METEOR_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.METEOR_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationMeteor.vue'),
+    component: () => import('../ui/animation-meteor/AnimationMeteor.vue'),
     html: `<div class="meteor">
   <span class="meteor__trail"></span>
   <span class="meteor__head"></span>
@@ -923,7 +1184,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.MORPH_BLOB_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.MORPH_BLOB_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationMorphBlob.vue'),
+    component: () => import('../ui/animation-morph-blob/AnimationMorphBlob.vue'),
     html: `<div class="morph-blob">
   <div class="morph-blob__shape"></div>
 </div>`,
@@ -965,7 +1226,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.STAGGER_LIST_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.STAGGER_LIST_DESCRIPTION',
     category: 'transitions',
-    component: () => import('../ui/AnimationStaggerList.vue'),
+    component: () => import('../ui/animation-stagger-list/AnimationStaggerList.vue'),
     html: `<ul class="stagger-list">
   <li></li>
   <li></li>
@@ -1023,7 +1284,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.LIQUID_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.LIQUID_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationLiquid.vue'),
+    component: () => import('../ui/animation-liquid/AnimationLiquid.vue'),
     html: `<div class="liquid">
   <div class="liquid__wave liquid__wave_one"></div>
   <div class="liquid__wave liquid__wave_two"></div>
@@ -1077,7 +1338,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.SPINNER_LINES_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.SPINNER_LINES_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationSpinnerLines.vue'),
+    component: () => import('../ui/animation-spinner-lines/AnimationSpinnerLines.vue'),
     html: `<div class="spinner-lines">
   <span></span>
   <span></span>
@@ -1155,7 +1416,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.GRADIENT_WIPE_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.GRADIENT_WIPE_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationGradientWipe.vue'),
+    component: () => import('../ui/animation-gradient-wipe/AnimationGradientWipe.vue'),
     html: `<div class="gradient-wipe">
   <div class="gradient-wipe__bar"></div>
   <p>Gradient wipe</p>
@@ -1205,7 +1466,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.DOTS_CHAIN_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.DOTS_CHAIN_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationDotsChain.vue'),
+    component: () => import('../ui/animation-dots-chain/AnimationDotsChain.vue'),
     html: `<div class="dots-chain">
   <span></span>
   <span></span>
@@ -1266,7 +1527,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.CIRCLE_LOADER_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.CIRCLE_LOADER_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationCircleLoader.vue'),
+    component: () => import('../ui/animation-circle-loader/AnimationCircleLoader.vue'),
     html: `<div class="circle-loader">
   <div class="circle-loader__ring"></div>
 </div>`,
@@ -1300,7 +1561,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.PROGRESS_BAR_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.PROGRESS_BAR_DESCRIPTION',
     category: 'loaders',
-    component: () => import('../ui/AnimationProgressBar.vue'),
+    component: () => import('../ui/animation-progress-bar/AnimationProgressBar.vue'),
     html: `<div class="progress-bar">
   <div class="progress-bar__fill"></div>
 </div>`,
@@ -1341,7 +1602,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.VERTICAL_MARQUEE_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.VERTICAL_MARQUEE_DESCRIPTION',
     category: 'marquee',
-    component: () => import('../ui/AnimationVerticalMarquee.vue'),
+    component: () => import('../ui/animation-vertical-marquee/AnimationVerticalMarquee.vue'),
     html: `<div class="vertical-marquee">
   <div class="vertical-marquee__lane">
     <span>⭐ New Feature</span>
@@ -1416,7 +1677,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.TEXT_REVEAL_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.TEXT_REVEAL_DESCRIPTION',
     category: 'effects',
-    component: () => import('../ui/AnimationTextReveal.vue'),
+    component: () => import('../ui/animation-text-reveal/AnimationTextReveal.vue'),
     html: `<div class="text-reveal">
   <div class="text-reveal__content">
     <span>CSS Animations</span>
@@ -1459,7 +1720,7 @@ export const animationExamples: AnimationExample[] = [
     titleKey: 'ANIMATION.EXAMPLES.NEWS_SCROLL_TITLE',
     descriptionKey: 'ANIMATION.EXAMPLES.NEWS_SCROLL_DESCRIPTION',
     category: 'marquee',
-    component: () => import('../ui/AnimationNewsScroll.vue'),
+    component: () => import('../ui/animation-news-scroll/AnimationNewsScroll.vue'),
     html: `<div class="news-scroll">
   <span class="news-scroll__label">BREAKING</span>
   <div class="news-scroll__content">

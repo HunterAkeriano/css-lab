@@ -3,8 +3,8 @@
   aspect-ratio: 16 / 9;
   border-radius: $border-radius-xl;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(135deg, color-var-alpha('color-text-primary', 0.04), color-var-alpha('color-text-primary', 0.02));
+  border: 1px solid color-var-alpha('color-text-primary', 0.08);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35), 0 12px 28px $color-primary-alpha-18;
   position: relative;
   isolation: isolate;
@@ -15,7 +15,7 @@
     border-radius: inherit;
     position: relative;
     overflow: hidden;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 0 0 1px color-var-alpha('color-text-primary', 0.05);
 
     &::before {
       content: '';
@@ -24,7 +24,7 @@
       right: -10%;
       width: 200px;
       height: 200px;
-      background: radial-gradient(60% 60% at 50% 50%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0));
+      background: radial-gradient(60% 60% at 50% 50%, color-var-alpha('color-text-primary', 0.25), color-var-alpha('color-text-primary', 0));
       mix-blend-mode: screen;
       animation: previewGlare 14s ease-in-out infinite alternate;
       pointer-events: none;
@@ -36,7 +36,7 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(115deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 45%),
+        linear-gradient(115deg, color-var-alpha('color-text-primary', 0.12), color-var-alpha('color-text-primary', 0) 45%),
         linear-gradient(0deg, rgba(0, 0, 0, 0.15), transparent 35%);
       mix-blend-mode: soft-light;
       opacity: 0.7;

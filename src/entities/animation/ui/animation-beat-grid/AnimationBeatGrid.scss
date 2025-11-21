@@ -1,0 +1,22 @@
+.beat-grid {
+  width: 120px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.beat-grid span {
+  aspect-ratio: 1;
+  border-radius: $border-radius-sm;
+  background: linear-gradient(180deg, color-var-alpha('color-primary', 0.9), color-var-alpha('color-accent', 0.75));
+  animation: beat-grid 1s ease-in-out infinite;
+}
+
+.beat-grid span:nth-child(3n) { animation-delay: 0.08s; }
+.beat-grid span:nth-child(4n) { animation-delay: 0.16s; }
+.beat-grid span:nth-child(2n) { animation-delay: 0.24s; }
+
+@keyframes beat-grid {
+  0%, 100% { transform: scale(0.85); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+}

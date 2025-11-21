@@ -34,9 +34,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useToast } from 'vue-toastification'
+import { useRoute, useRouter } from 'vue-router'
 import type { GradientPreset } from './gradientPresets'
 import type { GradientType, GradientColor } from '@/shared/types'
 import { formatGradient, type CSSFormat, copyToClipboard, smoothScrollToTop } from '@/shared/lib'
@@ -51,8 +52,11 @@ const colors = ref<GradientColor[]>([
 ])
 let colorIdCounter = colors.value.length
 const gradientPresets = GRADIENT_PRESETS
+const selectedPresetId = ref<string | null>(null)
 const { t } = useI18n()
 const toast = useToast()
+const route = useRoute()
+const router = useRouter()
 
 const gradientStyle = computed(() => {
   let gradient = ''
@@ -124,6 +128,12 @@ function getCode(format: CSSFormat): string {
 }
 
 function applyPreset(preset: GradientPreset) {
+  setPresetState(preset)
+  updatePresetQuery(preset.id)
+  smoothScrollToTop()
+}
+
+function setPresetState(preset: GradientPreset) {
   type.value = preset.type
   angle.value = preset.angle
 
@@ -136,7 +146,7 @@ function applyPreset(preset: GradientPreset) {
     position: color.position
   }))
 
-  smoothScrollToTop()
+  selectedPresetId.value = preset.id
 }
 
 async function copyPreset(preset: GradientPreset) {
@@ -173,6 +183,46 @@ function getNextColorId() {
   colorIdCounter += 1
   return `${colorIdCounter}`
 }
+
+function updatePresetQuery(presetId: string | null) {
+  const nextQuery = { ...route.query }
+
+  if (presetId) {
+    nextQuery.preset = presetId
+  } else {
+    delete nextQuery.preset
+  }
+
+  router.replace({ query: nextQuery })
+}
+
+function applyPresetFromQuery(presetParam: unknown) {
+  const presetId = normalizePresetId(presetParam)
+  if (!presetId || presetId === selectedPresetId.value) return
+
+  const preset = gradientPresets.find(item => item.id === presetId)
+  if (!preset) return
+
+  setPresetState(preset)
+}
+
+function normalizePresetId(value: unknown): string | null {
+  if (Array.isArray(value)) {
+    return typeof value[0] === 'string' ? value[0] : null
+  }
+  return typeof value === 'string' ? value : null
+}
+
+onMounted(() => {
+  applyPresetFromQuery(route.query.preset)
+})
+
+watch(
+  () => route.query.preset,
+  presetId => {
+    applyPresetFromQuery(presetId)
+  }
+)
 </script>
 
 <style lang="scss" scoped src="./GradientGenerationProcess.scss"></style>

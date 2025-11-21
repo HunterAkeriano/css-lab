@@ -1,0 +1,26 @@
+.cube-pulse {
+  display: grid;
+  grid-template-columns: repeat(2, 22px);
+  grid-template-rows: repeat(2, 22px);
+  gap: 8px;
+  width: max-content;
+}
+
+.cube-pulse span {
+  width: 22px;
+  height: 22px;
+  border-radius: $border-radius-sm;
+  background: linear-gradient(135deg, color-var-alpha('color-primary', 0.9), color-var-alpha('color-accent', 0.8));
+  box-shadow: 0 10px 30px color-var-alpha('color-primary', 0.28);
+  animation: cube-pulse 1.2s ease-in-out infinite;
+}
+
+.cube-pulse span:nth-child(1) { animation-delay: 0s; }
+.cube-pulse span:nth-child(2) { animation-delay: 0.1s; }
+.cube-pulse span:nth-child(3) { animation-delay: 0.2s; }
+.cube-pulse span:nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes cube-pulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.85; }
+  50% { transform: scale(1.15); opacity: 1; }
+}

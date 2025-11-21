@@ -1,11 +1,28 @@
 <template>
   <section class="animation-hero">
     <div class="animation-hero__orbits" aria-hidden="true">
-      <span class="animation-hero__ring animation-hero__ring_outer"></span>
-      <span class="animation-hero__ring animation-hero__ring_inner"></span>
-      <span class="animation-hero__planet animation-hero__planet_primary"></span>
-      <span class="animation-hero__planet animation-hero__planet_secondary"></span>
-      <span class="animation-hero__planet animation-hero__planet_tertiary"></span>
+      <!-- Sun in the center -->
+      <span class="animation-hero__sun"></span>
+
+      <!-- Orbital rings -->
+      <span class="animation-hero__ring animation-hero__ring_mercury"></span>
+      <span class="animation-hero__ring animation-hero__ring_venus"></span>
+      <span class="animation-hero__ring animation-hero__ring_earth"></span>
+      <span class="animation-hero__ring animation-hero__ring_mars"></span>
+      <span class="animation-hero__ring animation-hero__ring_jupiter"></span>
+      <span class="animation-hero__ring animation-hero__ring_saturn"></span>
+      <span class="animation-hero__ring animation-hero__ring_uranus"></span>
+      <span class="animation-hero__ring animation-hero__ring_neptune"></span>
+
+      <!-- Planets -->
+      <span class="animation-hero__planet animation-hero__planet_mercury"></span>
+      <span class="animation-hero__planet animation-hero__planet_venus"></span>
+      <span class="animation-hero__planet animation-hero__planet_earth"></span>
+      <span class="animation-hero__planet animation-hero__planet_mars"></span>
+      <span class="animation-hero__planet animation-hero__planet_jupiter"></span>
+      <span class="animation-hero__planet animation-hero__planet_saturn"></span>
+      <span class="animation-hero__planet animation-hero__planet_uranus"></span>
+      <span class="animation-hero__planet animation-hero__planet_neptune"></span>
     </div>
     <p class="animation-hero__eyebrow">{{ eyebrow }}</p>
     <h1 class="animation-hero__title">{{ title }}</h1>
