@@ -94,7 +94,7 @@ import { useAuthStore } from '@/entities'
 import { LanguageSwitcher } from '@/features'
 import Logo from '@/shared/ui/logo/Logo.vue'
 import { Button, Icon, NavLink, ThemeSwitcher } from '@/shared/ui'
-import UserMenu from '@/widgets/user-menu/UserMenu.vue'
+import UserMenu from '@/widgets/common/user-menu/UserMenu.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()

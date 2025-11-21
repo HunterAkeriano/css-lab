@@ -229,6 +229,14 @@ export default {
     SHARED_SUCCESS: 'Посилання поділено',
     SHARE_UNAVAILABLE: 'Ой, шерінг недоступний на цьому пристрої'
   },
+  FOOTER: {
+    NAVIGATION: 'Навігація',
+    SETTINGS: 'Налаштування',
+    THEME: 'Тема',
+    LANGUAGE: 'Мова',
+    DEVELOPED_BY: 'Розроблено',
+    ALL_RIGHTS_RESERVED: 'Всі права захищено'
+  },
   DOCS: {
     TOPICS_LABEL: 'Підсторінки',
     TOPICS_TITLE: 'Теми з живими демо',

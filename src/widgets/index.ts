@@ -1,2 +1,4 @@
-export { default as Header } from './header/Header.vue'
-export { default as UserMenu } from './user-menu/UserMenu.vue'
+export * from './common'
+export * from './home'
+export * from './animation'
+export * from './docs'

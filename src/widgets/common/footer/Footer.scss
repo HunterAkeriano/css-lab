@@ -1,0 +1,213 @@
+.footer {
+  margin-top: auto;
+  padding: $space-3xl 0 $space-xl;
+  background: $about-background;
+  border-top: 1px solid color-var-alpha('panel-border', 0.1);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      $color-primary-alpha-24 20%,
+      $color-secondary-alpha-24 50%,
+      $color-accent-alpha-24 80%,
+      transparent
+    );
+  }
+}
+
+.footer__content {
+  display: grid;
+  gap: $space-2xl;
+  grid-template-columns: 1fr;
+  margin-bottom: $space-2xl;
+
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: $space-3xl;
+  }
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.footer__logo {
+  width: 48px;
+  height: 48px;
+  margin-bottom: $space-xs;
+}
+
+.footer__brand-title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  background: linear-gradient(135deg, $color-primary, $color-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+}
+
+.footer__brand-description {
+  font-size: $font-size-sm;
+  color: color-var-alpha('color-text-secondary', 0.85);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 320px;
+}
+
+.footer__section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.footer__section-title {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.footer__nav {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.footer__link {
+  font-size: $font-size-sm;
+  color: color-var-alpha('color-text-secondary', 0.85);
+  text-decoration: none;
+  transition: color $transition-base, transform $transition-base;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+
+  &:hover {
+    color: $color-primary;
+    transform: translateX(4px);
+  }
+}
+
+.footer__settings {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.footer__setting {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.footer__setting-label {
+  font-size: $font-size-xs;
+  color: color-var-alpha('color-text-secondary', 0.75);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: $font-weight-medium;
+}
+
+// Override language switcher dropdown position for footer
+.footer__setting {
+  :deep(.language-switcher__dropdown) {
+    left: 0;
+    right: auto;
+  }
+}
+
+.footer__bottom {
+  margin-top: $space-2xl;
+}
+
+.footer__divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-var-alpha('panel-border', 0.2) 10%,
+    color-var-alpha('panel-border', 0.2) 90%,
+    transparent
+  );
+  margin-bottom: $space-lg;
+}
+
+.footer__bottom-content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  align-items: center;
+  text-align: center;
+
+  @media (min-width: $breakpoint-md) {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.footer__copyright {
+  font-size: $font-size-xs;
+  color: color-var-alpha('color-text-secondary', 0.7);
+  margin: 0;
+}
+
+.footer__author {
+  font-size: $font-size-xs;
+  color: color-var-alpha('color-text-secondary', 0.7);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
+
+.footer__author-link {
+  color: $color-primary;
+  text-decoration: none;
+  font-weight: $font-weight-semibold;
+  transition: color $transition-base;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform $transition-base;
+  }
+
+  &:hover {
+    color: $color-secondary;
+
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+}
+
+// Dark theme adjustments
+@media (prefers-color-scheme: dark) {
+  .footer {
+    background: color-var-alpha('color-bg-primary', 0.6);
+  }
+}

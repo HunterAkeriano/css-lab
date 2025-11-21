@@ -229,6 +229,14 @@ export default {
     SHARED_SUCCESS: 'Shared successfully',
     SHARE_UNAVAILABLE: 'Sharing is not available on this device'
   },
+  FOOTER: {
+    NAVIGATION: 'Navigation',
+    SETTINGS: 'Settings',
+    THEME: 'Theme',
+    LANGUAGE: 'Language',
+    DEVELOPED_BY: 'Developed by',
+    ALL_RIGHTS_RESERVED: 'All rights reserved'
+  },
   DOCS: {
     TOPICS_LABEL: 'Subpages',
     TOPICS_TITLE: 'Topics with live demos',

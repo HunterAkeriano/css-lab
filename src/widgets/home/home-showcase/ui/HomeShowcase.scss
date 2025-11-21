@@ -1,0 +1,543 @@
+.home-showcase {
+  margin-top: $space-3xl;
+  margin-bottom: $space-3xl;
+  padding: $space-2xl;
+  text-align: center;
+
+  @media (min-width: $breakpoint-lg) {
+    padding: $space-3xl;
+  }
+}
+
+.home-showcase__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xs;
+  padding: $space-xs $space-sm;
+  border-radius: $border-radius-full;
+  background: $color-primary-alpha-12;
+  color: $color-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: $space-sm;
+}
+
+.home-showcase__title {
+  font-size: $font-size-2xl;
+  line-height: 1.2;
+  margin-bottom: $space-2xl;
+  color: $color-text-primary;
+  text-align: center;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: $font-size-3xl;
+  }
+}
+
+.home-showcase__grid {
+  display: grid;
+  gap: $space-2xl;
+  grid-template-columns: 1fr;
+
+  @media (min-width: $breakpoint-lg) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $space-3xl;
+  }
+}
+
+.home-showcase__card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.home-showcase__preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: $border-radius-2xl;
+  overflow: hidden;
+  background: $visual-card-background;
+  border: 1px solid color-var-alpha('panel-border', 0.1);
+  box-shadow: 0 20px 52px rgba(0, 0, 0, 0.4), 0 12px 32px $color-primary-alpha-18;
+}
+
+.home-showcase__info {
+  text-align: left;
+}
+
+.home-showcase__label {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  margin-bottom: $space-xs;
+  color: $color-text-primary;
+  line-height: 1.3;
+}
+
+.home-showcase__description {
+  color: color-var-alpha('color-text-secondary', 0.88);
+  line-height: 1.6;
+  margin-bottom: $space-md;
+  font-size: $font-size-sm;
+
+  @media (min-width: $breakpoint-md) {
+    font-size: $font-size-base;
+  }
+}
+
+.home-showcase__link {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xs;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-sm;
+  text-decoration: none;
+  transition: color $transition-base, transform $transition-base;
+  will-change: transform;
+
+  &:hover {
+    transform: translateX(4px);
+    color: $color-secondary;
+  }
+}
+
+// ========================================
+// HOLOGRAPHIC DREAM ANIMATION
+// ========================================
+
+.holographic-dream {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.holographic-dream__backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(138, 43, 226, 0.15),
+    rgba(0, 191, 255, 0.12),
+    rgba(255, 20, 147, 0.1),
+    transparent 70%
+  );
+  animation: holoDreamPulse 8s ease-in-out infinite;
+}
+
+.holographic-dream__glow {
+  position: absolute;
+  inset: 15%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(138, 43, 226, 0.4),
+    rgba(0, 191, 255, 0.3),
+    rgba(255, 20, 147, 0.25),
+    transparent 65%
+  );
+  animation: holoGlowPulse 6s ease-in-out infinite;
+}
+
+.holographic-dream__core {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), transparent 45%),
+    conic-gradient(
+      from 0deg,
+      #ff1493,
+      #8a2be2,
+      #00bfff,
+      #00ff7f,
+      #ffff00,
+      #ff1493
+    );
+  box-shadow:
+    0 0 60px rgba(138, 43, 226, 0.6),
+    0 0 100px rgba(0, 191, 255, 0.4),
+    inset 0 0 40px rgba(255, 255, 255, 0.3);
+  animation: holoCoreRotate 10s linear infinite, holoCorePulse 4s ease-in-out infinite;
+  z-index: 10;
+}
+
+.holographic-dream__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid;
+  animation: holoRingRotate 20s linear infinite;
+
+  &_1 {
+    inset: 10%;
+    border-color: rgba(138, 43, 226, 0.4);
+    animation: holoRingRotate 15s linear infinite;
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+  }
+
+  &_2 {
+    inset: 5%;
+    border-color: rgba(0, 191, 255, 0.35);
+    animation: holoRingRotate 25s linear infinite reverse;
+    box-shadow: 0 0 25px rgba(0, 191, 255, 0.4);
+  }
+
+  &_3 {
+    inset: 0;
+    border-color: rgba(255, 20, 147, 0.3);
+    animation: holoRingRotate 35s linear infinite;
+    box-shadow: 0 0 30px rgba(255, 20, 147, 0.3);
+  }
+}
+
+.holographic-dream__particles {
+  position: absolute;
+  inset: 0;
+}
+
+.holographic-dream__particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent);
+  box-shadow: 0 0 8px currentColor;
+
+  $colors: (#ff1493, #8a2be2, #00bfff, #00ff7f, #ffff00);
+
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      $angle: random(360) + deg;
+      $distance: 25% + random(35) + %;
+      $duration: 8 + random(12) + s;
+      $delay: random(8) + s;
+      $size: 3 + random(5) + px;
+
+      width: $size;
+      height: $size;
+      color: nth($colors, random(5));
+      left: 50%;
+      top: 50%;
+      animation: holoParticleOrbit#{$i} $duration linear infinite;
+      animation-delay: -$delay;
+    }
+  }
+}
+
+@for $i from 1 through 20 {
+  @keyframes holoParticleOrbit#{$i} {
+    $angle: random(360);
+    $radius: 80 + random(120);
+
+    0% {
+      transform:
+        translate(-50%, -50%)
+        rotate(#{$angle}deg)
+        translateX(#{$radius}px)
+        scale(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+      transform:
+        translate(-50%, -50%)
+        rotate(#{$angle}deg)
+        translateX(#{$radius}px)
+        scale(1);
+    }
+    90% {
+      opacity: 1;
+      transform:
+        translate(-50%, -50%)
+        rotate(#{$angle + 360}deg)
+        translateX(#{$radius}px)
+        scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform:
+        translate(-50%, -50%)
+        rotate(#{$angle + 360}deg)
+        translateX(#{$radius}px)
+        scale(0);
+    }
+  }
+}
+
+.holographic-dream__orbs {
+  position: absolute;
+  inset: 0;
+}
+
+.holographic-dream__orb {
+  position: absolute;
+  border-radius: 50%;
+
+  &_1 {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.6), transparent 70%);
+    top: 20%;
+    left: 15%;
+    animation: holoOrbFloat1 7s ease-in-out infinite;
+  }
+
+  &_2 {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(0, 191, 255, 0.5), transparent 70%);
+    bottom: 25%;
+    right: 20%;
+    animation: holoOrbFloat2 9s ease-in-out infinite;
+  }
+
+  &_3 {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(255, 20, 147, 0.7), transparent 70%);
+    top: 60%;
+    left: 70%;
+    animation: holoOrbFloat3 6s ease-in-out infinite;
+  }
+}
+
+.holographic-dream__shimmer {
+  position: absolute;
+  inset: -50%;
+  background: linear-gradient(
+    135deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.1) 60%,
+    transparent 80%
+  );
+  animation: holoShimmer 3s linear infinite;
+  pointer-events: none;
+}
+
+// Holographic Dream Keyframes
+@keyframes holoDreamPulse {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50% { transform: scale(1.1); opacity: 0.25; }
+}
+
+@keyframes holoGlowPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+  50% { transform: scale(1.15) rotate(180deg); opacity: 0.5; }
+}
+
+@keyframes holoCoreRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes holoCorePulse {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    box-shadow:
+      0 0 60px rgba(138, 43, 226, 0.6),
+      0 0 100px rgba(0, 191, 255, 0.4),
+      inset 0 0 40px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.1) rotate(180deg);
+    box-shadow:
+      0 0 80px rgba(138, 43, 226, 0.8),
+      0 0 120px rgba(0, 191, 255, 0.6),
+      inset 0 0 50px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes holoRingRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes holoOrbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.1); }
+  66% { transform: translate(-20px, 25px) scale(0.9); }
+}
+
+@keyframes holoOrbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-25px, 30px) scale(0.9); }
+  66% { transform: translate(35px, -15px) scale(1.15); }
+}
+
+@keyframes holoOrbFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, 25px) scale(1.2); }
+  66% { transform: translate(-30px, -20px) scale(0.85); }
+}
+
+@keyframes holoShimmer {
+  from { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  to { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+// ========================================
+// AURORA SUNSET GRADIENT
+// ========================================
+
+.aurora-sunset {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.aurora-sunset__base {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 100%, #ff6b35 0%, #f7931e 25%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, #1e3a8a 40%, #0f172a 100%);
+  animation: auroraBaseShift 12s ease-in-out infinite;
+}
+
+.aurora-sunset__layer {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+
+  &_1 {
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(236, 72, 153, 0.6), transparent 50%),
+      radial-gradient(ellipse at 70% 40%, rgba(167, 139, 250, 0.5), transparent 50%);
+    animation: auroraLayer1 15s ease-in-out infinite;
+  }
+
+  &_2 {
+    background:
+      radial-gradient(ellipse at 60% 30%, rgba(34, 211, 238, 0.5), transparent 45%),
+      radial-gradient(ellipse at 40% 70%, rgba(59, 130, 246, 0.4), transparent 50%);
+    animation: auroraLayer2 18s ease-in-out infinite reverse;
+  }
+
+  &_3 {
+    background:
+      radial-gradient(ellipse at 80% 50%, rgba(250, 204, 21, 0.4), transparent 40%),
+      radial-gradient(ellipse at 20% 50%, rgba(248, 113, 113, 0.5), transparent 45%);
+    animation: auroraLayer3 20s ease-in-out infinite;
+  }
+}
+
+.aurora-sunset__rays {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 180deg at 50% 80%,
+    transparent 0deg,
+    rgba(251, 146, 60, 0.3) 45deg,
+    transparent 90deg,
+    rgba(252, 211, 77, 0.25) 135deg,
+    transparent 180deg,
+    rgba(248, 113, 113, 0.3) 225deg,
+    transparent 270deg,
+    rgba(251, 146, 60, 0.2) 315deg,
+    transparent 360deg
+  );
+  mix-blend-mode: overlay;
+  animation: auroraRaysRotate 25s linear infinite;
+}
+
+.aurora-sunset__shimmer {
+  position: absolute;
+  inset: -100%;
+  background: linear-gradient(
+    to bottom right,
+    transparent 30%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 70%
+  );
+  animation: auroraShimmer 8s ease-in-out infinite;
+  mix-blend-mode: overlay;
+}
+
+// Aurora Sunset Keyframes
+@keyframes auroraBaseShift {
+  0%, 100% {
+    transform: scale(1);
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: hue-rotate(10deg) brightness(1.1);
+  }
+}
+
+@keyframes auroraLayer1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+  33% {
+    transform: translate(5%, -3%) scale(1.05);
+    opacity: 0.8;
+  }
+  66% {
+    transform: translate(-3%, 5%) scale(0.98);
+    opacity: 0.6;
+  }
+}
+
+@keyframes auroraLayer2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-4%, 4%) scale(1.08) rotate(2deg);
+    opacity: 0.85;
+  }
+}
+
+@keyframes auroraLayer3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.7;
+  }
+  40% {
+    transform: translate(4%, 3%) scale(1.06);
+    opacity: 0.8;
+  }
+  80% {
+    transform: translate(-2%, -4%) scale(0.96);
+    opacity: 0.65;
+  }
+}
+
+@keyframes auroraRaysRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes auroraShimmer {
+  0%, 100% {
+    transform: translate(-50%, -50%);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(0%, 0%);
+    opacity: 0.6;
+  }
+}
+
+// ========================================
+// ACCESSIBILITY
+// ========================================
+
+@media (prefers-reduced-motion: reduce) {
+  .holographic-dream *,
+  .aurora-sunset * {
+    animation: none !important;
+  }
+}

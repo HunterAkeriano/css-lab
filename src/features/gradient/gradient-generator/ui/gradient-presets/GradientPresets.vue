@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import type { GradientPreset } from '@/processes/gradient-generation/gradientPresets'
+import type { GradientPreset } from '@/processes/gradient/gradient-generation/gradientPresets'
 import type { GradientType } from '@/shared/types'
 import { Button } from '@/shared/ui'
 

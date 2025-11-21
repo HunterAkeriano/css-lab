@@ -41,7 +41,7 @@ import { useRoute, useRouter } from 'vue-router'
 import type { GradientPreset } from './gradientPresets'
 import type { GradientType, GradientColor } from '@/shared/types'
 import { formatGradient, type CSSFormat, copyToClipboard, smoothScrollToTop } from '@/shared/lib'
-import { GradientPreview, GradientControls, GradientCodeExport, GradientPresets } from '@/features/gradient-generator/ui'
+import { GradientPreview, GradientControls, GradientCodeExport, GradientPresets } from '@/features/gradient'
 import { GRADIENT_PRESETS } from './gradientPresets'
 
 const type = ref<GradientType>('linear')

@@ -1,2 +1,2 @@
-export * from './gradient-generation'
-export * from './shadow-generation'
+export * from './gradient'
+export * from './shadow'
