@@ -35,6 +35,8 @@
   gap: $space-lg;
   padding: $space-lg;
   animation: verticalScroll 10s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .vertical-marquee__lane span {
@@ -50,9 +52,9 @@
 
 @keyframes verticalScroll {
   from {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateY(-50%);
+    transform: translate3d(0, -50%, 0);
   }
 }

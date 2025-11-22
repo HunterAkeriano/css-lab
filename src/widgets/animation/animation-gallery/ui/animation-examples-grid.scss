@@ -120,7 +120,7 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   gap: $space-lg;
-  transition: all $transition-base;
+  transition: transform $transition-base, border-color $transition-base, box-shadow $transition-base;
   position: relative;
   overflow: hidden;
 
@@ -334,7 +334,7 @@
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   cursor: pointer;
-  transition: all $transition-base;
+  transition: background-color $transition-base, border-color $transition-base, transform $transition-base;
 
   &:hover:not(:disabled) {
     background: color-var-alpha('color-primary', 0.1);
@@ -363,7 +363,7 @@
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   cursor: pointer;
-  transition: all $transition-base;
+  transition: background-color $transition-base, border-color $transition-base, transform $transition-base;
 
   &:hover {
     background: color-var-alpha('color-primary', 0.1);

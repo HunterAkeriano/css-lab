@@ -49,6 +49,14 @@
     <symbol id="icon-search" viewBox="0 0 20 20">
       <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" fill="currentColor" />
     </symbol>
+
+    <symbol id="icon-crown" viewBox="0 0 24 24">
+      <path d="M12 2L15 9L22 8L19 15H5L2 8L9 9L12 2Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M5 15L5 19C5 19.5523 5.44772 20 6 20H18C18.5523 20 19 19.5523 19 19V15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="12" cy="6" r="1.5" fill="currentColor"/>
+      <circle cx="7" cy="8.5" r="1.5" fill="currentColor"/>
+      <circle cx="17" cy="8.5" r="1.5" fill="currentColor"/>
+    </symbol>
   </svg>
 </template>
 

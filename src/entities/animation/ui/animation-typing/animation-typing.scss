@@ -14,6 +14,8 @@
   white-space: nowrap;
   border-right: 2px solid transparent;
   animation: typing 2.4s steps(12) infinite alternate;
+  will-change: width;
+  backface-visibility: hidden;
 }
 
 .typing__cursor {
@@ -22,6 +24,7 @@
   background: $color-primary;
   border-radius: 2px;
   animation: blink 1s steps(1) infinite;
+  will-change: opacity;
 }
 
 @keyframes typing {

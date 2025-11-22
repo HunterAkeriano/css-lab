@@ -16,13 +16,15 @@
   position: absolute;
   inset: -20% -60%;
   background: linear-gradient(90deg, color-var-alpha('color-primary', 0.25), color-var-alpha('color-secondary', 0.25));
-  transform: rotate(12deg);
+  transform: rotate3d(0, 0, 1, 12deg);
   animation: wipe 2.8s ease-in-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 @keyframes wipe {
-  0% { transform: translateX(-40%) rotate(12deg); opacity: 0; }
+  0% { transform: translate3d(-40%, 0, 0) rotate3d(0, 0, 1, 12deg); opacity: 0; }
   20% { opacity: 0.9; }
-  60% { transform: translateX(40%) rotate(12deg); opacity: 0.8; }
-  100% { opacity: 0; transform: translateX(60%) rotate(12deg); }
+  60% { transform: translate3d(40%, 0, 0) rotate3d(0, 0, 1, 12deg); opacity: 0.8; }
+  100% { opacity: 0; transform: translate3d(60%, 0, 0) rotate3d(0, 0, 1, 12deg); }
 }

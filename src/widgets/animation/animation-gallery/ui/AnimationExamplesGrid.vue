@@ -18,12 +18,12 @@
       <div class="animation-page__search">
         <Input
           v-model="searchQuery"
-          type="text"
           :placeholder="t('ANIMATION.SEARCH_PLACEHOLDER')"
           :label="t('ANIMATION.SEARCH_LABEL')"
+          type="text"
         >
           <template #prefix>
-            <Icon name="icon-search" :size="16" />
+            <Icon :size="16" name="icon-search" />
           </template>
         </Input>
       </div>
@@ -52,7 +52,7 @@
     </div>
 
     <div v-else-if="filteredExamples.length === 0" class="animation-page__empty">
-      <Icon name="icon-search" :size="48" class="animation-page__empty-icon" />
+      <Icon :size="48" class="animation-page__empty-icon" name="icon-search" />
       <h3 class="animation-page__empty-title">{{ t('ANIMATION.NO_RESULTS') }}</h3>
       <p class="animation-page__empty-text">{{ t('ANIMATION.NO_RESULTS_HINT') }}</p>
     </div>
@@ -76,8 +76,8 @@
         </div>
 
         <NavLink
-          className="animation-card__link"
           :to="`/animation/${example.id}`"
+          className="animation-card__link"
         >
           {{ t('ANIMATION.OPEN') }}
         </NavLink>
@@ -86,8 +86,8 @@
 
     <div v-if="totalPages > 1" class="animation-page__pagination">
       <button
-        class="animation-page__pagination-button"
         :disabled="currentPage === 1"
+        class="animation-page__pagination-button"
         @click="goToPage(currentPage - 1)"
       >
         {{ t('ANIMATION.PREVIOUS') }}
@@ -97,8 +97,8 @@
         <button
           v-for="page in visiblePages"
           :key="page"
-          class="animation-page__pagination-number"
           :class="{ active: currentPage === page }"
+          class="animation-page__pagination-number"
           @click="goToPage(page)"
         >
           {{ page }}
@@ -106,8 +106,8 @@
       </div>
 
       <button
-        class="animation-page__pagination-button"
         :disabled="currentPage === totalPages"
+        class="animation-page__pagination-button"
         @click="goToPage(currentPage + 1)"
       >
         {{ t('ANIMATION.NEXT') }}

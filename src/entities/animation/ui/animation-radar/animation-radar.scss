@@ -22,8 +22,10 @@
   inset: -10%;
   background: conic-gradient(from 90deg, color-var-alpha('color-primary', 0.24), transparent 60%);
   animation: radarSpin 3s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 @keyframes radarSpin {
-  to { transform: rotate(360deg); }
+  to { transform: rotate3d(0, 0, 1, 360deg); }
 }

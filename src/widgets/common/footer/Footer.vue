@@ -25,6 +25,9 @@
             <NavLink to="/docs" className="footer__link">
               {{ t('NAV.DOCS') }}
             </NavLink>
+            <NavLink to="/about" className="footer__link">
+              {{ t('NAV.ABOUT') }}
+            </NavLink>
           </nav>
         </div>
 

@@ -3,7 +3,7 @@ export interface User {
   email: string
   name: string | null
   avatarUrl?: string | null
-  plan?: 'free' | 'pro' | 'premium'
+  subscriptionTier?: 'free' | 'pro' | 'premium'
   isPayment?: boolean
   isAdmin?: boolean
   createdAt: string

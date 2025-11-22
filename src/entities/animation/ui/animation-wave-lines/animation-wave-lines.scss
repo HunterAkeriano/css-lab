@@ -14,6 +14,8 @@
   border-radius: $border-radius-full;
   background: $color-secondary;
   animation: waveSlide 1.4s ease-in-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .wave-lines span:nth-child(2) { animation-delay: 0.1s; }
@@ -22,6 +24,6 @@
 .wave-lines span:nth-child(5) { animation-delay: 0.4s; }
 
 @keyframes waveSlide {
-  0%, 100% { transform: translateY(0); opacity: 0.6; }
-  50% { transform: translateY(-8px); opacity: 1; }
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.6; }
+  50% { transform: translate3d(0, -8px, 0); opacity: 1; }
 }

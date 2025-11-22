@@ -13,6 +13,8 @@
   border-radius: 50%;
   border: 2px solid color-var-alpha('color-primary', 0.25);
   animation: wave-orb 2.4s ease-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .wave-orb__core {
@@ -24,15 +26,17 @@
     0 0 20px color-var-alpha('color-primary', 0.25),
     0 0 0 6px color-var-alpha('color-primary', 0.12);
   animation: wave-core 1.6s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 @keyframes wave-orb {
-  0% { transform: scale(0.65); opacity: 0.7; }
-  70% { transform: scale(1.2); opacity: 0; }
+  0% { transform: scale3d(0.65, 0.65, 1); opacity: 0.7; }
+  70% { transform: scale3d(1.2, 1.2, 1); opacity: 0; }
   100% { opacity: 0; }
 }
 
 @keyframes wave-core {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.12); }
+  0%, 100% { transform: scale3d(1, 1, 1); }
+  50% { transform: scale3d(1.12, 1.12, 1); }
 }

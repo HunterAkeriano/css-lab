@@ -25,6 +25,8 @@
   border-radius: 50%;
   border: 2px solid color-var-alpha('panel-border', 0.4);
   animation: orbSpin 12s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .glow-orbit__ring_primary {
@@ -39,5 +41,5 @@
 }
 
 @keyframes orbSpin {
-  to { transform: rotate(360deg); }
+  to { transform: rotate3d(0, 0, 1, 360deg); }
 }

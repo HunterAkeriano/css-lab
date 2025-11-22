@@ -13,6 +13,8 @@
   background: linear-gradient(135deg, color-var-alpha('color-primary', 0.9), color-var-alpha('color-accent', 0.8));
   box-shadow: 0 10px 30px color-var-alpha('color-primary', 0.28);
   animation: cube-pulse 1.2s ease-in-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .cube-pulse span:nth-child(1) { animation-delay: 0s; }
@@ -21,6 +23,6 @@
 .cube-pulse span:nth-child(4) { animation-delay: 0.3s; }
 
 @keyframes cube-pulse {
-  0%, 100% { transform: scale(0.9); opacity: 0.85; }
-  50% { transform: scale(1.15); opacity: 1; }
+  0%, 100% { transform: scale3d(0.9, 0.9, 1); opacity: 0.85; }
+  50% { transform: scale3d(1.15, 1.15, 1); opacity: 1; }
 }

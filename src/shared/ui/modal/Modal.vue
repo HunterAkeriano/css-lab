@@ -1,9 +1,9 @@
 <template>
   <transition name="fade">
-    <div v-if="visible" class="modal" role="dialog" aria-modal="true" @click.self="handleBackdropClick">
+    <div v-if="visible" role="dialog" aria-modal="true" class="modal" @click.self="handleBackdropClick">
       <div class="modal__backdrop"></div>
       <div class="modal__card" :class="modalClass">
-        <button v-if="closable" class="modal__close" type="button" @click="handleClose" aria-label="Close">
+        <button v-if="closable" type="button" aria-label="Close" class="modal__close" @click="handleClose">
           ×
         </button>
         <div v-if="$slots.header || title" class="modal__header">
@@ -20,8 +20,8 @@
             <div class="modal__actions">
               <Button
                 v-if="showCancel"
-                variant="ghost"
                 :size="buttonSize"
+                variant="ghost"
                 @click="handleClose"
               >
                 {{ cancelText }}

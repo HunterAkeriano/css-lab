@@ -21,18 +21,22 @@
   &_hour {
     height: 28px;
     animation: clock-hour 6s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   &_minute {
     height: 38px;
     animation: clock-minute 2s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 }
 
 @keyframes clock-hour {
-  to { transform: rotate(360deg); }
+  to { transform: rotate3d(0, 0, 1, 360deg); }
 }
 
 @keyframes clock-minute {
-  to { transform: rotate(720deg); }
+  to { transform: rotate3d(0, 0, 1, 720deg); }
 }

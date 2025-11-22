@@ -25,6 +25,8 @@
   display: flex;
   gap: $space-3xl;
   animation: newsSlide 12s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .news-scroll__content span {
@@ -35,9 +37,9 @@
 
 @keyframes newsSlide {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }

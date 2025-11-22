@@ -9,16 +9,16 @@
             :options="formatOptions"
           />
           <Button
-            variant="outline"
             size="sm"
+            variant="outline"
             class="code-export__copy-button"
             @click="handleCopy"
           >
             {{ copied ? `✓ ${t('GRADIENT.COPIED')}` : t('GRADIENT.COPY') }}
           </Button>
           <Button
-            variant="primary"
             size="sm"
+            variant="primary"
             @click="emit('save')"
           >
             {{ t('GRADIENT.SAVE') }}

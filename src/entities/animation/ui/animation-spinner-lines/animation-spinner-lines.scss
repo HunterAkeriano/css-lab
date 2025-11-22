@@ -15,17 +15,19 @@
   background: $color-primary;
   transform-origin: 100% 50%;
   animation: spinLine 1.2s linear infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 @for $i from 1 through 6 {
   .spinner-lines span:nth-child(#{$i}) {
-    transform: rotate(#{60deg * ($i - 1)});
+    transform: rotate3d(0, 0, 1, #{60deg * ($i - 1)});
     animation-delay: #{0.1s * ($i - 1)};
   }
 }
 
 @keyframes spinLine {
-  0% { transform: rotate(0deg) scaleX(0.3); opacity: 0.3; }
+  0% { transform: rotate3d(0, 0, 1, 0deg) scaleX(0.3); opacity: 0.3; }
   50% { opacity: 1; scale: 1; }
-  100% { transform: rotate(0deg) scaleX(0.3); opacity: 0.3; }
+  100% { transform: rotate3d(0, 0, 1, 0deg) scaleX(0.3); opacity: 0.3; }
 }

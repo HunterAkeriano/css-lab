@@ -37,6 +37,8 @@
     left: -200px;
     background: radial-gradient(circle, color-var-alpha('color-primary', 0.6), transparent 70%);
     animation: float-left 20s ease-in-out infinite;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   &_right {
@@ -44,6 +46,8 @@
     right: -250px;
     background: radial-gradient(circle, color-var-alpha('color-accent', 0.5), transparent 70%);
     animation: float-right 25s ease-in-out infinite;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   @media (max-width: $breakpoint-md) {
@@ -98,25 +102,25 @@
 
 @keyframes float-left {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
   }
   33% {
-    transform: translate(30px, -40px) scale(1.1);
+    transform: translate3d(30px, -40px, 0) scale3d(1.1, 1.1, 1);
   }
   66% {
-    transform: translate(-20px, 30px) scale(0.95);
+    transform: translate3d(-20px, 30px, 0) scale3d(0.95, 0.95, 1);
   }
 }
 
 @keyframes float-right {
   0%, 100% {
-    transform: translate(0, 0) scale(1);
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
   }
   33% {
-    transform: translate(-40px, 30px) scale(0.9);
+    transform: translate3d(-40px, 30px, 0) scale3d(0.9, 0.9, 1);
   }
   66% {
-    transform: translate(20px, -25px) scale(1.05);
+    transform: translate3d(20px, -25px, 0) scale3d(1.05, 1.05, 1);
   }
 }
 

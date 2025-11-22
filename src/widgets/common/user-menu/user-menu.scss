@@ -10,11 +10,16 @@
     background: transparent;
     border-radius: $border-radius-lg;
     cursor: pointer;
-    transition: background $transition-base;
+    transition: background-color $transition-base;
 
     &:hover {
       background: $color-bg-tertiary;
     }
+  }
+
+  &__avatar-wrapper {
+    position: relative;
+    display: inline-block;
   }
 
   &__avatar {
@@ -38,6 +43,22 @@
     font-size: $font-size-sm;
     font-weight: $font-weight-semibold;
     color: white;
+  }
+
+  &__crown {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    color: $color-warning;
+    z-index: 1;
+    backface-visibility: hidden;
+
+    &_premium {
+      color: #10b981;
+      animation: premium-glow 2s ease-in-out infinite;
+      will-change: box-shadow;
+      border-radius: 50%;
+    }
   }
 
   &__name {
@@ -86,7 +107,7 @@
     font-weight: $font-weight-medium;
     text-decoration: none;
     cursor: pointer;
-    transition: background $transition-base;
+    transition: background-color $transition-base;
 
     &:hover {
       background: $color-bg-tertiary;
@@ -121,4 +142,13 @@
 .dropdown-leave-to {
   opacity: 0;
   transform: translate3d(0, -10px, 0);
+}
+
+@keyframes premium-glow {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(16, 185, 129, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.9);
+  }
 }

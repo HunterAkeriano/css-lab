@@ -31,7 +31,7 @@
     background: transparent;
     color: $color-text-primary;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
 
     &:hover:not(:disabled) {
       background: $color-primary;

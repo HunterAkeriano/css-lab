@@ -14,7 +14,7 @@ export async function ensureSuperAdmin(env: Env) {
 
   if (existing.rowCount) {
     await db.query(
-      `UPDATE users SET is_admin = TRUE WHERE email = $1`,
+      `UPDATE users SET is_admin = TRUE, is_payment = TRUE, subscription_tier = 'pro' WHERE email = $1`,
       [email]
     )
     return
@@ -22,8 +22,8 @@ export async function ensureSuperAdmin(env: Env) {
 
   const passwordHash = await bcrypt.hash(password, 10)
   await db.query(
-    `INSERT INTO users (email, password_hash, is_admin, is_payment)
-     VALUES ($1, $2, TRUE, TRUE)`,
+    `INSERT INTO users (email, password_hash, is_admin, is_payment, subscription_tier)
+     VALUES ($1, $2, TRUE, TRUE, 'pro')`,
     [email, passwordHash]
   )
 }

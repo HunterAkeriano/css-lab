@@ -14,10 +14,12 @@
   background: linear-gradient(145deg, $color-secondary, $color-primary);
   animation: blobMorph 6s ease-in-out infinite;
   border-radius: 36% 64% 42% 58%;
+  will-change: border-radius, transform;
+  backface-visibility: hidden;
 }
 
 @keyframes blobMorph {
-  0%, 100% { border-radius: 36% 64% 42% 58%; transform: rotate(0deg); }
-  33% { border-radius: 52% 48% 60% 40%; transform: rotate(6deg); }
-  66% { border-radius: 44% 56% 38% 62%; transform: rotate(-6deg); }
+  0%, 100% { border-radius: 36% 64% 42% 58%; transform: rotate3d(0, 0, 1, 0deg); }
+  33% { border-radius: 52% 48% 60% 40%; transform: rotate3d(0, 0, 1, 6deg); }
+  66% { border-radius: 44% 56% 38% 62%; transform: rotate3d(0, 0, 1, -6deg); }
 }

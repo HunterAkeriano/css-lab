@@ -46,9 +46,9 @@
       :visible="showAuthModal"
       :title="t('COMMON.AUTH_REQUIRED_TITLE')"
       :subtitle="t('COMMON.AUTH_REQUIRED_DESCRIPTION')"
-      show-actions
       :confirm-text="t('COMMON.AUTH_REQUIRED_CONFIRM')"
       :cancel-text="t('COMMON.AUTH_REQUIRED_CLOSE')"
+      show-actions
       @confirm="handleAuthConfirm"
       @close="showAuthModal = false"
     />
@@ -62,10 +62,10 @@
       <Input v-model="saveName" :label="t('COMMON.NAME')" />
       <template #footer>
         <div class="modal__actions">
-          <Button variant="ghost" size="md" @click="closeSaveModal">
+          <Button size="md" variant="ghost" @click="closeSaveModal">
             {{ t('COMMON.CANCEL') }}
           </Button>
-          <Button variant="primary" size="md" @click="confirmSavePreset(saveName)">
+          <Button size="md" variant="primary" @click="confirmSavePreset(saveName)">
             {{ t('COMMON.SAVE') }}
           </Button>
         </div>

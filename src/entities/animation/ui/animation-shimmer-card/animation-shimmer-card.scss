@@ -12,8 +12,10 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.25) 40%, transparent 70%);
-  transform: translateX(-120%);
+  transform: translate3d(-120%, 0, 0);
   animation: shimmer 1.6s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .shimmer-card__content {
@@ -23,6 +25,6 @@
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-120%); }
-  100% { transform: translateX(120%); }
+  0% { transform: translate3d(-120%, 0, 0); }
+  100% { transform: translate3d(120%, 0, 0); }
 }

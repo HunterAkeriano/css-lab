@@ -159,7 +159,7 @@
   border-radius: $border-radius-full;
   padding: $space-xs $space-md;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 
   &:hover {
     background: color-var-alpha('color-primary', 0.2);

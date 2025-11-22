@@ -1,3 +1,5 @@
+export type SubscriptionTier = 'free' | 'pro' | 'premium'
+
 export interface User {
   id: string
   email: string
@@ -5,6 +7,7 @@ export interface User {
   name: string | null
   avatarUrl: string | null
   isPayment: boolean
+  subscriptionTier: SubscriptionTier
   isAdmin: boolean
   createdAt: Date
   updatedAt: Date

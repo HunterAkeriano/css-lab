@@ -25,6 +25,9 @@
     mix-blend-mode: screen;
     animation: star-swipe 48s linear infinite;
     animation-fill-mode: both;
+    will-change: transform;
+    backface-visibility: hidden;
+    contain: layout paint;
   }
 
   &__stars-1 {
@@ -56,6 +59,8 @@
     border-radius: 50%;
     transition: transform 0.15s ease-out;
     will-change: transform;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
   }
 
   &__celestial_moon {
@@ -92,6 +97,9 @@
     opacity: 0.8;
     z-index: 0;
     animation: cloud-float 20s ease-in-out infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+    contain: layout paint;
 
     &::before,
     &::after {
@@ -232,13 +240,21 @@
 
 @keyframes sun-rays {
   0%, 100% {
-    transform: scale(1);
+    transform: scale3d(1, 1, 1);
     opacity: 0.8;
   }
   50% {
-    transform: scale(1.15);
+    transform: scale3d(1.15, 1.15, 1);
     opacity: 1;
   }
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-md;
 }
 
 .profile-avatar {
@@ -248,6 +264,16 @@
   overflow: hidden;
   border: 4px solid $color-primary;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backface-visibility: hidden;
+
+  &_premium {
+    border: 4px solid #10b981;
+    box-shadow:
+      0 0 0 4px rgba(16, 185, 129, 0.2),
+      0 8px 32px rgba(16, 185, 129, 0.4),
+      0 0 40px rgba(16, 185, 129, 0.3);
+  }
 
   &__image {
     width: 100%;
@@ -290,11 +316,12 @@
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    backface-visibility: hidden;
 
     &:hover:not(:disabled) {
       background: $color-primary-hover;
-      transform: translateY(-2px);
+      transform: translate3d(0, -2px, 0);
     }
 
     &:disabled {
@@ -312,10 +339,11 @@
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    backface-visibility: hidden;
 
     &:hover:not(:disabled) {
-      transform: translateY(-2px);
+      transform: translate3d(0, -2px, 0);
     }
 
     &:disabled {
@@ -334,6 +362,66 @@
     font-size: $font-size-sm;
     color: $color-error;
     text-align: center;
+  }
+
+  &__crown {
+    position: absolute;
+    top: -8px;
+    right: 10px;
+    color: $color-warning;
+    z-index: 2;
+    backface-visibility: hidden;
+
+    &_premium {
+      color: #10b981;
+      animation: premium-glow-shadow 2s ease-in-out infinite;
+      will-change: box-shadow;
+      border-radius: 50%;
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    padding: $space-xs $space-md;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: $border-radius-full;
+    box-shadow:
+      0 4px 12px rgba(16, 185, 129, 0.4),
+      0 0 20px rgba(16, 185, 129, 0.3);
+    z-index: 2;
+    animation: badge-pulse 2s ease-in-out infinite;
+    will-change: box-shadow;
+    backface-visibility: hidden;
+  }
+}
+
+@keyframes premium-glow-shadow {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.9);
+  }
+}
+
+@keyframes badge-pulse {
+  0%, 100% {
+    box-shadow:
+      0 4px 12px rgba(16, 185, 129, 0.4),
+      0 0 20px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    box-shadow:
+      0 4px 16px rgba(16, 185, 129, 0.6),
+      0 0 30px rgba(16, 185, 129, 0.5);
   }
 }
 
@@ -365,7 +453,7 @@
     border-radius: $border-radius-md;
     color: $color-text-primary;
     font-size: $font-size-base;
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 
     &:focus {
       outline: none;
@@ -395,12 +483,13 @@
     font-size: $font-size-base;
     font-weight: $font-weight-medium;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease;
     margin-top: $space-lg;
+    backface-visibility: hidden;
 
     &:hover:not(:disabled) {
       background: $color-primary-hover;
-      transform: translateY(-2px);
+      transform: translate3d(0, -2px, 0);
     }
 
     &:disabled {
@@ -440,7 +529,7 @@
     font-size: $font-size-sm;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
   }
 
   &__nav-link_active {
@@ -471,14 +560,168 @@
     &__avatar-section {
       padding: $space-lg;
     }
+
+    &__header {
+      margin-bottom: $space-2xl;
+    }
+
+    &__content {
+      gap: $space-xl;
+    }
   }
 
   .profile-avatar {
     width: 120px;
     height: 120px;
+
+    &__crown {
+      top: -6px;
+      right: 8px;
+      transform: scale(0.9);
+    }
+
+    &__badge {
+      bottom: -10px;
+      font-size: 10px;
+      padding: 4px $space-sm;
+    }
   }
 
   .profile-form {
     padding: $space-lg;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-page {
+    padding: $space-xl 0;
+
+    &__container {
+      padding: 0 $space-sm;
+    }
+
+    &__title {
+      font-size: $font-size-xl;
+    }
+
+    &__subtitle {
+      font-size: $font-size-sm;
+    }
+
+    &__header {
+      margin-bottom: $space-xl;
+    }
+
+    &__content {
+      gap: $space-lg;
+    }
+
+    &__avatar-section {
+      padding: $space-md;
+    }
+
+    &__navigation {
+      justify-content: center;
+    }
+
+    &__celestial {
+      width: 80px;
+      height: 80px;
+      top: 8%;
+      right: 8%;
+    }
+
+    &__cloud-1 {
+      width: 70px;
+      height: 30px;
+
+      &::before {
+        width: 35px;
+        height: 35px;
+      }
+
+      &::after {
+        width: 40px;
+        height: 32px;
+      }
+    }
+
+    &__cloud-2 {
+      width: 85px;
+      height: 35px;
+
+      &::before {
+        width: 45px;
+        height: 40px;
+      }
+
+      &::after {
+        width: 50px;
+        height: 38px;
+      }
+    }
+
+    &__cloud-3 {
+      width: 60px;
+      height: 28px;
+
+      &::before {
+        width: 32px;
+        height: 32px;
+      }
+
+      &::after {
+        width: 35px;
+        height: 30px;
+      }
+    }
+  }
+
+  .profile-avatar {
+    width: 100px;
+    height: 100px;
+
+    &__initials {
+      font-size: $font-size-2xl;
+    }
+
+    &__crown {
+      top: -5px;
+      right: 5px;
+      transform: scale(0.8);
+    }
+
+    &__badge {
+      bottom: -8px;
+      font-size: 9px;
+      padding: 3px $space-xs;
+      letter-spacing: 0.05em;
+    }
+
+    &__upload-btn,
+    &__confirm-btn {
+      padding: $space-xs $space-md;
+      font-size: $font-size-sm;
+    }
+  }
+
+  .profile-form {
+    padding: $space-md;
+
+    &__field {
+      margin-bottom: $space-md;
+    }
+
+    &__input,
+    &__text {
+      padding: $space-sm;
+      font-size: $font-size-sm;
+    }
+
+    &__submit {
+      padding: $space-sm $space-lg;
+      font-size: $font-size-sm;
+      margin-top: $space-md;
+    }
   }
 }

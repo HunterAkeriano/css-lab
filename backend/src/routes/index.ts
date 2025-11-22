@@ -4,6 +4,7 @@ import { createAuthRouter } from './auth'
 import { createProfileRouter } from './profile'
 import { createSavesRouter } from './saves'
 import { createModerationRouter } from './moderation'
+import { createUsersRouter } from './users'
 import { healthRouter } from './health'
 
 export function createApiRouter(env: Env) {
@@ -13,5 +14,6 @@ export function createApiRouter(env: Env) {
   router.use('/profile', createProfileRouter(env))
   router.use('/saves', createSavesRouter(env))
   router.use('/moderation', createModerationRouter(env))
+  router.use('/users', createUsersRouter(env))
   return router
 }

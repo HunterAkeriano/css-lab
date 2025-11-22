@@ -6,7 +6,7 @@
         <h2 class="shadow-controls__title">{{ t('SHADOW.LAYERS_TITLE') }}</h2>
         <p class="shadow-controls__subtitle">{{ t('SHADOW.LAYERS_SUBTITLE') }}</p>
       </div>
-      <Button variant="primary" size="sm" @click="emit('add-layer')">
+      <Button size="sm" variant="primary" @click="emit('add-layer')">
         + {{ t('SHADOW.ADD_LAYER') }}
       </Button>
     </div>
@@ -24,17 +24,17 @@
           </div>
           <div class="shadow-controls__actions">
             <Button
+              :class="{ 'shadow-controls__toggle_active': layer.inset }"
               size="sm"
               variant="ghost"
-              :class="{ 'shadow-controls__toggle_active': layer.inset }"
               @click="emit('update-layer', layer.id, { inset: !layer.inset })"
             >
               {{ layer.inset ? t('SHADOW.INSET_ON') : t('SHADOW.INSET_OFF') }}
             </Button>
             <Button
+              :disabled="layers.length <= 1"
               size="sm"
               variant="danger"
-              :disabled="layers.length <= 1"
               @click="emit('remove-layer', layer.id)"
             >
               ✕

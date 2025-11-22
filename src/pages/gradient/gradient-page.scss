@@ -25,6 +25,8 @@
     animation: nebulaDrift 52s ease-in-out infinite alternate;
     z-index: -2;
     will-change: transform;
+    backface-visibility: hidden;
+    contain: layout paint;
   }
 
   &::after {
@@ -44,6 +46,8 @@
     z-index: -1;
     pointer-events: none;
     will-change: transform, opacity;
+    backface-visibility: hidden;
+    contain: layout paint;
   }
 }
 
@@ -111,6 +115,7 @@
     border-color: color-var-alpha('color-text-primary', 0.22);
     transform: translate3d(0, -1px, 0);
     box-shadow: 0 8px 24px color-var-alpha('color-primary', 0.25);
+    backface-visibility: hidden;
   }
 }
 
@@ -127,6 +132,8 @@
   pointer-events: none;
   mask-image: radial-gradient(72% 72% at 50% 48%, rgba(0, 0, 0, 0.95), transparent 92%);
   will-change: transform;
+  backface-visibility: hidden;
+  contain: layout paint;
 
   &::before {
     content: '';
@@ -139,6 +146,7 @@
     border-radius: 50%;
     animation: floatingOrb1 25s ease-in-out infinite alternate;
     will-change: transform;
+    backface-visibility: hidden;
   }
 
   &::after {
@@ -152,6 +160,7 @@
     border-radius: 50%;
     animation: floatingOrb2 28s ease-in-out infinite alternate-reverse;
     will-change: transform;
+    backface-visibility: hidden;
   }
 }
 
@@ -210,6 +219,78 @@
   100% {
     transform: translate3d(0, 0, 0) scale(1);
     opacity: 0.45;
+  }
+}
+
+@media (max-width: 768px) {
+  .gradient-page {
+    padding: $space-2xl 0;
+
+    &__header {
+      padding: $space-md;
+      margin-bottom: $space-xl;
+      gap: $space-md;
+    }
+
+    &__title {
+      font-size: $font-size-2xl;
+    }
+
+    &__subtitle {
+      font-size: $font-size-sm;
+    }
+  }
+
+  .gradient-page__motion {
+    &::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    &::after {
+      width: 250px;
+      height: 250px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .gradient-page {
+    padding: $space-xl 0;
+
+    &__header {
+      padding: $space-sm;
+      margin-bottom: $space-lg;
+      flex-direction: column;
+      gap: $space-sm;
+    }
+
+    &__title {
+      font-size: $font-size-xl;
+    }
+
+    &__subtitle {
+      font-size: $font-size-xs;
+    }
+
+    &__back-link {
+      width: 100%;
+      text-align: center;
+      padding: $space-xs $space-sm;
+      font-size: $font-size-sm;
+    }
+  }
+
+  .gradient-page__motion {
+    &::before {
+      width: 200px;
+      height: 200px;
+    }
+
+    &::after {
+      width: 180px;
+      height: 180px;
+    }
   }
 }
 

@@ -15,10 +15,12 @@
   border: 4px solid color-var-alpha('panel-border', 0.2);
   border-top-color: $color-primary;
   animation: ringRotate 1s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 @keyframes ringRotate {
   to {
-    transform: rotate(360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
   }
 }

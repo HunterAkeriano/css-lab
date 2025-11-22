@@ -15,10 +15,12 @@
   border-radius: $border-radius-md;
   animation: rotateShape 2.4s linear infinite;
   box-shadow: 0 10px 24px color-var-alpha('color-primary', 0.3);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 @keyframes rotateShape {
-  0% { transform: rotate(0) scale(1); }
-  50% { transform: rotate(180deg) scale(1.06); }
-  100% { transform: rotate(360deg) scale(1); }
+  0% { transform: rotate3d(0, 0, 1, 0deg) scale3d(1, 1, 1); }
+  50% { transform: rotate3d(0, 0, 1, 180deg) scale3d(1.06, 1.06, 1); }
+  100% { transform: rotate3d(0, 0, 1, 360deg) scale3d(1, 1, 1); }
 }

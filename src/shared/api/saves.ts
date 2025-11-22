@@ -64,3 +64,9 @@ export async function createSave(category: SaveCategory, name: string, payload: 
   )
   return response.data.item
 }
+
+export async function deleteSave(category: SaveCategory, id: string): Promise<void> {
+  await api.delete(`/saves/${category}s/${id}`, {
+    headers: authHeaders()
+  })
+}

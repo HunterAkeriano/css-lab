@@ -8,14 +8,17 @@
             <NavLink :to="`/${locale}/gradient`" className="header__nav-link">
               {{ t('NAV.GRADIENTS') }}
             </NavLink>
-            <NavLink :to="`/${locale}/docs`" className="header__nav-link">
-              {{ t('NAV.DOCS') }}
-            </NavLink>
             <NavLink :to="`/${locale}/shadow`" className="header__nav-link">
               {{ t('NAV.SHADOWS') }}
             </NavLink>
             <NavLink :to="`/${locale}/animation`" className="header__nav-link">
               {{ t('NAV.ANIMATIONS') }}
+            </NavLink>
+            <NavLink :to="`/${locale}/docs`" className="header__nav-link">
+              {{ t('NAV.DOCS') }}
+            </NavLink>
+            <NavLink :to="`/${locale}/about`" className="header__nav-link">
+              {{ t('NAV.ABOUT') }}
             </NavLink>
           </nav>
 
@@ -27,15 +30,15 @@
             <UserMenu :user="authStore.user" />
           </template>
           <template v-else>
-            <Button variant="outline" size="sm" @click="goToAuth">
+            <Button size="sm" variant="outline" @click="goToAuth">
               {{ t('NAV.LOGIN') }}
             </Button>
           </template>
         </div>
 
         <button class="header__mobile-toggle" @click="toggleMobileMenu">
-          <Icon v-if="!isMobileMenuOpen" name="icon-menu" :size="24" />
-          <Icon v-else name="icon-close" :size="24" />
+          <Icon v-if="!isMobileMenuOpen" :size="24" name="icon-menu" />
+          <Icon v-else :size="24" name="icon-close" />
         </button>
       </div>
     </div>
@@ -44,20 +47,24 @@
       <div v-if="isMobileMenuOpen" ref="mobileMenuRef" class="header__mobile-menu">
 
         <nav class="header__mobile-nav">
-          <NavLink to="/gradient" className="header__mobile-link" @click="closeMobileMenu">
+          <NavLink :to="`/${locale}/gradient`" className="header__mobile-link" @click="closeMobileMenu">
             {{ t('NAV.GRADIENTS') }}
           </NavLink>
 
-          <NavLink to="/docs" className="header__mobile-link" @click="closeMobileMenu">
-            {{ t('NAV.DOCS') }}
-          </NavLink>
-
-          <NavLink to="/shadow" className="header__mobile-link" @click="closeMobileMenu">
+          <NavLink :to="`/${locale}/shadow`" className="header__mobile-link" @click="closeMobileMenu">
             {{ t('NAV.SHADOWS') }}
           </NavLink>
 
-          <NavLink to="/animation" className="header__mobile-link" @click="closeMobileMenu">
+          <NavLink :to="`/${locale}/animation`" className="header__mobile-link" @click="closeMobileMenu">
             {{ t('NAV.ANIMATIONS') }}
+          </NavLink>
+
+          <NavLink :to="`/${locale}/docs`" className="header__mobile-link" @click="closeMobileMenu">
+            {{ t('NAV.DOCS') }}
+          </NavLink>
+
+          <NavLink :to="`/${locale}/about`" className="header__mobile-link" @click="closeMobileMenu">
+            {{ t('NAV.ABOUT') }}
           </NavLink>
         </nav>
 
@@ -70,12 +77,12 @@
               {{ t('NAV.PROFILE') }}
             </NavLink>
 
-            <Button variant="danger" size="md" @click="handleLogout" style="width: 100%;">
+            <Button size="md" variant="danger" style="width: 100%;" @click="handleLogout">
               {{ t('NAV.LOGOUT') }}
             </Button>
           </template>
           <template v-else>
-            <Button variant="primary" size="md" @click="goToAuth" style="width: 100%;">
+            <Button size="md" variant="primary" style="width: 100%;" @click="goToAuth">
               {{ t('NAV.LOGIN') }}
             </Button>
           </template>

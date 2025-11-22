@@ -12,15 +12,22 @@
     justify-content: space-between;
     padding: $space-md 0;
     gap: $space-lg;
+    flex-wrap: wrap;
   }
 
   &__nav {
     display: none;
     align-items: center;
     gap: $space-md;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 840px;
 
     @media (min-width: $breakpoint-md) {
       display: flex;
+      flex: 1;
+      gap: $space-sm;
     }
   }
 
@@ -32,6 +39,7 @@
     text-decoration: none;
     border-radius: $border-radius-md;
     transition: color $transition-base, background $transition-base;
+    white-space: nowrap;
 
     &:hover {
       color: $color-primary;

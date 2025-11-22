@@ -24,6 +24,8 @@
   border-radius: 50%;
   border: 2px dashed color-var-alpha('panel-border', 0.3);
   animation: demoSpin 12s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .demo-orbits__ring_primary {
@@ -48,9 +50,9 @@
   border-radius: 50%;
   background: linear-gradient(145deg, $color-accent, $color-secondary);
   box-shadow: 0 0 14px color-var-alpha('color-secondary', 0.6);
-  transform: translateX(-6px);
+  transform: translate3d(-6px, 0, 0);
 }
 
 @keyframes demoSpin {
-  to { transform: rotate(360deg); }
+  to { transform: rotate3d(0, 0, 1, 360deg); }
 }

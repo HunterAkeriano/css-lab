@@ -4,55 +4,42 @@
 
     <div class="login-page__content">
       <div class="login-page__form-container">
+        <div class="login-page__controls">
+          <ThemeSwitcher />
+          <LanguageSwitcher />
+        </div>
+
         <div class="login-page__header">
           <h1 class="login-page__title">{{ t('AUTH.LOGIN_TITLE') }}</h1>
           <p class="login-page__subtitle">{{ t('AUTH.LOGIN_SUBTITLE') }}</p>
         </div>
 
         <form class="login-form" @submit.prevent="handleSubmit" novalidate>
-          <div class="login-form__field">
-            <label class="login-form__label" for="email">
-              {{ t('AUTH.EMAIL') }}
-            </label>
-            <input
-              id="email"
-              v-model="formData.email"
-              type="email"
-              class="login-form__input"
-              :class="{ 'login-form__input_error': errors.email }"
-              autocomplete="email"
-              @input="clearFieldError('email')"
-            />
-            <span v-if="errors.email" class="login-form__error">
-              {{ t(`VALIDATION.${errors.email}`) }}
-            </span>
-          </div>
+          <Input
+            v-model="formData.email"
+            :label="t('AUTH.EMAIL')"
+            :error="errors.email ? t(`VALIDATION.${errors.email}`) : ''"
+            type="email"
+            autocomplete="email"
+            @input="clearFieldError('email')"
+          />
 
-          <div class="login-form__field">
-            <label class="login-form__label" for="password">
-              {{ t('AUTH.PASSWORD') }}
-            </label>
-            <input
-              id="password"
-              v-model="formData.password"
-              type="password"
-              class="login-form__input"
-              :class="{ 'login-form__input_error': errors.password }"
-              autocomplete="current-password"
-              @input="clearFieldError('password')"
-            />
-            <span v-if="errors.password" class="login-form__error">
-              {{ t(`VALIDATION.${errors.password}`) }}
-            </span>
-          </div>
+          <Input
+            v-model="formData.password"
+            :label="t('AUTH.PASSWORD')"
+            :error="errors.password ? t(`VALIDATION.${errors.password}`) : ''"
+            type="password"
+            autocomplete="current-password"
+            @input="clearFieldError('password')"
+          />
 
           <button
-            type="submit"
-            class="login-form__submit"
             :disabled="isSubmitting"
             :class="{ 'login-form__submit_loading': isSubmitting }"
+            type="submit"
+            class="login-form__submit"
           >
-            {{ isSubmitting ? t('AUTH.SIGNING_IN') : t('AUTH.LOGIN_BUTTON') }}
+            <span>{{ isSubmitting ? t('AUTH.SIGNING_IN') : t('AUTH.LOGIN_BUTTON') }}</span>
           </button>
 
           <div v-if="serverError" class="login-form__server-error">
@@ -79,6 +66,9 @@ import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/entities'
 import { StarfieldAnimation } from '@/shared/ui/StarfieldAnimation'
+import { Input } from '@/shared/ui'
+import ThemeSwitcher from '@/shared/ui/theme-switcher/ThemeSwitcher.vue'
+import LanguageSwitcher from '@/features/common/language-switcher/ui/language-switcher/LanguageSwitcher.vue'
 import { loginSchema, type LoginFormData } from '@/shared/lib/validation/auth'
 import { authAPI } from '@/shared/api/auth'
 

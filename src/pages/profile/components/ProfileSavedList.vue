@@ -46,8 +46,8 @@
             <Button
               variant="ghost"
               size="sm"
-              @click="copyCSS(item)"
               :title="t('PROFILE.COPY_CSS')"
+              @click="copyCSS(item)"
             >
               {{ t('PROFILE.COPY') }}
             </Button>
@@ -67,6 +67,15 @@
             <span v-else class="profile-saved-list__hint">
               {{ t('PROFILE.APPROVED') }}
             </span>
+            <Button
+              variant="danger"
+              size="sm"
+              :disabled="deletingId === item.id"
+              :title="t('PROFILE.DELETE')"
+              @click="deleteItem(item)"
+            >
+              {{ deletingId === item.id ? t('PROFILE.DELETING') : t('PROFILE.DELETE') }}
+            </Button>
           </div>
         </div>
       </article>
@@ -83,6 +92,7 @@ import {
   listPublicSaves,
   listSaves,
   requestPublish,
+  deleteSave,
   type SavedItem,
   type SaveCategory
 } from '@/shared/api/saves'
@@ -98,6 +108,7 @@ const items = ref<SavedItem[]>([])
 const loading = ref(true)
 const error = ref('')
 const publishingId = ref<string | null>(null)
+const deletingId = ref<string | null>(null)
 const toast = useToast()
 const { t } = useI18n()
 
@@ -272,6 +283,23 @@ async function copyCSS(item: SavedItem) {
     toast.success(t('PROFILE.COPIED'))
   } catch (error) {
     toast.error(t('PROFILE.COPY_ERROR'))
+  }
+}
+
+async function deleteItem(item: SavedItem) {
+  if (!confirm(t('PROFILE.DELETE_CONFIRM', { name: item.name }))) {
+    return
+  }
+
+  deletingId.value = item.id
+  try {
+    await deleteSave(props.category, item.id)
+    toast.success(t('PROFILE.DELETE_SUCCESS'))
+    await loadItems()
+  } catch (err: any) {
+    toast.error(err?.message || t('PROFILE.DELETE_ERROR'))
+  } finally {
+    deletingId.value = null
   }
 }
 

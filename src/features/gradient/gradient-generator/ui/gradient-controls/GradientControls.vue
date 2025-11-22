@@ -41,8 +41,8 @@
             :model-value="color.color"
             type="text"
             placeholder="#000000"
-            class="gradient-controls__color-input"
             pattern="#?[0-9a-fA-F]{6}"
+            class="gradient-controls__color-input"
             @update:model-value="(value) => handleColorChange(color.id, value as string)"
           />
           <div class="gradient-controls__position-group">
@@ -57,17 +57,17 @@
             <span class="gradient-controls__position-label">%</span>
           </div>
           <Button
-            variant="danger"
-            size="sm"
-            class="gradient-controls__remove"
             :disabled="colors.length <= 2"
+            size="sm"
+            variant="danger"
+            class="gradient-controls__remove"
             @click="emit('remove-color', color.id)"
           >
             ✕
           </Button>
         </div>
       </div>
-      <Button variant="outline" size="sm" @click="emit('add-color')">
+      <Button size="sm" variant="outline" @click="emit('add-color')">
         + {{ t('GRADIENT.ADD_COLOR') }}
       </Button>
     </div>

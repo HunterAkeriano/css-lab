@@ -13,6 +13,12 @@ const mainLayoutChildren: RouteRecordRaw[] = [
     meta: { titleKey: 'META.HOME', descriptionKey: 'META_DESCRIPTION.HOME' }
   },
   {
+    path: 'about',
+    name: 'about',
+    component: () => import('@/pages/about/AboutPage.vue'),
+    meta: { titleKey: 'META.ABOUT', descriptionKey: 'META_DESCRIPTION.ABOUT' }
+  },
+  {
     path: 'profile',
     name: 'profile',
     component: () => import('@/pages/profile/ProfilePage.vue'),

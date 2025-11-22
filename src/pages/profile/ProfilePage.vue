@@ -20,15 +20,26 @@
 
       <div class="profile-page__content">
         <div class="profile-page__avatar-section">
-          <div class="profile-avatar">
-            <img
-              v-if="displayAvatarUrl"
-              :src="displayAvatarUrl"
-              alt="Avatar"
-              class="profile-avatar__image"
+          <div class="profile-avatar-wrapper">
+            <div :class="['profile-avatar', { 'profile-avatar_premium': isPremiumUser }]">
+              <img
+                v-if="displayAvatarUrl"
+                :src="displayAvatarUrl"
+                alt="Avatar"
+                class="profile-avatar__image"
+              />
+              <div v-else class="profile-avatar__placeholder">
+                <span class="profile-avatar__initials">{{ userInitials }}</span>
+              </div>
+            </div>
+            <Icon
+              v-if="isPaidUser"
+              :size="24"
+              :class="['profile-avatar__crown', { 'profile-avatar__crown_premium': isPremiumUser }]"
+              name="icon-crown"
             />
-            <div v-else class="profile-avatar__placeholder">
-              <span class="profile-avatar__initials">{{ userInitials }}</span>
+            <div v-if="isPremiumUser" class="profile-avatar__badge">
+              Premium
             </div>
           </div>
 
@@ -41,19 +52,19 @@
               @change="handleFileSelect"
             />
             <button
+              :disabled="isUploading"
               type="button"
               class="profile-avatar__upload-btn"
               @click="fileInputRef?.click()"
-              :disabled="isUploading"
             >
               {{ t('PROFILE.UPLOAD_AVATAR') }}
             </button>
             <button
               v-if="selectedFile"
+              :disabled="isUploading"
               type="button"
               class="profile-avatar__confirm-btn"
               @click="handleUpload"
-              :disabled="isUploading"
             >
               {{ isUploading ? t('PROFILE.SAVING') : t('PROFILE.SAVE_CHANGES') }}
             </button>
@@ -68,11 +79,11 @@
               {{ t('AUTH.NAME') }}
             </label>
             <input
-              id="name"
               v-model="formData.name"
+              :disabled="isSaving"
+              id="name"
               type="text"
               class="profile-form__input"
-              :disabled="isSaving"
             />
           </div>
 
@@ -81,11 +92,11 @@
               {{ t('AUTH.EMAIL') }}
             </label>
             <input
-              id="email"
               v-model="formData.email"
+              id="email"
               type="email"
-              class="profile-form__input"
               disabled
+              class="profile-form__input"
             />
           </div>
 
@@ -97,9 +108,9 @@
           </div>
 
           <button
+            :disabled="isSaving || !hasChanges"
             type="submit"
             class="profile-form__submit"
-            :disabled="isSaving || !hasChanges"
           >
             {{ isSaving ? t('PROFILE.SAVING') : t('PROFILE.SAVE_CHANGES') }}
           </button>
@@ -111,22 +122,22 @@
         <nav class="profile-page__navigation">
           <RouterLink
             :to="{ name: `${locale}-profile-gradients` }"
-            class="profile-page__nav-link"
             active-class="profile-page__nav-link_active"
+            class="profile-page__nav-link"
           >
             {{ t('PROFILE.NAV_GRADIENTS') }}
           </RouterLink>
           <RouterLink
             :to="{ name: `${locale}-profile-shadows` }"
-            class="profile-page__nav-link"
             active-class="profile-page__nav-link_active"
+            class="profile-page__nav-link"
           >
             {{ t('PROFILE.NAV_SHADOWS') }}
           </RouterLink>
           <RouterLink
             :to="{ name: `${locale}-profile-animations` }"
-            class="profile-page__nav-link"
             active-class="profile-page__nav-link_active"
+            class="profile-page__nav-link"
           >
             {{ t('PROFILE.NAV_ANIMATIONS') }}
           </RouterLink>
@@ -152,7 +163,8 @@ import { reactive, ref, computed, onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { authAPI, type User } from '@/shared/api/auth'
-import { useTheme } from '@/shared/composables/useTheme'
+import { useTheme } from '@/shared/composables/use-theme'
+import { Icon } from '@/shared/ui'
 import './profile-page.scss'
 
 const { t, locale } = useI18n()
@@ -218,6 +230,14 @@ const hasChanges = computed(() => {
 })
 
 const isAdmin = computed(() => Boolean(user.value?.isAdmin))
+
+const isPaidUser = computed(() => {
+  return user.value?.subscriptionTier === 'pro' || user.value?.subscriptionTier === 'premium'
+})
+
+const isPremiumUser = computed(() => {
+  return user.value?.subscriptionTier === 'premium'
+})
 
 async function loadProfile() {
   try {

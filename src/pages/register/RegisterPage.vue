@@ -4,73 +4,51 @@
 
     <div class="register-page__content">
       <div class="register-page__form-container">
+        <div class="register-page__controls">
+          <ThemeSwitcher />
+          <LanguageSwitcher />
+        </div>
+
         <div class="register-page__header">
           <h1 class="register-page__title">{{ t('AUTH.REGISTER_TITLE') }}</h1>
           <p class="register-page__subtitle">{{ t('AUTH.REGISTER_SUBTITLE') }}</p>
         </div>
 
         <form class="register-form" @submit.prevent="handleSubmit" novalidate>
-          <div class="register-form__field">
-            <label class="register-form__label" for="email">
-              {{ t('AUTH.EMAIL') }}
-            </label>
-            <input
-              id="email"
-              v-model="formData.email"
-              type="email"
-              class="register-form__input"
-              :class="{ 'register-form__input_error': errors.email }"
-              autocomplete="email"
-              @input="clearFieldError('email')"
-            />
-            <span v-if="errors.email" class="register-form__error">
-              {{ t(`VALIDATION.${errors.email}`) }}
-            </span>
-          </div>
+          <Input
+            v-model="formData.email"
+            :label="t('AUTH.EMAIL')"
+            :error="errors.email ? t(`VALIDATION.${errors.email}`) : ''"
+            type="email"
+            autocomplete="email"
+            @input="clearFieldError('email')"
+          />
 
-          <div class="register-form__field">
-            <label class="register-form__label" for="password">
-              {{ t('AUTH.PASSWORD') }}
-            </label>
-            <input
-              id="password"
-              v-model="formData.password"
-              type="password"
-              class="register-form__input"
-              :class="{ 'register-form__input_error': errors.password }"
-              autocomplete="new-password"
-              @input="clearFieldError('password')"
-            />
-            <span v-if="errors.password" class="register-form__error">
-              {{ t(`VALIDATION.${errors.password}`) }}
-            </span>
-          </div>
+          <Input
+            v-model="formData.password"
+            :label="t('AUTH.PASSWORD')"
+            :error="errors.password ? t(`VALIDATION.${errors.password}`) : ''"
+            type="password"
+            autocomplete="new-password"
+            @input="clearFieldError('password')"
+          />
 
-          <div class="register-form__field">
-            <label class="register-form__label" for="name">
-              {{ t('AUTH.NAME') }}
-            </label>
-            <input
-              id="name"
-              v-model="formData.name"
-              type="text"
-              class="register-form__input"
-              :class="{ 'register-form__input_error': errors.name }"
-              autocomplete="name"
-              @input="clearFieldError('name')"
-            />
-            <span v-if="errors.name" class="register-form__error">
-              {{ t(`VALIDATION.${errors.name}`) }}
-            </span>
-          </div>
+          <Input
+            v-model="formData.name!"
+            :label="t('AUTH.NAME')"
+            :error="errors.name ? t(`VALIDATION.${errors.name}`) : ''"
+            type="text"
+            autocomplete="name"
+            @input="clearFieldError('name')"
+          />
 
           <button
-            type="submit"
-            class="register-form__submit"
             :disabled="isSubmitting"
             :class="{ 'register-form__submit_loading': isSubmitting }"
+            type="submit"
+            class="register-form__submit"
           >
-            {{ isSubmitting ? t('AUTH.CREATING_ACCOUNT') : t('AUTH.REGISTER_BUTTON') }}
+            <span>{{ isSubmitting ? t('AUTH.CREATING_ACCOUNT') : t('AUTH.REGISTER_BUTTON') }}</span>
           </button>
 
           <div v-if="serverError" class="register-form__server-error">
@@ -97,6 +75,9 @@ import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { useAuthStore } from '@/entities'
 import { StarfieldAnimation } from '@/shared/ui/StarfieldAnimation'
+import { Input } from '@/shared/ui'
+import ThemeSwitcher from '@/shared/ui/theme-switcher/ThemeSwitcher.vue'
+import LanguageSwitcher from '@/features/common/language-switcher/ui/language-switcher/LanguageSwitcher.vue'
 import { registerSchema, type RegisterFormData } from '@/shared/lib/validation/auth'
 import { authAPI } from '@/shared/api/auth'
 

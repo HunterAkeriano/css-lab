@@ -50,7 +50,7 @@ export function createProfileRouter(env: Env) {
   router.get('/', auth, async (req: AuthRequest, res) => {
     const result = await db.query(
       `SELECT id, email, name, avatar_url as "avatarUrl", created_at as "createdAt", updated_at as "updatedAt",
-              is_payment as "isPayment", is_admin as "isAdmin"
+              is_payment as "isPayment", subscription_tier as "subscriptionTier", is_admin as "isAdmin"
        FROM users WHERE id = $1`,
       [req.userId]
     )
@@ -116,7 +116,8 @@ export function createProfileRouter(env: Env) {
     const result = await db.query(
       `UPDATE users SET name = COALESCE($2, name), avatar_url = COALESCE($3, avatar_url), updated_at = NOW()
        WHERE id = $1
-       RETURNING id, email, name, avatar_url as "avatarUrl", created_at as "createdAt", updated_at as "updatedAt"`,
+       RETURNING id, email, name, avatar_url as "avatarUrl", created_at as "createdAt", updated_at as "updatedAt",
+                 is_payment as "isPayment", subscription_tier as "subscriptionTier", is_admin as "isAdmin"`,
       [req.userId, name ?? null, avatarUrl ?? null]
     )
     const user = result.rows[0]
@@ -182,7 +183,8 @@ export function createProfileRouter(env: Env) {
     const result = await db.query(
       `UPDATE users SET avatar_url = $2, updated_at = NOW()
        WHERE id = $1
-       RETURNING id, email, name, avatar_url as "avatarUrl", created_at as "createdAt", updated_at as "updatedAt"`,
+       RETURNING id, email, name, avatar_url as "avatarUrl", created_at as "createdAt", updated_at as "updatedAt",
+                 is_payment as "isPayment", subscription_tier as "subscriptionTier", is_admin as "isAdmin"`,
       [req.userId, avatarUrl]
     )
 

@@ -20,23 +20,29 @@
     width: 100%;
     height: 100%;
     animation: triple-spin 1.6s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   &_middle {
     width: 78%;
     height: 78%;
     animation: triple-spin 1.2s linear infinite reverse;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   &_inner {
     width: 52%;
     height: 52%;
     animation: triple-spin 0.9s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 }
 
 @keyframes triple-spin {
   to {
-    transform: rotate(360deg);
+    transform: rotate3d(0, 0, 1, 360deg);
   }
 }

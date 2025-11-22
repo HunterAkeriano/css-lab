@@ -46,6 +46,7 @@
   width: max-content;
   animation: scroll 28s linear infinite;
   will-change: transform;
+  backface-visibility: hidden;
 }
 
 @keyframes scroll {

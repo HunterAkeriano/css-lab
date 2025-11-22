@@ -308,7 +308,7 @@
     text-decoration: none;
     font-weight: $font-weight-medium;
     font-size: $font-size-sm;
-    transition: all $transition-base;
+    transition: border-color $transition-base, background-color $transition-base, color $transition-base, transform $transition-base, box-shadow $transition-base;
 
     &:hover {
       border-color: color-var-alpha('color-primary', 0.5);
