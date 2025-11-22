@@ -11,8 +11,8 @@
       </span>
 
       <input
-        :id="inputId"
         v-model="inputValue"
+        :id="inputId"
         :type="type"
         :placeholder="placeholder"
         :disabled="disabled"

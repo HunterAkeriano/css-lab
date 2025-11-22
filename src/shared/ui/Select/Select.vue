@@ -13,9 +13,9 @@
 
     <div class="select__wrapper">
       <button
+        :disabled="disabled"
         type="button"
         class="select__control"
-        :disabled="disabled"
         @click="toggleDropdown"
         @keydown.enter.prevent="toggleDropdown"
         @keydown.space.prevent="toggleDropdown"
@@ -26,9 +26,9 @@
         </span>
 
         <Icon
-          name="icon-chevron-down"
           :size="14"
           :class="['select__chevron', { 'select__chevron_open': isOpen, 'select__chevron_drop-up': isDropUp }]"
+          name="icon-chevron-down"
         />
       </button>
 
@@ -41,8 +41,8 @@
           <button
             v-for="option in options"
             :key="option.value"
-            type="button"
             :class="['select__option', { 'select__option_active': option.value === modelValue }]"
+            type="button"
             @click="handleSelect(option.value)"
           >
             {{ option.label }}
